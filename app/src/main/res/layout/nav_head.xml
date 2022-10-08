@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="290dp"
+    android:background="@color/back_ground"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:layout_width="174dp"
+        android:layout_height="141dp"
+        android:src="@drawable/logomobile" />
+
+    <TextView
+        android:layout_width="278dp"
+        android:layout_height="40dp"
+        android:paddingLeft="35dp"
+        android:paddingTop="8dp"
+        android:text="Hello guys Welcome back!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="218dp"
+        android:layout_height="35dp"
+        android:textSize="17sp"
+        android:paddingLeft="35dp"
+        android:text="Contact Hello" />
+</LinearLayout>

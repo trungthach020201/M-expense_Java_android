@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment"
+    android:padding="16dp"
+    android:background="@color/back_ground">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/back_ground">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="195dp"
+            android:layout_marginEnd="0dp"
+            app:cardBackgroundColor="@color/red">
+            <TextView
+                android:id="@+id/totalExpense"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:textSize="30sp"
+                android:text="10"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:textSize="15sp"
+                android:paddingTop="10dp"
+                android:text="Total Expense Reports"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/white"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="190dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="0dp"
+            app:cardBackgroundColor="@color/blue">
+            <TextView
+                android:id="@+id/totalTrip"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="25dp"
+                android:textSize="30sp"
+                android:layout_marginTop="10dp"
+                android:text="3"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:textSize="15sp"
+                android:paddingTop="10dp"
+                android:text="Total Trip Reports"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/white"/>
+        </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="0dp"
+        app:cardBackgroundColor="@color/add"
+        android:layout_marginTop="90dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:padding="5sp"
+            android:text="   Total Amount:"
+            android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/totalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="15sp"
+            android:text="140.000.000"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="150dp"
+            android:text="VND"
+            android:textSize="20sp"/>
+    </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:text="Recent Trips"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewHome"
+        android:layout_width="match_parent"
+        android:layout_height="515dp"
+        android:layout_marginTop="200dp"
+        tools:listitem="@layout/data_row" />
+
+</FrameLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ExpenseFragment"
+    android:background="@color/back_ground">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+     app:cardBackgroundColor="@color/back_ground">
+        <TextView
+            android:id="@+id/texttrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expenses"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnAddTrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="380dp"
+            android:clickable="true"
+            android:src="@drawable/add_icon"
+            android:backgroundTint="@color/blue"
+            android:layout_marginTop="10dp"/>
+
+    </androidx.cardview.widget.CardView>
+    <SearchView
+        android:id="@+id/searchTrip"
+        android:layout_width="430dp"
+        android:layout_marginLeft="18dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/search_shape"
+        android:queryHint="Search Trip Here....." />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewExpense"
+        android:layout_width="match_parent"
+        android:layout_height="900dp"
+        android:layout_marginTop="160dp"
+        tools:listitem="@layout/data_row_expense" />
+
+</FrameLayout>
