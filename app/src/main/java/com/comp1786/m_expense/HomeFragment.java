@@ -85,15 +85,14 @@ public class HomeFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvTrip.setLayoutManager(linearLayoutManager);
-//        Trip trip=new Trip(1,"none","none","none","none",1,"none",1);
-//        obj.addTrip(trip);
-//        System.out.println(trip);
+
         HomeAdapter homeAdapter = new HomeAdapter(obj.getListTrip());
         rcvTrip.setAdapter(homeAdapter);
 
         TextView totalTrip = (TextView) mView.findViewById(R.id.totalTrip);
         TextView totalExpense = (TextView) mView.findViewById(R.id.totalExpense);
         TextView totalAmount = (TextView) mView.findViewById(R.id.totalAmount);
+
         int totaltrip = obj.getListTrip().size();
         int totalexpense = obj.getListExpense().size();
         float totalamount = obj.getTotalExpenses();

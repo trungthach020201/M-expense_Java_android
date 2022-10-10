@@ -23,7 +23,7 @@ import androidx.fragment.app.FragmentManager;
  */
 public class TripFragment extends Fragment {
 
-    String[] names ={"Trung", "Dalat", "CanTho"};
+    String[] names ={"Trung", "Dalat", "CanTho","hello","j"};
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";

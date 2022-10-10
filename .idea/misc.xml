@@ -22,16 +22,17 @@
         <entry key="app/src/main/res/layout/activity_introduction.xml" value="0.27404334537161623" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24016157705572586" />
         <entry key="app/src/main/res/layout/dataRow.xml" value="0.26766304347826086" />
-        <entry key="app/src/main/res/layout/data_row.xml" value="0.3055282592773438" />
-        <entry key="app/src/main/res/layout/data_row_expense.xml" value="0.2975042444810685" />
+        <entry key="app/src/main/res/layout/data_row.xml" value="0.20354461669921875" />
+        <entry key="app/src/main/res/layout/data_row_expense.xml" value="0.5907156092271623" />
         <entry key="app/src/main/res/layout/data_row_trip.xml" value="0.45595854922279794" />
         <entry key="app/src/main/res/layout/fragment_add_trip.xml" value="0.16926345734477183" />
+        <entry key="app/src/main/res/layout/fragment_detail_trip.xml" value="0.2712895377128954" />
         <entry key="app/src/main/res/layout/fragment_expense.xml" value="0.20072992700729927" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.10946655273437503" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.10109100341796867" />
         <entry key="app/src/main/res/layout/fragment_s.xml" value="0.2726449275362319" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.26766304347826086" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.2726449275362319" />
-        <entry key="app/src/main/res/layout/fragment_trip.xml" value="0.15250291036088476" />
+        <entry key="app/src/main/res/layout/fragment_trip.xml" value="0.4385807912202598" />
         <entry key="app/src/main/res/layout/fragment_update_trip.xml" value="0.14449877750611248" />
         <entry key="app/src/main/res/layout/nav_head.xml" value="0.2726449275362319" />
         <entry key="app/src/main/res/layout/row_total_home.xml" value="0.20592705167173253" />

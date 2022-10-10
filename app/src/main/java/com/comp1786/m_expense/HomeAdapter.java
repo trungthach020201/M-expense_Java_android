@@ -18,8 +18,7 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
 
-    private Context context;
-    private Fragment fragmentActivity;
+
     private List<Trip> mListTrips;
 
     public HomeAdapter(List<Trip> trip) {
@@ -31,9 +30,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     @NonNull
     @Override
     public HomeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        LayoutInflater inflate = LayoutInflater.from(context);
-//       inflate.inflate(R.layout.data_row,parent,false);
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row,parent,false);
         return new MyViewHolder(view);
     }
@@ -41,15 +37,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull HomeAdapter.MyViewHolder holder, int position) {
         Trip trip = mListTrips.get(position);
+        holder.idTrip.setText(position+1+"");
         holder.tripName.setText(trip.getName());
         holder.startDate.setText(trip.getStart_Date());
         holder.endDate.setText(trip.getEnd_Date());
         holder.destination.setText(trip.getDestination());
 //        holder.tripAmount.setText(String.valueOf(obj.getExpensesByTripId(trips.get(position).getId())).toString());
         holder.tripAmount.setText("20");
-
-        //update
-
     }
 
     @Override
@@ -58,10 +52,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     }
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tripName,startDate,endDate,destination,tripAmount;
+        TextView tripName,startDate,endDate,destination,tripAmount,idTrip;
         LinearLayout linearLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +63,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             destination = itemView.findViewById(R.id.trip_destination_txt);
             tripAmount =itemView.findViewById(R.id.trip_amount);
             linearLayout = itemView.findViewById(R.id.homeLayout);
+            idTrip = itemView.findViewById(R.id.idTrip);
         }
     }
 

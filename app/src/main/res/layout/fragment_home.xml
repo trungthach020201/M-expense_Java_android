@@ -109,7 +109,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewHome"
         android:layout_width="match_parent"
-        android:layout_height="515dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         tools:listitem="@layout/data_row" />
 
