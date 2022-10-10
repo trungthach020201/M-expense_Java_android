@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 
 import org.w3c.dom.Text;
@@ -85,7 +86,8 @@ public class HomeFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvTrip.setLayoutManager(linearLayoutManager);
-
+        Expenses expenses=new Expenses(1,1,20.2f,"none","none","none","none","none",1);
+        obj.addExpense(expenses);
         HomeAdapter homeAdapter = new HomeAdapter(obj.getListTrip());
         rcvTrip.setAdapter(homeAdapter);
 

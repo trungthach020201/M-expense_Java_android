@@ -43,7 +43,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         holder.endDate.setText(trip.getEnd_Date());
         holder.destination.setText(trip.getDestination());
 //        holder.tripAmount.setText(String.valueOf(obj.getExpensesByTripId(trips.get(position).getId())).toString());
-        holder.tripAmount.setText("20");
+        holder.tripAmount.setText(trip.getExpenses().toString());
     }
 
     @Override

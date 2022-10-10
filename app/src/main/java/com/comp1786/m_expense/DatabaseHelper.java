@@ -131,7 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Float getExpensesByTripId(int id){
         Float expenses=0f;
         Cursor results = database.query(TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,TRIP_ID_COLUMN }, TRIP_ID_COLUMN + "=?",
-                new String[] {String.valueOf(id)}, null, null, END_DATE_COLUMN, null);
+                new String[] {String.valueOf(id)}, null, null, null, null);
         results.moveToFirst();
         while (!results.isAfterLast()) {
             Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getInt(8));
@@ -150,7 +150,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor results = db.rawQuery(selectQuery, null);
         results.moveToFirst();
         while (!results.isAfterLast()) {
-            Trip trip=new Trip(results.getInt(0),results.getString(1),results.getString(2),results.getString(3).toString(),results.getString(4).toString(),results.getInt(5),results.getString(7),results.getInt(6));
+            Float totalExpenses=getExpensesByTripId(results.getInt(0));
+            Trip trip=new Trip(results.getInt(0),results.getString(1),results.getString(2),results.getString(3).toString(),results.getString(4).toString(),results.getInt(5),results.getString(7),results.getInt(6),totalExpenses);
             System.out.println(trip.toString());
             trips.add(trip);
             results.moveToNext();

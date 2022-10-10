@@ -9,6 +9,7 @@ public class Trip {
     private String end_Date;
     private Integer risk;
     private String description;
+    private Float expenses;
 //    private ArrayList<Expenses> expenses;
 
     @Override
@@ -34,6 +35,26 @@ public class Trip {
         this.risk = risk;
         this.type=type;
         this.description = description;
+    }
+
+    public Trip(Integer id, String name, String destination, String start_Date, String end_Date, Integer risk, String description, Integer type,Float expenses) {
+        this.id = id;
+        this.name = name;
+        this.destination = destination;
+        this.start_Date = start_Date;
+        this.end_Date = end_Date;
+        this.risk = risk;
+        this.type=type;
+        this.description = description;
+        this.expenses=expenses;
+    }
+
+    public Float getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(Float expenses) {
+        this.expenses = expenses;
     }
 
     public Trip() {
