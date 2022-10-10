@@ -19,6 +19,8 @@ import com.comp1786.m_expense.model.Trip;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,8 +29,11 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
-    DatabaseHelper obj =new DatabaseHelper(getContext());
-    ArrayList<Trip> trips= obj.getListTrip();
+    private View mView;
+    private RecyclerView rcvTrip;
+    private MainActivity mMainactivity;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,31 +78,34 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,
                             @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home, container,false);
+        mView = inflater.inflate(R.layout.fragment_home, container,false);
+        rcvTrip = mView.findViewById(R.id.recycleViewHome);
 
-        HomeAdapter homeAdapter = new HomeAdapter(trips);
-        RecyclerView recyclerView = view.findViewById(R.id.recycleViewHome);
-        recyclerView.setAdapter(homeAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-//        recyclerView.setAdapter(new HomeAdapter(trips));
+        mMainactivity = (MainActivity) getActivity();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
+        rcvTrip.setLayoutManager(linearLayoutManager);
+        HomeAdapter homeAdapter = new HomeAdapter(getListTrip());
+        rcvTrip.setAdapter(homeAdapter);
 
-        TextView totalTrip = (TextView) view.findViewById(R.id.totalTrip);
-        TextView totalExpense = (TextView) view.findViewById(R.id.totalExpense);
-        TextView totalAmount = (TextView) view.findViewById(R.id.totalAmount);
-
-
+        DatabaseHelper obj =new DatabaseHelper(getContext());
+        TextView totalTrip = (TextView) mView.findViewById(R.id.totalTrip);
+        TextView totalExpense = (TextView) mView.findViewById(R.id.totalExpense);
+        TextView totalAmount = (TextView) mView.findViewById(R.id.totalAmount);
         int totaltrip = obj.getListTrip().size();
         int totalexpense = obj.getListExpense().size();
         float totalamount = obj.getTotalExpenses();
-
-
         totalTrip.setText(totaltrip+"");
         totalExpense.setText(totalexpense+"");
         totalAmount.setText(totalamount+"");
 
+        return mView;
+    }
 
+    private List<Trip> getListTrip() {
 
-
-        return view;
+        List<Trip> trips= new ArrayList<>();
+//        trips.add(new Trip(7,"me","me","hihi","hihi",1,"hi",1));
+//        trips.add(new Trip(7,"me","me","hihi","hihi",1,"hi",1));
+        return trips;
     }
 }

@@ -23,8 +23,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
        implements NavigationView.OnNavigationItemSelectedListener {
-    DatabaseHelper ob=new DatabaseHelper(this);
-    ArrayList<Trip> trips=ob.getListTrip();
+
 
     private DrawerLayout drawer;
     @Override
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("Trip"+trips.toString());
         Toolbar toolbar1 = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar1);
 

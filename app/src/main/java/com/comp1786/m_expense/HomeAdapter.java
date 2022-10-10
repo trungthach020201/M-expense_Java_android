@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.comp1786.m_expense.model.Trip;
@@ -17,23 +16,16 @@ import com.comp1786.m_expense.model.Trip;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
 
     private Context context;
     private Fragment fragmentActivity;
-    final ArrayList<Trip> trips;
-//    DatabaseHelper obj = new DatabaseHelper(context.getApplicationContext());
+    private List<Trip> mListTrips;
 
-    public HomeAdapter(ArrayList<Trip> trip) {
-        this.trips=trip;
+    public HomeAdapter(List<Trip> trip) {
+        this.mListTrips=trip;
     }
-//
-//    public HomeAdapter(Fragment activity, Context context, ArrayList<Trip> trips) {
-//        this.context=context;
-//        this.fragmentActivity=activity;
-//        this.trips=trips;
-//    }
+
 
 
     @NonNull
@@ -41,17 +33,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     public HomeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        LayoutInflater inflate = LayoutInflater.from(context);
 //       inflate.inflate(R.layout.data_row,parent,false);
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row,parent,false));
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row,parent,false);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeAdapter.MyViewHolder holder, int position) {
-        holder.tripName.setText(String.valueOf(trips.get(position).getName()));
-        holder.startDate.setText(String.valueOf(trips.get(position).getStart_Date()));
-        holder.endDate.setText(String.valueOf(trips.get(position).getEnd_Date()));
-        holder.destination.setText(String.valueOf(trips.get(position).getDestination()));
+        Trip trip = mListTrips.get(position);
+        holder.tripName.setText(trip.getName());
+        holder.startDate.setText(trip.getStart_Date());
+        holder.endDate.setText(trip.getEnd_Date());
+        holder.destination.setText(trip.getDestination());
 //        holder.tripAmount.setText(String.valueOf(obj.getExpensesByTripId(trips.get(position).getId())).toString());
-        holder.tripAmount.setText(String.valueOf("20"));
+        holder.tripAmount.setText("20");
 
         //update
 
@@ -59,7 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return trips.size();
+        return mListTrips.size();
     }
 
 

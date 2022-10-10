@@ -16,6 +16,7 @@ import com.comp1786.m_expense.model.Trip;
 import com.comp1786.m_expense.model.Type;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

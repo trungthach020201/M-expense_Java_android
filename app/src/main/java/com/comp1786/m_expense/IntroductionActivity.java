@@ -9,11 +9,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.comp1786.m_expense.model.Trip;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class IntroductionActivity extends AppCompatActivity {
+
 
     Button startBtn;
     ImageView appLogo;
@@ -29,9 +33,11 @@ public class IntroductionActivity extends AppCompatActivity {
         Shape = findViewById(R.id.lottieAnimationView);
 
 
+
         startBtn.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view){
+
                 startBtn.animate().translationY(1600).setDuration(1000);
                 appLogo.animate().translationY(-3600).setDuration(1000).setStartDelay(700);
                 Shape.animate().translationY(1900).setDuration(1000).setStartDelay(500);
