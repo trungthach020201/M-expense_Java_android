@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
     private View mView;
     private RecyclerView rcvTrip;
     private MainActivity mMainactivity;
+    private ArrayList<Trip> trips;
 
 
 
@@ -80,14 +81,16 @@ public class HomeFragment extends Fragment {
                             @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_home, container,false);
         rcvTrip = mView.findViewById(R.id.recycleViewHome);
-
+        DatabaseHelper obj =new DatabaseHelper(getContext());
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvTrip.setLayoutManager(linearLayoutManager);
-        HomeAdapter homeAdapter = new HomeAdapter(getListTrip());
+//        Trip trip=new Trip(1,"none","none","none","none",1,"none",1);
+//        obj.addTrip(trip);
+//        System.out.println(trip);
+        HomeAdapter homeAdapter = new HomeAdapter(obj.getListTrip());
         rcvTrip.setAdapter(homeAdapter);
 
-        DatabaseHelper obj =new DatabaseHelper(getContext());
         TextView totalTrip = (TextView) mView.findViewById(R.id.totalTrip);
         TextView totalExpense = (TextView) mView.findViewById(R.id.totalExpense);
         TextView totalAmount = (TextView) mView.findViewById(R.id.totalAmount);

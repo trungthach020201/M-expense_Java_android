@@ -337,8 +337,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String deleteExpenses = "DELETE FROM " + TABLE_EXPENSES_NAME;
         String deleteTrip = "DELETE FROM " + TABLE_TRIP_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(deleteExpenses);
-        db.execSQL(deleteTrip);
+        dropAndRecreateExpenses(database);
+        dropAndRecreateTrip(database);
     }
     public void deleteExpensesById(long id) {
         database = this.getWritableDatabase();
@@ -347,7 +347,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-
+    private void dropAndRecreateTrip(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP_NAME);
+        onCreate(db);
+    }
+    private void dropAndRecreateExpenses(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES_NAME);
+        onCreate(db);
+    }
 
 }
 
