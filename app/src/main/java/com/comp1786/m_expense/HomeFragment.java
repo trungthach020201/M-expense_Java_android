@@ -86,8 +86,8 @@ public class HomeFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvTrip.setLayoutManager(linearLayoutManager);
-        Expenses expenses=new Expenses(1,1,20.2f,"none","none","none","none","none","none",1);
-        obj.addExpense(expenses);
+//        Expenses expenses=new Expenses(1,1,20.2f,"none","none","none","none","none","none",1);
+//        obj.addExpense(expenses);
         HomeAdapter homeAdapter = new HomeAdapter(obj.getListTrip());
         rcvTrip.setAdapter(homeAdapter);
 

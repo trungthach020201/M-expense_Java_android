@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "Money-expenses";
+    private static final String DATABASE_NAME = "M-expenses";
     private static final String TABLE_TRIP_NAME = "Trips";
     private static final String TABLE_EXPENSES_NAME = "Expenses";
     private static final String TABLE_TYPE_NAME = "Types";
@@ -124,15 +124,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         rowValues.put(COMMENT_COLUMN,expenses.getComment());
         rowValues.put(LOCATION_COLUMN,expenses.getLocation());
         rowValues.put(IMAGE_COLUMN,expenses.getImage());
-        rowValues.put(TRIP_ID_COLUMN,expenses.getTrip_id());
         rowValues.put(NAME_COLUMN,expenses.getName());
+        rowValues.put(TRIP_ID_COLUMN,expenses.getTrip_id());
+
 
         return database.insertOrThrow(TABLE_EXPENSES_NAME, null, rowValues);
     }
 
     public Float getExpensesByTripId(int id){
         Float expenses=0f;
-        Cursor results = database.query(TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,TRIP_ID_COLUMN }, TRIP_ID_COLUMN + "=?",
+        Cursor results = database.query(TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,NAME_COLUMN,TRIP_ID_COLUMN }, TRIP_ID_COLUMN + "=?",
                 new String[] {String.valueOf(id)}, null, null, null, null);
         results.moveToFirst();
         while (!results.isAfterLast()) {
@@ -337,10 +338,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.close();
     }
     public void deleteAllTrip(){
-        String deleteExpenses = "DELETE FROM " + TABLE_EXPENSES_NAME;
-        String deleteTrip = "DELETE FROM " + TABLE_TRIP_NAME;
+//        String deleteExpenses = "DELETE FROM " + TABLE_EXPENSES_NAME;
+//        String deleteTrip = "DELETE FROM " + TABLE_TRIP_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
-        dropAndRecreateExpenses(database);
         dropAndRecreateTrip(database);
     }
     public void deleteExpensesById(long id) {
@@ -351,6 +351,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void dropAndRecreateTrip(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP_NAME);
         onCreate(db);
     }
