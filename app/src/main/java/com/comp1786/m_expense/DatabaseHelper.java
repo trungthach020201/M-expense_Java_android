@@ -72,8 +72,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "   %s TEXT, " +
                     "   %s TEXT, " +
                     "   %s TEXT, " +
+                    "   %s TEXT, " +
                     "   %s INTEGER references %s (%s))",
-            TABLE_EXPENSES_NAME, ID_COLUMN, TYPE_ID_COLUMN,TABLE_TYPE_NAME,ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,TRIP_ID_COLUMN,TABLE_TRIP_NAME,TRIP_ID_COLUMN);
+            TABLE_EXPENSES_NAME, ID_COLUMN, TYPE_ID_COLUMN,TABLE_TYPE_NAME,ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,NAME_COLUMN,TRIP_ID_COLUMN,TABLE_TRIP_NAME,TRIP_ID_COLUMN);
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         database = getWritableDatabase();
@@ -124,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         rowValues.put(LOCATION_COLUMN,expenses.getLocation());
         rowValues.put(IMAGE_COLUMN,expenses.getImage());
         rowValues.put(TRIP_ID_COLUMN,expenses.getTrip_id());
+        rowValues.put(NAME_COLUMN,expenses.getName());
 
         return database.insertOrThrow(TABLE_EXPENSES_NAME, null, rowValues);
     }
@@ -134,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] {String.valueOf(id)}, null, null, null, null);
         results.moveToFirst();
         while (!results.isAfterLast()) {
-            Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getInt(8));
+            Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getString(8),results.getInt(9));
             expenses+=expense.getAmount();
             results.moveToNext();
         }
@@ -168,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor results = db.rawQuery(selectQuery, null);
         results.moveToFirst();
         while (!results.isAfterLast()) {
-            Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getInt(8));
+            Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getString(8),results.getInt(9));
             System.out.println(expense.toString());
             expenses.add(expense);
             results.moveToNext();
@@ -237,7 +239,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         results.moveToFirst();
         while (!results.isAfterLast()) {
-            Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getInt(8));
+            Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getString(8),results.getInt(9));
             System.out.println(expense);
             expenses.add(expense);
             results.moveToNext();
@@ -273,8 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] {String.valueOf(id)}, null, null, null, null);
         if (results != null)
             results.moveToFirst();
-
-        Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getInt(8));
+        Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getString(8),results.getInt(9));
         results.close();
         database.close();
         return expense;
@@ -320,6 +321,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(LOCATION_COLUMN, expenses.getLocation());
         values.put(IMAGE_COLUMN, expenses.getImage());
         values.put(TRIP_ID_COLUMN, expenses.getTrip_id());
+        values.put(NAME_COLUMN,expenses.getName());
 
         // updating row
         return database.update(TABLE_EXPENSES_NAME,

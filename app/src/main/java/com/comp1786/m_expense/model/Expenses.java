@@ -4,6 +4,7 @@ public class Expenses {
     private Integer id;
     private Integer type_id;
     private Float amount;
+    private String name;
     private String date;
     private String time;
     private String comment;
@@ -26,7 +27,7 @@ public class Expenses {
                 '}';
     }
 
-    public Expenses(Integer id, Integer type_id, Float amount, String date, String time, String comment, String location, String image, Integer trip_id) {
+    public Expenses(Integer id, Integer type_id, Float amount, String date, String time, String comment, String location, String image, String name,Integer trip_id) {
         this.id = id;
         this.type_id = type_id;
         this.amount = amount;
@@ -35,6 +36,7 @@ public class Expenses {
         this.comment = comment;
         this.location = location;
         this.image = image;
+        this.name=name;
         this.trip_id = trip_id;
     }
 
@@ -61,6 +63,14 @@ public class Expenses {
 
     public void setAmount(Float amount) {
         this.amount = amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDate() {
