@@ -6,6 +6,10 @@ public class Expenses {
     private Float amount;
     private String date;
     private String time;
+    private String comment;
+    private String location;
+    private String image;
+    private Integer trip_id;
 
     @Override
     public String toString() {
@@ -21,11 +25,6 @@ public class Expenses {
                 ", trip_id=" + trip_id +
                 '}';
     }
-
-    private String comment;
-    private String location;
-    private String image;
-    private Integer trip_id;
 
     public Expenses(Integer id, Integer type_id, Float amount, String date, String time, String comment, String location, String image, Integer trip_id) {
         this.id = id;

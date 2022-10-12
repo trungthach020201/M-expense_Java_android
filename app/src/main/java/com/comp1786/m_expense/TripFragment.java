@@ -16,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import androidx.fragment.app.FragmentManager;
 
+import com.comp1786.m_expense.model.Expenses;
+import com.comp1786.m_expense.model.Trip;
+
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TripFragment#newInstance} factory method to
@@ -24,6 +29,11 @@ import androidx.fragment.app.FragmentManager;
 public class TripFragment extends Fragment {
 
     String[] names ={"Trung", "Dalat", "CanTho","hello","j"};
+    private View mView;
+    private RecyclerView rcvTrip;
+    private MainActivity mMainactivity;
+    private ArrayList<Trip> trips;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -67,14 +77,18 @@ public class TripFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_trip, container,false);
-        // Inflate the layout for this fragment
-        RecyclerView recyclerView = view.findViewById(R.id.recycleViewTrip);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(new TripAdapter(names));
 
-        Button addTripBtn = (Button) view.findViewById(R.id.btnAddTrip);
+        mView = inflater.inflate(R.layout.fragment_trip, container,false);
+        rcvTrip = mView.findViewById(R.id.recycleViewTrip);
+        DatabaseHelper obj =new DatabaseHelper(getContext());
+        mMainactivity = (MainActivity) getActivity();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
+        rcvTrip.setLayoutManager(linearLayoutManager);
+
+        TripAdapter tripAdapter = new TripAdapter(obj.getListTrip());
+        rcvTrip.setAdapter(tripAdapter);
+
+        Button addTripBtn = (Button) mView.findViewById(R.id.btnAddTrip);
         addTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +100,6 @@ public class TripFragment extends Fragment {
                     break;
                 }
             }
-
             private void replaceFragment(Fragment fragment) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -98,9 +111,7 @@ public class TripFragment extends Fragment {
 
 
         SearchView searchView;
-
-
-        searchView = (SearchView) view.findViewById(R.id.searchTrip);
+        searchView = (SearchView) mView.findViewById(R.id.searchTrip);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -113,8 +124,7 @@ public class TripFragment extends Fragment {
             }
         });
 
-        return view;
+        return mView;
     }
-
 
 }

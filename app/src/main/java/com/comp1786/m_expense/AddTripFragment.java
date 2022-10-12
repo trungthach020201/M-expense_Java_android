@@ -169,7 +169,7 @@ public class AddTripFragment extends Fragment {
                 trip.setDestination(tripDestination.getText().toString().trim().toString());
                 trip.setStart_Date(tripStartDate.getText().toString().trim().toString());
                 trip.setEnd_Date(tripEndDate.getText().toString().trim().toString());
-                trip.setDestination(tripDescription.getText().toString().trim().toString());
+                trip.setDescription(tripDescription.getText().toString().trim().toString());
                 trip.setRisk(risk_type);
                 trip.setType(type_trip);
                 obj.addTrip(trip);

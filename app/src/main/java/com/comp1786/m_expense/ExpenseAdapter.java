@@ -4,47 +4,66 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.comp1786.m_expense.model.Expenses;
+import com.comp1786.m_expense.model.Trip;
+
+import java.util.List;
+
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHolder> {
 
-    private Context context;
-    String[] list;
+    private List<Expenses> mListExpense;
 
-    public ExpenseAdapter(String[] list) {
-    this.list=list;
+    public ExpenseAdapter(List<Expenses> ListExpense) {
+    this.mListExpense=ListExpense;
     }
 
     @NonNull
     @Override
     public ExpenseAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        LayoutInflater inflate = LayoutInflater.from(context);
-//       inflate.inflate(R.layout.data_row,parent,false);
         return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row_expense,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
-
+        Expenses expenses = mListExpense.get(position);
+        holder.exDate.setText(expenses.getDate());
+        holder.exTime.setText(expenses.getTime());
+        holder.exType.setText(String.valueOf(expenses.getType_id()));
+        holder.exName.setText(expenses.getComment());
+        holder.exLocation.setText(expenses.getLocation());
+        holder.exAmount.setText(String.valueOf(expenses.getAmount()));
     }
 
     @Override
     public int getItemCount() {
-        return list.length;
+        return mListExpense.size();
     }
 
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
+        TextView exType, exName, exLocation, exAmount, exDate, exTime;
+        ImageView exImage;
+        LinearLayout linearLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            exDate = itemView.findViewById(R.id.ex_dateAdd_txt);
+            exTime = itemView.findViewById(R.id.ex_time_txt);
+            exImage = itemView.findViewById(R.id.ex_imgExpense);
+            exType = itemView.findViewById(R.id.ex_expense_type_txt);
+            exName = itemView.findViewById(R.id.ex_expense_name_txt);
+            exLocation = itemView.findViewById(R.id.ex_addressAdd_txt);
+            exAmount = itemView.findViewById(R.id.ex_expense_amount);
+            linearLayout = itemView.findViewById(R.id.homeLayout);
         }
     }
 

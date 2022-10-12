@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
     private View mView;
     private RecyclerView rcvTrip;
     private MainActivity mMainactivity;
-    private ArrayList<Trip> trips;
+
 
 
 
@@ -105,11 +105,4 @@ public class HomeFragment extends Fragment {
         return mView;
     }
 
-    private List<Trip> getListTrip() {
-
-        List<Trip> trips= new ArrayList<>();
-//        trips.add(new Trip(7,"me","me","hihi","hihi",1,"hi",1));
-//        trips.add(new Trip(7,"me","me","hihi","hihi",1,"hi",1));
-        return trips;
-    }
 }

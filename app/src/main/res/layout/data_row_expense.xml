@@ -15,18 +15,17 @@
         android:background="#33CCCCCC"
         android:padding="12dp">
 
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="36dp"
             android:text="Address:"
             android:textColor="@color/white"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/expense_type_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/ex_expense_type_txt" />
 
         <TextView
             android:id="@+id/textView2"
@@ -42,7 +41,7 @@
             app:layout_constraintVertical_bias="0.505" />
 
         <TextView
-            android:id="@+id/dateAdd_txt"
+            android:id="@+id/ex_dateAdd_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="14/10/2022"
@@ -53,12 +52,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
-            android:id="@+id/addressAdd_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/ex_time_txt"
+            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/ex_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:10:30"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ex_addressAdd_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             android:text="Da Lat"
             android:textColor="@color/white"
             android:textSize="13sp"
@@ -66,24 +87,37 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/expense_type_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/ex_expense_type_txt" />
 
         <TextView
-            android:id="@+id/expense_type_txt"
+            android:id="@+id/ex_expense_type_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:text="Expense type"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.485"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.336"
+            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/trip_amount"
+            android:id="@+id/ex_expense_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="Expense name"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.349"
+            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ex_expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -95,11 +129,11 @@
             app:layout_constraintEnd_toStartOf="@+id/textView2" />
 
         <ImageView
-            android:id="@+id/imgExpense"
+            android:id="@+id/ex_imgExpense"
             android:layout_width="106dp"
             android:layout_height="69dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toStartOf="@+id/expense_type_txt"
+            app:layout_constraintEnd_toStartOf="@+id/ex_expense_type_txt"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

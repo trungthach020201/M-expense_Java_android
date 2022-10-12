@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.comp1786.m_expense.model.Expenses;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ExpenseFragment#newInstance} factory method to
@@ -17,7 +19,9 @@ import android.view.ViewGroup;
  */
 public class ExpenseFragment extends Fragment {
 
-    String[] names ={"Trung", "Dalat", "CanTho"};
+    private View mView;
+    private RecyclerView rcvExpense;
+    private MainActivity mMainactivity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,12 +65,15 @@ public class ExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_expense, container,false);
-        // Inflate the layout for this fragment
-        RecyclerView recyclerView = view.findViewById(R.id.recycleViewExpense);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(new ExpenseAdapter(names));
+        mView = inflater.inflate(R.layout.fragment_expense, container,false);
+        rcvExpense = mView.findViewById(R.id.recycleViewExpense);
+        DatabaseHelper obj =new DatabaseHelper(getContext());
+        mMainactivity = (MainActivity) getActivity();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
+        rcvExpense.setLayoutManager(linearLayoutManager);
+        ExpenseAdapter expenseAdapter = new ExpenseAdapter(obj.getListExpense());
+        rcvExpense.setAdapter(expenseAdapter);
 
-        return view;
+        return mView;
     }
 }

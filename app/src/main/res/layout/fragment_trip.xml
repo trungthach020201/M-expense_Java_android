@@ -43,13 +43,18 @@
         android:layout_marginTop="80dp"
         android:background="@drawable/search_shape"
         android:queryHint="Search Trip Here....." />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewTrip"
-        android:layout_width="match_parent"
-        android:layout_height="900dp"
-        android:layout_marginTop="160dp"
-        tools:listitem="@layout/data_row_trip" />
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:descendantFocusability="blocksDescendants">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleViewTrip"
+            android:layout_width="1400px"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/data_row_trip" />
+    </ScrollView>
 
 
 </FrameLayout>

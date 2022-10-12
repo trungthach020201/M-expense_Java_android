@@ -42,7 +42,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         holder.startDate.setText(trip.getStart_Date());
         holder.endDate.setText(trip.getEnd_Date());
         holder.destination.setText(trip.getDestination());
-//        holder.tripAmount.setText(String.valueOf(obj.getExpensesByTripId(trips.get(position).getId())).toString());
         holder.tripAmount.setText(trip.getExpenses().toString());
     }
 
@@ -66,6 +65,4 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             idTrip = itemView.findViewById(R.id.idTrip);
         }
     }
-
-
 }
