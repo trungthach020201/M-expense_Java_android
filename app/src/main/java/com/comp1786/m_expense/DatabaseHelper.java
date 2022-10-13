@@ -130,7 +130,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return database.insertOrThrow(TABLE_EXPENSES_NAME, null, rowValues);
     }
+    public ArrayList<Expenses> getListExpensesByTripId(int Id){
+        ArrayList<Expenses> expenses = new ArrayList<>();
+        Cursor results = database.query(true, TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,TRIP_ID_COLUMN }, TRIP_ID_COLUMN+ " = ?",
+                new String[] {String.valueOf(Id) }, null, null, null,
+                null);
 
+        results.moveToFirst();
+        while (!results.isAfterLast()) {
+            Expenses expense=new Expenses(results.getInt(0),results.getInt(1),results.getFloat(2),results.getString(3).toString(),results.getString(4).toString(),results.getString(5),results.getString(6),results.getString(7),results.getString(8),results.getInt(9));
+            expenses.add(expense);
+            results.moveToNext();
+        }
+        if(expenses==null){
+            return null;
+        }else return expenses;
+    }
     public Float getExpensesByTripId(int id){
         Float expenses=0f;
         Cursor results = database.query(TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,NAME_COLUMN,TRIP_ID_COLUMN }, TRIP_ID_COLUMN + "=?",
