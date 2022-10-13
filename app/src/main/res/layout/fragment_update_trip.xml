@@ -168,7 +168,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/edit_text"/>
             <Button
-                android:id="@+id/tripBtnAdd"
+                android:id="@+id/tripBtnUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Update"

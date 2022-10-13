@@ -95,11 +95,15 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container,addTripFragment,null);
         fragmentTransaction.addToBackStack(null).commit();
     }
-    public void gotoUpdateTripFragment() {
+    public void gotoUpdateTripFragment(Trip trip) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         UpdateTripFragment updateTripFragment = new UpdateTripFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_trip",trip);
+        updateTripFragment.setArguments(bundle);
+
         fragmentTransaction.replace(R.id.fragment_container,updateTripFragment,null);
         fragmentTransaction.addToBackStack(null).commit();
     }

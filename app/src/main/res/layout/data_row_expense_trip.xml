@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/homeLayout"
-    android:background="@color/back_ground">
+    android:background="@color/back_ground"
+    android:padding="15dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="17dp"
-        android:background="#33CCCCCC"
+        android:background="@drawable/item_shape"
         android:padding="12dp">
 
         <TextView
@@ -25,7 +25,7 @@
             android:textColor="@color/white"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ex_expense_type_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/Dex_expense_type_txt" />
 
         <TextView
             android:id="@+id/textView2"
@@ -41,7 +41,7 @@
             app:layout_constraintVertical_bias="0.876" />
 
         <TextView
-            android:id="@+id/ex_dateAdd_txt"
+            android:id="@+id/Dex_dateAdd_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="14/10/2022"
@@ -59,11 +59,11 @@
             android:text="-"
             android:textColor="@color/white"
             android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/ex_time_txt"
-            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
+            app:layout_constraintEnd_toStartOf="@+id/Dex_time_txt"
+            app:layout_constraintStart_toEndOf="@+id/Dex_dateAdd_txt"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
-            android:id="@+id/ex_time_txt"
+            android:id="@+id/Dex_time_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10:10:30"
@@ -71,11 +71,11 @@
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
+            app:layout_constraintStart_toEndOf="@+id/Dex_dateAdd_txt"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ex_addressAdd_txt"
+            android:id="@+id/Dex_addressAdd_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -87,10 +87,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/ex_expense_type_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/Dex_expense_type_txt" />
 
         <TextView
-            android:id="@+id/ex_expense_type_txt"
+            android:id="@+id/Dex_expense_type_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Expense type"
@@ -100,11 +100,11 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.336"
-            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
+            app:layout_constraintStart_toEndOf="@+id/Dex_dateAdd_txt"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ex_expense_name_txt"
+            android:id="@+id/Dex_expense_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
@@ -113,11 +113,11 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.349"
-            app:layout_constraintStart_toEndOf="@+id/ex_dateAdd_txt"
+            app:layout_constraintStart_toEndOf="@+id/Dex_dateAdd_txt"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ex_expense_amount"
+            android:id="@+id/Dex_expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -129,11 +129,11 @@
             app:layout_constraintEnd_toStartOf="@+id/textView2" />
 
         <ImageView
-            android:id="@+id/ex_imgExpense"
+            android:id="@+id/Dex_imgExpense"
             android:layout_width="106dp"
             android:layout_height="69dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toStartOf="@+id/ex_expense_type_txt"
+            app:layout_constraintEnd_toStartOf="@+id/Dex_expense_type_txt"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

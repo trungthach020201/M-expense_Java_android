@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Trip.DetailTripFragment">
+    tools:context=".Trip.DetailTripFragment"
+    android:background="@color/back_ground">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,9 +29,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="142dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/tripDestinationD"
+            android:layout_marginEnd="108dp"
             android:background="@color/silver"
             android:src="@drawable/delete_icon" />
 
@@ -65,13 +66,11 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:layout_width="64dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="91dp"
-            android:layout_marginEnd="227dp"
+            android:layout_marginStart="109dp"
+            android:layout_marginTop="89dp"
             android:layout_toEndOf="@+id/tripAmountD"
             android:text="VND"
             android:textColor="@color/white"
@@ -93,10 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:layout_below="@+id/tripAmountD"
-            android:layout_alignParentEnd="true"
             android:layout_marginStart="19dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="222dp"
             android:layout_marginBottom="50dp"
             android:layout_toEndOf="@+id/txt2"
             android:text="dd/mm/yyyy"
@@ -121,8 +118,8 @@
             android:layout_height="23dp"
             android:layout_below="@+id/tripAmountD"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="78dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="652dp"
             android:text="dd/mm/yyyy"
             android:textColor="@color/white"
             android:textSize="17sp" />
@@ -158,7 +155,8 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:descendantFocusability="blocksDescendants">
+        android:descendantFocusability="blocksDescendants"
+        android:layout_marginTop="5dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDetailTrip"
             android:layout_width="1400px"

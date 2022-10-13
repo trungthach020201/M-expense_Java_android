@@ -132,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public ArrayList<Expenses> getListExpensesByTripId(int Id){
         ArrayList<Expenses> expenses = new ArrayList<>();
-        Cursor results = database.query(true, TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,TRIP_ID_COLUMN }, TRIP_ID_COLUMN+ " = ?",
+        Cursor results = database.query(true, TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,NAME_COLUMN,TRIP_ID_COLUMN }, TRIP_ID_COLUMN+ " = ?",
                 new String[] {String.valueOf(Id) }, null, null, null,
                 null);
 
@@ -142,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             expenses.add(expense);
             results.moveToNext();
         }
-        if(expenses==null){
+        if(expenses==null){;
             return null;
         }else return expenses;
     }
@@ -249,7 +249,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public ArrayList<Expenses> searchExpensesByName(String key){
         ArrayList<Expenses> expenses = new ArrayList<>();
-        Cursor results = database.query(true, TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,TRIP_ID_COLUMN }, NAME_COLUMN + " LIKE ?",
+        Cursor results = database.query(true, TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,NAME_COLUMN,TRIP_ID_COLUMN }, NAME_COLUMN + " LIKE ?",
                 new String[] {"%"+ key+ "%" }, null, null, null,
                 null);
 
@@ -261,7 +261,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             results.moveToNext();
         }
         if(expenses==null){
-            return null;
+           return null;
         }else return expenses;
 
     }

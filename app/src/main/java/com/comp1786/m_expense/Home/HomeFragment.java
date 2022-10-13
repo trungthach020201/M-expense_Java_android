@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
+import com.comp1786.m_expense.model.Expenses;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,8 +81,8 @@ public class HomeFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvTrip.setLayoutManager(linearLayoutManager);
-//        Expenses expenses=new Expenses(1,1,20.2f,"none","none","none","none","none","none",1);
-//        obj.addExpense(expenses);
+        Expenses expenses=new Expenses(1,1,20.2f,"none","none","none","none","none","none",1);
+        obj.addExpense(expenses);
         HomeAdapter homeAdapter = new HomeAdapter(obj.getListTrip());
         rcvTrip.setAdapter(homeAdapter);
 

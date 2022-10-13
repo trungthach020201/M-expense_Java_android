@@ -17,6 +17,7 @@ import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.Home.HomeAdapter;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
+import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 import com.google.android.material.tabs.TabLayout;
 
@@ -34,7 +35,6 @@ public class DetailTripFragment extends Fragment {
     private MainActivity mMainactivity;
     TextView tripDestination, tripAmount, tripStartDate, tripEndDate, tripType;
     ImageButton btnDelete, btnedit;
-    private ArrayList<Trip> trips;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,17 +82,16 @@ public class DetailTripFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle bundleReceive = getArguments();
+        Trip trip = (Trip) bundleReceive.get("object_trip");
+        ArrayList<Expenses> expenses=new ArrayList<>();
         mView = inflater.inflate(R.layout.fragment_detail_trip, container,false);
         rcvDetailTrip = mView.findViewById(R.id.recycleDetailTrip);
         DatabaseHelper obj =new DatabaseHelper(getContext());
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvDetailTrip.setLayoutManager(linearLayoutManager);
-
-        Bundle bundleReceive = getArguments();
-        Trip trip = (Trip) bundleReceive.get("object_trip");
-
-        DetailTripAdapter detailTripAdapter = new DetailTripAdapter();
+        DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()));
         rcvDetailTrip.setAdapter(detailTripAdapter);
 
         tripDestination = mView.findViewById(R.id.tripDestinationD);
@@ -101,15 +100,28 @@ public class DetailTripFragment extends Fragment {
         tripEndDate = mView.findViewById(R.id.tripEndDateD);
         tripType = mView.findViewById(R.id.tripTypeD);
 
+
         tripDestination.setText(trip.getDestination());
         tripAmount.setText(String.valueOf(trip.getExpenses()));
         tripStartDate.setText(trip.getStart_Date());
         tripEndDate.setText(trip.getEnd_Date());
+
         String type;
         if(trip.getType() != 1){
             type ="internal";
         }else type="external";
         tripType.setText(type);
+
+
+        btnedit = mView.findViewById(R.id.EditTrip);
+        btnDelete = mView.findViewById(R.id.deleteTrip);
+
+        btnedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainactivity.gotoUpdateTripFragment(trip);
+            }
+        });
 
         return mView;
 
