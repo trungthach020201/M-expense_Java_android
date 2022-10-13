@@ -1,6 +1,8 @@
 package com.comp1786.m_expense.model;
 
-public class Trip {
+import java.io.Serializable;
+
+public class Trip implements Serializable {
     private Integer id;
     private String name;
     private String destination;

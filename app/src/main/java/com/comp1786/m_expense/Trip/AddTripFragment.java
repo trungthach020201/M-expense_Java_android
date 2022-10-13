@@ -1,4 +1,4 @@
-package com.comp1786.m_expense;
+package com.comp1786.m_expense.Trip;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.comp1786.m_expense.DatabaseHelper;
+import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Trip;
 
 import java.util.Calendar;
@@ -31,6 +30,7 @@ public class AddTripFragment extends Fragment {
 
     int type_trip, risk_type;
     private int mYear, mMonth, mDay;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,7 +70,9 @@ public class AddTripFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
+
 
 
     @Override
@@ -179,7 +181,5 @@ public class AddTripFragment extends Fragment {
         });
         return view;
     }
-
-
 
 }

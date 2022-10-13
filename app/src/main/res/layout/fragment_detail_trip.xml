@@ -1,14 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailTripFragment">
+    android:orientation="vertical"
+    tools:context=".Trip.DetailTripFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/silver">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tripDestinationD"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Trip Destination"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="italic" />
+
+        <ImageButton
+            android:id="@+id/deleteTrip"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="142dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/tripDestinationD"
+            android:background="@color/silver"
+            android:src="@drawable/delete_icon" />
+
+        <ImageButton
+            android:id="@+id/EditTrip"
+            android:layout_width="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="34dp"
+            android:background="@color/silver"
+            android:src="@drawable/edit_icon" />
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tripDestinationD"
+            android:text="Reimbursable Amount"
+            android:textColor="@color/white"
+            android:paddingLeft="20dp"
+            android:textSize="15sp"
+            />
+        <TextView
+            android:id="@+id/tripAmountD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt1"
+            android:textSize="30sp"
+            android:paddingLeft="20dp"
+            android:text="1.000.000"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="91dp"
+            android:layout_marginEnd="227dp"
+            android:layout_toEndOf="@+id/tripAmountD"
+            android:text="VND"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tripAmountD"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="20dp"
+            android:text="Duration:"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tripStartDateD"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_below="@+id/tripAmountD"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="222dp"
+            android:layout_marginBottom="50dp"
+            android:layout_toEndOf="@+id/txt2"
+            android:text="dd/mm/yyyy"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_below="@+id/tripAmountD"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="50dp"
+            android:layout_toStartOf="@+id/tripEndDateD"
+            android:text="to"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tripEndDateD"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_below="@+id/tripAmountD"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="78dp"
+            android:text="dd/mm/yyyy"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/txt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt2"
+            android:text="Type Trip:"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            android:paddingLeft="20dp"
+            android:textSize="17sp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:id="@+id/tripTypeD"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_alignTop="@+id/txt3"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="230dp"
+            android:layout_toEndOf="@+id/txt3"
+            android:text="Type"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleDetailTrip"
+            android:layout_width="1400px"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/data_row_expense_trip" />
+    </ScrollView>
+
+
+</LinearLayout>

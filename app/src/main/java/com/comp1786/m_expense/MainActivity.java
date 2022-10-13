@@ -16,14 +16,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.comp1786.m_expense.Trip.AddTripFragment;
+import com.comp1786.m_expense.Trip.DetailTripFragment;
+import com.comp1786.m_expense.Expense.ExpenseFragment;
+import com.comp1786.m_expense.Home.HomeFragment;
+import com.comp1786.m_expense.Setting.SettingFragment;
+import com.comp1786.m_expense.Trip.TripFragment;
+import com.comp1786.m_expense.Trip.UpdateTripFragment;
 import com.comp1786.m_expense.model.Trip;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity
        implements NavigationView.OnNavigationItemSelectedListener {
-
 
     private DrawerLayout drawer;
     @Override
@@ -73,23 +77,47 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START);
-        }else {
-            super.onBackPressed();
-        }
-    }
 
-    private void replaceFragment (Fragment fragment){
+    public void replaceFragment(Fragment fragment){
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.replace(R.id.fragment_container,fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.fragment_container,fragment,null);
+        fragmentTransaction.addToBackStack(null).commit();
     }
+
+    public void gotoAddTripFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        AddTripFragment addTripFragment = new AddTripFragment();
+        fragmentTransaction.replace(R.id.fragment_container,addTripFragment,null);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+    public void gotoUpdateTripFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        UpdateTripFragment updateTripFragment = new UpdateTripFragment();
+        fragmentTransaction.replace(R.id.fragment_container,updateTripFragment,null);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    public void gotoTripDetailfragment(Trip trip){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        DetailTripFragment detailTripFragment = new DetailTripFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_trip",trip);
+        detailTripFragment.setArguments(bundle);
+
+        fragmentTransaction.replace(R.id.fragment_container,detailTripFragment,null);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+
 
 
 }

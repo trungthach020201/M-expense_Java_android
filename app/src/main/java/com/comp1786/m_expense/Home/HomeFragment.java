@@ -1,6 +1,5 @@
-package com.comp1786.m_expense;
+package com.comp1786.m_expense.Home;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,14 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.comp1786.m_expense.model.Expenses;
-import com.comp1786.m_expense.model.Trip;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
+import com.comp1786.m_expense.DatabaseHelper;
+import com.comp1786.m_expense.MainActivity;
+import com.comp1786.m_expense.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,8 +88,8 @@ public class HomeFragment extends Fragment {
         TextView totalTrip = (TextView) mView.findViewById(R.id.totalTrip);
         TextView totalExpense = (TextView) mView.findViewById(R.id.totalExpense);
         TextView totalAmount = (TextView) mView.findViewById(R.id.totalAmount);
-        Trip trip=new Trip(1,"none","none","none","none",1,"none",1);
-        obj.addTrip(trip);
+//        Trip trip=new Trip(1,"none","none","none","none",1,"none",1);
+//        obj.addTrip(trip);
         int totaltrip = obj.getListTrip().size();
         int totalexpense = obj.getListExpense().size();
         float totalamount = obj.getTotalExpenses();

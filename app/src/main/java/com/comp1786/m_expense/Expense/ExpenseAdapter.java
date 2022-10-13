@@ -1,6 +1,5 @@
-package com.comp1786.m_expense;
+package com.comp1786.m_expense.Expense;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
-import com.comp1786.m_expense.model.Trip;
 
 import java.util.List;
 
@@ -37,9 +36,10 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         holder.exDate.setText(expenses.getDate());
         holder.exTime.setText(expenses.getTime());
         holder.exType.setText(String.valueOf(expenses.getType_id()));
-        holder.exName.setText(expenses.getComment());
+        holder.exName.setText(expenses.getName());
         holder.exLocation.setText(expenses.getLocation());
         holder.exAmount.setText(String.valueOf(expenses.getAmount()));
+
     }
 
     @Override

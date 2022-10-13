@@ -3,182 +3,180 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UpdateTripFragment"
+    tools:context=".Trip.UpdateTripFragment"
     android:background="@color/back_ground">
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/item"
         android:gravity="center"
-        android:text="Edit Trip Information"
+        android:text="Update Trip Request"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
-        android:orientation="vertical"
-        android:padding="40dp">
+        android:descendantFocusability="blocksDescendants">
+        <LinearLayout
+            android:layout_width="1400px"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trip type"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RadioButton android:id="@+id/radio_internal"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Internal"
-                android:textSize="18sp"
-                android:onClick="onRadioButtonClicked"
-                android:textColor="@color/white"/>
-            <RadioButton
-                android:id="@+id/radio_external"
+                android:text="Trip type"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/groupType">
+                <RadioButton android:id="@+id/radio_internal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Internal"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"/>
+                <RadioButton
+                    android:id="@+id/radio_external"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="External"
+                    android:textColor="@color/white"/>
+            </RadioGroup>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="External"
-                android:onClick="onRadioButtonClicked"
+                android:text="Trip Name"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
                 android:textColor="@color/white"/>
-        </RadioGroup>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trip Name"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
-            android:id="@+id/tripName"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="5dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Destination"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
-            android:id="@+id/tripDestination"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Date"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
-            android:id="@+id/startDate"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:ems="15"
-            android:focusable="false"
-            android:hint="DD/MM/YYYY"
-            android:paddingLeft="10dp"
-            android:background="@drawable/edit_text"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Date"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
-            android:id="@+id/endDate"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:ems="15"
-            android:focusable="false"
-            android:hint="DD/MM/YYYY"
-            android:background="@drawable/edit_text"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trip Risk"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton android:id="@+id/radio_yes"
-                android:layout_width="80dp"
+            <EditText
+                android:id="@+id/tripName"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yes"
-                android:textSize="18sp"
-                android:onClick="onRadioButtonClicked"
+                android:text="Destination"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
                 android:textColor="@color/white"/>
-            <RadioButton
-                android:id="@+id/radio_no"
-                android:layout_width="100dp"
+            <EditText
+                android:id="@+id/tripDestination"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="No"
-                android:onClick="onRadioButtonClicked"
+                android:text="Start Date"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
                 android:textColor="@color/white"/>
-        </RadioGroup>
+            <EditText
+                android:id="@+id/tripStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:ems="15"
+                android:focusable="false"
+                android:hint="DD/MM/YYYY"
+                android:paddingLeft="10dp"
+                android:background="@drawable/edit_text"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End Date"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+            <EditText
+                android:id="@+id/tripEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:ems="15"
+                android:focusable="false"
+                android:hint="DD/MM/YYYY"
+                android:background="@drawable/edit_text"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trip Risk"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
-            android:id="@+id/tripDescription"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text"/>
-        <Button
-            android:id="@+id/btnUpdateTrip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:textAllCaps="false"
-            android:layout_marginTop="25dp"
-            android:backgroundTint="@color/blue"/>
-        <Button
-            android:id="@+id/btnDeleteTrip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:textAllCaps="false"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="@color/red"/>
-    </LinearLayout>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/groupRisk">
+                <RadioButton android:id="@+id/radio_yes"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"/>
+                <RadioButton
+                    android:id="@+id/radio_no"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="No"
+                    android:textColor="@color/white"/>
+            </RadioGroup>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+            <EditText
+                android:id="@+id/tripDescription"
+                android:layout_width="match_parent"
+                android:inputType="textLongMessage"
+                android:layout_height="100dp"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edit_text"/>
+            <Button
+                android:id="@+id/tripBtnAdd"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Update"
+                android:textAllCaps="false"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/blue"/>
+        </LinearLayout>
+    </ScrollView>
 
 
 </FrameLayout>

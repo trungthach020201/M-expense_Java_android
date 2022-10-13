@@ -1,4 +1,4 @@
-package com.comp1786.m_expense;
+package com.comp1786.m_expense.Trip;
 
 import android.os.Bundle;
 
@@ -9,19 +9,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 
-import com.comp1786.m_expense.model.Expenses;
+import com.comp1786.m_expense.DatabaseHelper;
+import com.comp1786.m_expense.MainActivity;
+import com.comp1786.m_expense.R;
+import com.comp1786.m_expense.model.Trip;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ExpenseFragment#newInstance} factory method to
+ * Use the {@link TripFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExpenseFragment extends Fragment {
-
+public class TripFragment extends Fragment {
     private View mView;
-    private RecyclerView rcvExpense;
+    private RecyclerView rcvTrip;
     private MainActivity mMainactivity;
+    private ArrayList<Trip> trips;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +39,7 @@ public class ExpenseFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ExpenseFragment() {
+    public TripFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +49,11 @@ public class ExpenseFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ExpenseFragment.
+     * @return A new instance of fragment TripFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ExpenseFragment newInstance(String param1, String param2) {
-        ExpenseFragment fragment = new ExpenseFragment();
+    public static TripFragment newInstance(String param1, String param2) {
+        TripFragment fragment = new TripFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,20 +68,54 @@ public class ExpenseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_expense, container,false);
-        rcvExpense = mView.findViewById(R.id.recycleViewExpense);
+
+        mView = inflater.inflate(R.layout.fragment_trip, container,false);
+        rcvTrip = mView.findViewById(R.id.recycleViewTrip);
         DatabaseHelper obj =new DatabaseHelper(getContext());
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
-        rcvExpense.setLayoutManager(linearLayoutManager);
-        ExpenseAdapter expenseAdapter = new ExpenseAdapter(obj.getListExpense());
-        rcvExpense.setAdapter(expenseAdapter);
+        rcvTrip.setLayoutManager(linearLayoutManager);
+
+        TripAdapter tripAdapter = new TripAdapter(obj.getListTrip(), new TripAdapter.IClickItemListener() {
+            @Override
+            public void onLickItemTrip(Trip trip) {
+                mMainactivity.gotoTripDetailfragment(trip);
+            }
+        });
+        rcvTrip.setAdapter(tripAdapter);
+
+        Button addTripBtn = (Button) mView.findViewById(R.id.btnAddTrip);
+        addTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mMainactivity.gotoAddTripFragment();
+            }
+
+        });
+
+
+
+        SearchView searchView;
+        searchView = (SearchView) mView.findViewById(R.id.searchTrip);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
 
         return mView;
     }
+
 }

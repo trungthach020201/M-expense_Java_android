@@ -1,6 +1,5 @@
-package com.comp1786.m_expense;
+package com.comp1786.m_expense.Trip;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Trip;
 
 import java.util.List;
@@ -19,9 +19,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
 
     private List<Trip> ListTrips;
+    private IClickItemListener iClickItemListener;
 
-    public TripAdapter( List<Trip> mListTrips) {
+    public interface IClickItemListener{
+        void onLickItemTrip(Trip trip);
+    }
+
+    public TripAdapter( List<Trip> mListTrips,IClickItemListener listenerClick) {
     this.ListTrips=mListTrips;
+    this.iClickItemListener=listenerClick;
     }
 
     @NonNull
@@ -33,13 +39,20 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull TripAdapter.MyViewHolder holder, int position) {
-        Trip trip = ListTrips.get(position);
+        final Trip trip = ListTrips.get(position);
         holder.idTrip.setText(position+1+"");
         holder.tripName.setText(trip.getName());
         holder.startDate.setText(trip.getStart_Date());
         holder.endDate.setText(trip.getEnd_Date());
         holder.destination.setText(trip.getDestination());
         holder.tripAmount.setText(trip.getExpenses().toString());
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemListener.onLickItemTrip(trip);
+            }
+        });
+
     }
 
     @Override
@@ -60,7 +73,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             endDate = itemView.findViewById(R.id.trip_dateEnd_txt);
             destination = itemView.findViewById(R.id.trip_destination_txt);
             tripAmount =itemView.findViewById(R.id.trip_amount);
-            linearLayout = itemView.findViewById(R.id.homeLayout);
+            linearLayout = itemView.findViewById(R.id.tripItemRowLayout);
             idTrip = itemView.findViewById(R.id.idTrip);
         }
     }

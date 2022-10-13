@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    tools:context=".AddTripFragment"
+    tools:context=".Trip.AddTripFragment"
     android:background="@color/back_ground">
 
     <TextView
@@ -16,11 +16,14 @@
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
+        android:descendantFocusability="blocksDescendants">
+    <LinearLayout
+        android:layout_width="1400px"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
@@ -160,6 +163,7 @@
         <EditText
             android:id="@+id/tripDescription"
             android:layout_width="match_parent"
+            android:inputType="textLongMessage"
             android:layout_height="100dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="5dp"
@@ -167,12 +171,13 @@
         <Button
             android:id="@+id/tripBtnAdd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="Save"
             android:textAllCaps="false"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/blue"/>
     </LinearLayout>
+    </ScrollView>
 
 
 
