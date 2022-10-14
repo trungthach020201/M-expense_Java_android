@@ -368,11 +368,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void dropAndRecreateTrip(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP_NAME);
-        onCreate(db);
+        dbCreate(db);
     }
     private void dropAndRecreateExpenses(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES_NAME);
-        onCreate(db);
+        db.execSQL(DATABASE_CREATE_EXPENSES);
+    }
+    public void dbCreate(SQLiteDatabase db) {
+        db.execSQL(DATABASE_CREATE_TRIP);
+        db.execSQL(DATABASE_CREATE_EXPENSES);
     }
 
 }

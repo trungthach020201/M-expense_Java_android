@@ -32,8 +32,6 @@ public class IntroductionActivity extends AppCompatActivity {
         appLogo = findViewById(R.id.appLogo);
         Shape = findViewById(R.id.lottieAnimationView);
 
-
-
         startBtn.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view){

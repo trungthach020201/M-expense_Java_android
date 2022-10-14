@@ -163,7 +163,7 @@
         <EditText
             android:id="@+id/tripDescription"
             android:layout_width="match_parent"
-            android:inputType="textLongMessage"
+            android:inputType="textMultiLine"
             android:layout_height="100dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="5dp"

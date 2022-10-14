@@ -160,7 +160,6 @@ public class AddTripFragment extends Fragment {
         });
 
 
-
         tripBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
