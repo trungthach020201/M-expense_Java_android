@@ -149,9 +149,19 @@
             android:layout_toEndOf="@+id/txt3"
             android:text="Type"
             android:textColor="@color/white"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
 
     </RelativeLayout>
+
+    <Button
+        android:layout_width="1300px"
+        android:layout_height="60dp"
+        android:text="Add New Expense"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/add"/>
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

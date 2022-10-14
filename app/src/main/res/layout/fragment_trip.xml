@@ -26,13 +26,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnAddTrip"
-            android:layout_marginStart="350dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/blue"
             android:text="Add"
-            android:textColor="@color/back_ground"
-
-            />
+            android:textColor="@color/back_ground" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDeleteAllTrip"
+            android:layout_marginStart="330dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/red"
+            android:text="Delete All"
+            android:textColor="@color/white" />
 
     </androidx.cardview.widget.CardView>
     <SearchView

@@ -1,7 +1,9 @@
 package com.comp1786.m_expense.Trip;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.comp1786.m_expense.DatabaseHelper;
@@ -34,8 +37,7 @@ public class DetailTripFragment extends Fragment {
     private RecyclerView rcvDetailTrip;
     private MainActivity mMainactivity;
     TextView tripDestination, tripAmount, tripStartDate, tripEndDate, tripType;
-    ImageButton btnDelete, btnedit;
-
+    ImageButton btnDeleteByID, btnedit;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -91,7 +93,7 @@ public class DetailTripFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvDetailTrip.setLayoutManager(linearLayoutManager);
-        DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()));
+        DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()), getContext());
         rcvDetailTrip.setAdapter(detailTripAdapter);
 
         tripDestination = mView.findViewById(R.id.tripDestinationD);
@@ -110,12 +112,11 @@ public class DetailTripFragment extends Fragment {
         if(trip.getType() != 1){
             type ="internal";
         }else type="external";
+
         tripType.setText(type);
 
 
         btnedit = mView.findViewById(R.id.EditTrip);
-        btnDelete = mView.findViewById(R.id.deleteTrip);
-
         btnedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +124,43 @@ public class DetailTripFragment extends Fragment {
             }
         });
 
+        btnDeleteByID = mView.findViewById(R.id.deleteTrip);
+        btnDeleteByID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDeleteTripByID();
+            }
+        });
+
+
+
         return mView;
 
     }
+
+    public void confirmDeleteTripByID(){
+        DatabaseHelper obj =new DatabaseHelper(getContext());
+        Bundle bundleReceive = getArguments();
+
+        Trip trip = (Trip) bundleReceive.get("object_trip");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Delete Trip?");
+        builder.setMessage("Do you want to delete trip to " + " ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+                mMainactivity = (MainActivity) getActivity();
+                obj.deleteTripById(trip.getId());
+                mMainactivity.backToTripFragment();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+            }
+        });
+        builder.create().show();
+    }
+
 
 }

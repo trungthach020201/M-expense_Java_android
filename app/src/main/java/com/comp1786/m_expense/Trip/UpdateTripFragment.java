@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
@@ -30,8 +31,8 @@ import java.util.Calendar;
 public class UpdateTripFragment extends Fragment {
 
     private View mView;
-    private RecyclerView rcvDetailTrip;
-    private MainActivity mMainactivity;
+
+    private MainActivity mMainActivity;
 
     int type_trip, risk_type;
     private int mYear, mMonth, mDay;
@@ -91,17 +92,13 @@ public class UpdateTripFragment extends Fragment {
         EditText tripEndDate = (EditText) view.findViewById(R.id.tripEndDate);
         EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
 
-        Button tripBtnUpdate = (Button) view.findViewById(R.id.tripBtnUpdate);
-
-        RadioGroup groupType =(RadioGroup) view.findViewById(R.id.groupType);
-        RadioGroup groupRisk =(RadioGroup) view.findViewById(R.id.groupRisk);
+        mMainActivity = (MainActivity) getActivity();
 
         tripName.setText(trip.getName());
         tripDestination.setText(trip.getDestination());
         tripStartDate.setText(trip.getStart_Date());
         tripEndDate.setText(trip.getEnd_Date());
         tripDescription.setText(trip.getDescription());
-
 
 
         tripStartDate.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +142,7 @@ public class UpdateTripFragment extends Fragment {
             }
         });
 
-
+        RadioGroup groupRisk =(RadioGroup) view.findViewById(R.id.groupRisk);
         groupRisk.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -160,7 +157,7 @@ public class UpdateTripFragment extends Fragment {
             }
         });
 
-
+        RadioGroup groupType =(RadioGroup) view.findViewById(R.id.groupType);
         groupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -176,7 +173,7 @@ public class UpdateTripFragment extends Fragment {
         });
 
 
-
+        Button tripBtnUpdate = (Button) view.findViewById(R.id.tripBtnUpdate);
         tripBtnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,11 +187,17 @@ public class UpdateTripFragment extends Fragment {
                 trip.setDescription(tripDescription.getText().toString().trim().toString());
                 trip.setRisk(risk_type);
                 trip.setType(type_trip);
-                obj.updateTrip(trip,trip.getId());
 
+
+                long result = obj.updateTrip(trip,trip.getId());
+                if(result==-1){
+                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),"Edit successfully!", Toast.LENGTH_SHORT).show();
+                    mMainActivity.backToTripFragment();
+                }
             }
         });
-
 
         return view;
     }

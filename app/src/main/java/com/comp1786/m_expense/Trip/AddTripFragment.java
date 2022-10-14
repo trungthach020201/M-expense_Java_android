@@ -14,8 +14,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.comp1786.m_expense.DatabaseHelper;
+import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Trip;
 
@@ -30,6 +32,7 @@ public class AddTripFragment extends Fragment {
 
     int type_trip, risk_type;
     private int mYear, mMonth, mDay;
+    private MainActivity mMainActivity;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -159,6 +162,7 @@ public class AddTripFragment extends Fragment {
             }
         });
 
+        mMainActivity = (MainActivity) getActivity();
 
         tripBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,9 +177,14 @@ public class AddTripFragment extends Fragment {
                 trip.setDescription(tripDescription.getText().toString().trim().toString());
                 trip.setRisk(risk_type);
                 trip.setType(type_trip);
-                obj.addTrip(trip);
 
-                System.out.println(trip);
+                long result = obj.addTrip(trip);
+                if(result==-1){
+                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),"Add successfully!", Toast.LENGTH_SHORT).show();
+                    mMainActivity.backToTripFragment();
+                }
             }
         });
         return view;

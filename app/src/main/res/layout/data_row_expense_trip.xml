@@ -140,6 +140,7 @@
             app:srcCompat="@drawable/logomobile" />
 
         <ImageView
+            android:id="@+id/editExpenseInTrip"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
@@ -148,6 +149,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/deleteExpenseInTrip"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="65dp"

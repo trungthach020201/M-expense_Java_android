@@ -1,7 +1,9 @@
 package com.comp1786.m_expense.Trip;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +30,7 @@ public class TripFragment extends Fragment {
     private View mView;
     private RecyclerView rcvTrip;
     private MainActivity mMainactivity;
+    private Button addTripBtn, deleteAllTripBtn;
     private ArrayList<Trip> trips;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,6 +80,7 @@ public class TripFragment extends Fragment {
 
         mView = inflater.inflate(R.layout.fragment_trip, container,false);
         rcvTrip = mView.findViewById(R.id.recycleViewTrip);
+
         DatabaseHelper obj =new DatabaseHelper(getContext());
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
@@ -90,13 +94,21 @@ public class TripFragment extends Fragment {
         });
         rcvTrip.setAdapter(tripAdapter);
 
-        Button addTripBtn = (Button) mView.findViewById(R.id.btnAddTrip);
+        addTripBtn = mView.findViewById(R.id.btnAddTrip);
         addTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                mMainactivity.gotoAddTripFragment();
             }
 
+        });
+
+        deleteAllTripBtn = mView.findViewById(R.id.btnDeleteAllTrip);
+        deleteAllTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDeleteAllTrip ();
+            }
         });
 
 
@@ -118,4 +130,25 @@ public class TripFragment extends Fragment {
         return mView;
     }
 
+
+    void confirmDeleteAllTrip (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Delete All ?");
+        builder.setMessage("Do you want to delete all Trip ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+                DatabaseHelper obj =new DatabaseHelper(getContext());
+                mMainactivity = (MainActivity) getActivity();
+                obj.deleteAllTrip();
+                mMainactivity.backToTripFragment();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+            }
+        });
+        builder.create().show();
+    }
 }

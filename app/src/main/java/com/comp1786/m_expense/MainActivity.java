@@ -121,7 +121,15 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.addToBackStack(null).commit();
     }
 
+    public void backToTripFragment (){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        TripFragment tripFragment = new TripFragment();
+
+        fragmentTransaction.replace(R.id.fragment_container,tripFragment,null);
+        fragmentTransaction.commit();
+    }
 
 
 }

@@ -76,6 +76,7 @@ public class ExpenseFragment extends Fragment {
         ExpenseAdapter expenseAdapter = new ExpenseAdapter(obj.getListExpense());
         rcvExpense.setAdapter(expenseAdapter);
 
+
         return mView;
     }
 }
