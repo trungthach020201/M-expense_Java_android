@@ -76,8 +76,7 @@ public class DetailTripFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
+        }s
 
     }
 
@@ -132,8 +131,6 @@ public class DetailTripFragment extends Fragment {
             }
         });
 
-
-
         return mView;
 
     }
@@ -145,7 +142,7 @@ public class DetailTripFragment extends Fragment {
         Trip trip = (Trip) bundleReceive.get("object_trip");
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Delete Trip?");
-        builder.setMessage("Do you want to delete trip to " + " ?");
+        builder.setMessage("Do you want to delete trip to " +trip.getDestination()+ " ?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i){
