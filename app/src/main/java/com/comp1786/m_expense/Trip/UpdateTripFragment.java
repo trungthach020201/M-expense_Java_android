@@ -198,22 +198,22 @@ public class UpdateTripFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DatabaseHelper obj = new DatabaseHelper(getActivity());
-                Trip trip = new Trip();
+                Trip Uptrip = new Trip();
 
-                trip.setName(tripName.getText().toString().trim());
-                trip.setDestination(tripDestination.getText().toString().trim().toString());
-                trip.setStart_Date(tripStartDate.getText().toString().trim().toString());
-                trip.setEnd_Date(tripEndDate.getText().toString().trim().toString());
-                trip.setDescription(tripDescription.getText().toString().trim().toString());
-                trip.setRisk(risk_type);
-                trip.setType(type_trip);
+                Uptrip.setName(tripName.getText().toString().trim());
+                Uptrip.setDestination(tripDestination.getText().toString().trim().toString());
+                Uptrip.setStart_Date(tripStartDate.getText().toString().trim().toString());
+                Uptrip.setEnd_Date(tripEndDate.getText().toString().trim().toString());
+                Uptrip.setDescription(tripDescription.getText().toString().trim().toString());
+                Uptrip.setRisk(risk_type);
+                Uptrip.setType(type_trip);
 
 
-                long result = obj.updateTrip(trip,trip.getId());
+                long result = obj.updateTrip(Uptrip,trip.getId());
                 if(result==-1){
                     Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getContext(),"Edit successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Update successfully!", Toast.LENGTH_SHORT).show();
                     mMainActivity.backToTripFragment();
                 }
             }

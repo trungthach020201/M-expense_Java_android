@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "M1-expenses";
+    private static final String DATABASE_NAME = "M-expenses";
     private static final String TABLE_TRIP_NAME = "Trips";
     private static final String TABLE_EXPENSES_NAME = "Expenses";
     private static final String TABLE_TYPE_NAME = "Types";

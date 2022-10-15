@@ -119,13 +119,15 @@ public class TripFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                System.out.println("Key"+query);
                 tripAdapter.setListTrips(obj.searchTripByName(query));
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")){
+                    tripAdapter.setListTrips(obj.getListTrip());
+                }
                 return true;
             }
         });
