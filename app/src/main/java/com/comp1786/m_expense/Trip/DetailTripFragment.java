@@ -76,7 +76,7 @@ public class DetailTripFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        }s
+        }
 
     }
 
@@ -113,7 +113,6 @@ public class DetailTripFragment extends Fragment {
         }else type="external";
 
         tripType.setText(type);
-
 
         btnedit = mView.findViewById(R.id.EditTrip);
         btnedit.setOnClickListener(new View.OnClickListener() {
