@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,6 +93,24 @@ public class UpdateTripFragment extends Fragment {
         EditText tripEndDate = (EditText) view.findViewById(R.id.tripEndDate);
         EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
 
+        RadioButton internal=view.findViewById(R.id.radio_internal);
+        RadioButton external=view.findViewById(R.id.radio_external);
+        RadioButton risk=view.findViewById(R.id.radio_yes);
+        RadioButton noRisk=view.findViewById(R.id.radio_no);
+
+
+        if( trip.getType()==1){
+            internal.setChecked(true);
+        }else {
+            external.setChecked(true);
+        }
+        if(trip.getRisk()==1){
+            risk.setChecked(true);
+        }else {
+            noRisk.setChecked(true);
+        }
+
+
         mMainActivity = (MainActivity) getActivity();
 
         tripName.setText(trip.getName());
@@ -156,6 +175,7 @@ public class UpdateTripFragment extends Fragment {
                 }
             }
         });
+
 
         RadioGroup groupType =(RadioGroup) view.findViewById(R.id.groupType);
         groupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

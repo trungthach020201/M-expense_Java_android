@@ -17,8 +17,16 @@ import java.util.List;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> {
 
+    public List<Trip> getListTrips() {
+        return ListTrips;
+    }
 
-    private List<Trip> ListTrips;
+    public void setListTrips(List<Trip> listTrips) {
+        ListTrips = listTrips;
+        notifyDataSetChanged();
+    }
+
+    public List<Trip> ListTrips;
     private IClickItemListener iClickItemListener;
 
     public interface IClickItemListener{
@@ -39,7 +47,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull TripAdapter.MyViewHolder holder, int position) {
-        final Trip trip = ListTrips.get(position);
+        Trip trip = ListTrips.get(position);
         holder.idTrip.setText(position+1+"");
         holder.tripName.setText(trip.getName());
         holder.startDate.setText(trip.getStart_Date());
@@ -59,6 +67,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     public int getItemCount() {
         return ListTrips.size();
     }
+
 
 
 

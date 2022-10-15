@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
@@ -76,7 +77,22 @@ public class ExpenseFragment extends Fragment {
         ExpenseAdapter expenseAdapter = new ExpenseAdapter(obj.getListExpense());
         rcvExpense.setAdapter(expenseAdapter);
 
+        SearchView searchView;
+        searchView = (SearchView) mView.findViewById(R.id.searchTrip);
+        String query=searchView.getQuery().toString();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println("Key"+query);
+                expenseAdapter.setmListExpense(obj.searchExpensesByName(query));
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
         return mView;
     }
 }

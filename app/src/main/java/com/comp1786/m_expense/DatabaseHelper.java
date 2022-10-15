@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "M-expenses";
+    private static final String DATABASE_NAME = "M1-expenses";
     private static final String TABLE_TRIP_NAME = "Trips";
     private static final String TABLE_EXPENSES_NAME = "Expenses";
     private static final String TABLE_TYPE_NAME = "Types";
@@ -238,7 +238,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         results.moveToFirst();
         while (!results.isAfterLast()) {
-            Trip trip=new Trip(results.getInt(0),results.getString(1),results.getString(2),results.getString(3).toString(),results.getString(4).toString(),results.getInt(5),results.getString(7),results.getInt(6));
+            Float totalExpenses=getExpensesByTripId(results.getInt(0));
+            Trip trip=new Trip(results.getInt(0),results.getString(1),results.getString(2),results.getString(3).toString(),results.getString(4).toString(),results.getInt(5),results.getString(7),results.getInt(6),totalExpenses);
             System.out.println(trip);
             trips.add(trip);
             results.moveToNext();

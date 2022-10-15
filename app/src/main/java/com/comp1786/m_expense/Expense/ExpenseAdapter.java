@@ -30,6 +30,15 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row_expense,parent,false));
     }
 
+    public List<Expenses> getmListExpense() {
+        return mListExpense;
+    }
+
+    public void setmListExpense(List<Expenses> mListExpense) {
+        notifyDataSetChanged();
+        this.mListExpense = mListExpense;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
         Expenses expenses = mListExpense.get(position);
