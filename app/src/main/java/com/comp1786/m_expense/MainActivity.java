@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.comp1786.m_expense.Expense.AddExpenseFragment;
 import com.comp1786.m_expense.Trip.AddTripFragment;
 import com.comp1786.m_expense.Trip.DetailTripFragment;
 import com.comp1786.m_expense.Expense.ExpenseFragment;
@@ -129,6 +130,15 @@ public class MainActivity extends AppCompatActivity
 
         fragmentTransaction.replace(R.id.fragment_container,tripFragment,null);
         fragmentTransaction.commit();
+    }
+
+    public void goToAddExpenseFragment (){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AddExpenseFragment addExpenseFragment = new AddExpenseFragment();
+
+        fragmentTransaction.replace(R.id.fragment_container,addExpenseFragment,null);
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
 

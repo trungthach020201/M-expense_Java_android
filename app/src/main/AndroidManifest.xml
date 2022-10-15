@@ -16,7 +16,8 @@
         <activity
             android:name=".IntroductionActivity"
             android:exported="true"
-            android:theme="@style/Theme.M_expense.NoActionBar">
+            android:theme="@style/Theme.M_expense.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.M_expense.NoActionBar">
+            android:theme="@style/Theme.M_expense.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
     </application>

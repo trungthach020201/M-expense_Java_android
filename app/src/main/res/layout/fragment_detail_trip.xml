@@ -154,6 +154,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btnAddNewExInTrip"
         android:layout_width="1300px"
         android:layout_height="60dp"
         android:text="Add New Expense"
