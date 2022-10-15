@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class DetailTripFragment extends Fragment {
     private View mView;
     private RecyclerView rcvDetailTrip;
     private MainActivity mMainactivity;
+    Button addNewEx;
     TextView tripDestination, tripAmount, tripStartDate, tripEndDate, tripType;
     ImageButton btnDeleteByID, btnedit;
 
@@ -127,6 +129,14 @@ public class DetailTripFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 confirmDeleteTripByID();
+            }
+        });
+
+        addNewEx = mView.findViewById(R.id.btnAddNewExInTrip);
+        addNewEx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainactivity.goToAddExpenseFragment ();
             }
         });
 
