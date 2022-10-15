@@ -232,8 +232,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public ArrayList<Trip> searchTripByName(String key){
         ArrayList<Trip> trips = new ArrayList<>();
-        Cursor results = database.query(true, TABLE_TRIP_NAME, new String[] { ID_COLUMN, NAME_COLUMN, DESTINATION_COLUMN, START_DATE_COLUMN,END_DATE_COLUMN,RISK_COLUMN,DESCRIPTION_COLUMN,TYPE_COLUMN }, NAME_COLUMN + " LIKE ?",
-                new String[] {"%"+ key+ "%" }, null, null, null,
+        String[] parts = key.split(" ");
+        String queryString = "";
+        for(int i = 0; i < parts.length; i++) {
+            queryString += NAME_COLUMN + " LIKE '%" + parts[i] + "%' OR ";
+            queryString += DESTINATION_COLUMN+ " LIKE '%" + parts[i]+"%'";
+            if(i != (parts.length - 1)) {
+                queryString += " OR ";
+            }
+        }
+        Cursor results = database.query(true, TABLE_TRIP_NAME, new String[] { ID_COLUMN, NAME_COLUMN, DESTINATION_COLUMN, START_DATE_COLUMN,END_DATE_COLUMN,RISK_COLUMN,DESCRIPTION_COLUMN,TYPE_COLUMN }, queryString,null,
+                null, null, null,
                 null);
 
         results.moveToFirst();
@@ -251,8 +260,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public ArrayList<Expenses> searchExpensesByName(String key){
         ArrayList<Expenses> expenses = new ArrayList<>();
-        Cursor results = database.query(true, TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,NAME_COLUMN,TRIP_ID_COLUMN }, NAME_COLUMN + " LIKE ?",
-                new String[] {"%"+ key+ "%" }, null, null, null,
+        String[] parts = key.split(" ");
+        String queryString = "";
+        for(int i = 0; i < parts.length; i++) {
+            queryString += NAME_COLUMN + " LIKE '%" + parts[i] + "%' OR ";
+            queryString += LOCATION_COLUMN+ " LIKE '%" + parts[i]+"%'";
+            if(i != (parts.length - 1)) {
+                queryString += " OR ";
+            }
+        }
+        Cursor results = database.query(true, TABLE_EXPENSES_NAME, new String[] {ID_COLUMN, TYPE_ID_COLUMN, AMOUNT_COLUMN, DATE_COLUMN,TIME_COLUMN,COMMENT_COLUMN,LOCATION_COLUMN,IMAGE_COLUMN,NAME_COLUMN,TRIP_ID_COLUMN }, queryString,null, null, null, null,
                 null);
 
         results.moveToFirst();
