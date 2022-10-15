@@ -348,11 +348,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteTripById(long id) {
+        ArrayList<Expenses> expenses=new ArrayList<>();
+        expenses=getListExpensesByTripId((int) id);
+        for (Expenses ex:expenses) {
+            deleteExpensesById(ex.getId());
+        }
         database = this.getWritableDatabase();
         database.delete(TABLE_TRIP_NAME, ID_COLUMN + " = ?",
                 new String[] { String.valueOf(id) });
         database.close();
     }
+
     public void deleteAllTrip(){
 //        String deleteExpenses = "DELETE FROM " + TABLE_EXPENSES_NAME;
 //        String deleteTrip = "DELETE FROM " + TABLE_TRIP_NAME;
