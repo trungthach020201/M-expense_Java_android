@@ -85,7 +85,9 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        Bundle bundleReceive = getArguments();
+        int tripId = (int) bundleReceive.get("trip_id");
+
         View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
         mMainActivity = (MainActivity) getActivity();
         EditText exName = (EditText) view.findViewById(R.id.ex_name_txt);
@@ -179,11 +181,13 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
 
                 expenses.setName(exName.getText().toString().trim());
                 expenses.setDate(exDate.getText().toString().trim());
+                expenses.setLocation(exAddress.getText().toString().trim());
                 expenses.setTime(exTime.getText().toString().trim());
                 expenses.setAmount(Float.valueOf(exAmount.getText().toString().trim()));
                 expenses.setType_id(1);
                 expenses.setComment(exComment.getText().toString().trim());
                 expenses.setImage("image");
+                expenses.setTrip_id(tripId);
 
                 long result = obj.addExpense(expenses);
                 if(result==-1){

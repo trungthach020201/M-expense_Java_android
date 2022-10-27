@@ -94,9 +94,7 @@ public class DetailTripFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvDetailTrip.setLayoutManager(linearLayoutManager);
-        DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()), getContext());
-        rcvDetailTrip.setAdapter(detailTripAdapter);
-
+        DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()), getContext());rcvDetailTrip.setAdapter(detailTripAdapter);
         tripDestination = mView.findViewById(R.id.tripDestinationD);
         tripAmount = mView.findViewById(R.id.tripAmountD);
         tripStartDate = mView.findViewById(R.id.tripStartDateD);
@@ -136,7 +134,7 @@ public class DetailTripFragment extends Fragment {
         addNewEx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMainactivity.goToAddExpenseFragment ();
+                mMainactivity.goToAddExpenseFragment (trip.getId());
             }
         });
 

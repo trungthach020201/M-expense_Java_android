@@ -1,6 +1,8 @@
 package com.comp1786.m_expense.model;
 
-public class Expenses {
+import java.io.Serializable;
+
+public class Expenses implements Serializable {
     private Integer id;
     private Integer type_id;
     private Float amount;

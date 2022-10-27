@@ -7,8 +7,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.comp1786.m_expense.DatabaseHelper;
+import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
+import com.comp1786.m_expense.model.Expenses;
+import com.comp1786.m_expense.model.Trip;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +25,8 @@ import com.comp1786.m_expense.R;
  * create an instance of this fragment.
  */
 public class UpdateExpenseFragment extends Fragment {
+
+    private MainActivity mMainActivity;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +71,57 @@ public class UpdateExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_update_expense, container, false);
+        Bundle bundleReceive = getArguments();
+        Expenses expense = (Expenses) bundleReceive.get("object_expense");
+
+        View view = inflater.inflate(R.layout.fragment_update_expense, container, false);
+
+        EditText upExName = (EditText) view.findViewById(R.id.exup_name_txt);
+        EditText upExDate = (EditText) view.findViewById(R.id.ex_date_txt);
+        EditText upExTime = (EditText) view.findViewById(R.id.exup_time_txt);
+        EditText upExAddress = (EditText) view.findViewById(R.id.exup_adress_txt);
+        EditText upExAmount = (EditText) view.findViewById(R.id.exup_amount_txt);
+        EditText upExComment = (EditText) view.findViewById(R.id.exup_comment_txt);
+        Spinner upExType = (Spinner) view.findViewById(R.id.UpdropdownType);
+        ImageView ExUpImage = (ImageView) view.findViewById(R.id.exup_image);
+        Button cancleBtn = (Button) view.findViewById(R.id.btnCancelExUp);
+
+         mMainActivity = (MainActivity) getActivity();
+
+        upExName.setText(expense.getName());
+        upExDate.setText(expense.getDate());
+        upExTime.setText(expense.getTime());
+        upExAddress.setText(expense.getLocation());
+        upExAmount.setText((expense.getAmount()).toString());
+        upExComment.setText(expense.getComment());
+
+        Button updateBtn = (Button) view.findViewById(R.id.btnUpEx);
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHelper obj = new DatabaseHelper(getActivity());
+                Expenses Upexpense = new Expenses();
+
+                Upexpense.setName(upExName.getText().toString().trim());
+                Upexpense.setDate(upExDate.getText().toString().trim());
+                Upexpense.setTime(upExTime.getText().toString().trim());
+                Upexpense.setLocation(upExAddress.getText().toString().trim());
+                Upexpense.setComment(upExComment.getText().toString().trim());
+                Upexpense.setAmount(Float.valueOf(upExAmount.getText().toString().trim()));
+                Upexpense.setType_id(1);
+                Upexpense.setImage("hello");
+
+                long result = obj.updateExpenses(Upexpense,Upexpense.getId());
+                if(result==-1){
+                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),"Update successfully!", Toast.LENGTH_SHORT).show();
+                    mMainActivity.backToTripFragment();
+                }
+            }
+        });
+
+
+        return view;
     }
 }

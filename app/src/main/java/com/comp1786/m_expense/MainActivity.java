@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.comp1786.m_expense.Expense.AddExpenseFragment;
+import com.comp1786.m_expense.Expense.UpdateExpenseFragment;
 import com.comp1786.m_expense.Trip.AddTripFragment;
 import com.comp1786.m_expense.Trip.DetailTripFragment;
 import com.comp1786.m_expense.Expense.ExpenseFragment;
@@ -24,8 +25,11 @@ import com.comp1786.m_expense.Home.HomeFragment;
 import com.comp1786.m_expense.Setting.SettingFragment;
 import com.comp1786.m_expense.Trip.TripFragment;
 import com.comp1786.m_expense.Trip.UpdateTripFragment;
+import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity
        implements NavigationView.OnNavigationItemSelectedListener {
@@ -132,14 +136,30 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
-    public void goToAddExpenseFragment (){
+    public void goToAddExpenseFragment (int tripId){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         AddExpenseFragment addExpenseFragment = new AddExpenseFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("trip_id",tripId);
+        addExpenseFragment.setArguments(bundle);
 
         fragmentTransaction.replace(R.id.fragment_container,addExpenseFragment,null);
         fragmentTransaction.addToBackStack(null).commit();
     }
 
+    public void gotoUpdateExpenseFragment(Expenses expenses) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        UpdateExpenseFragment updateExpenseFragment = new UpdateExpenseFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_expense", expenses);
+        updateExpenseFragment.setArguments(bundle);
+
+        fragmentTransaction.replace(R.id.fragment_container,updateExpenseFragment,null);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
 
 }
