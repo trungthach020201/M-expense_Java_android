@@ -12,6 +12,10 @@ public class Expenses {
     private String image;
     private Integer trip_id;
 
+    public Expenses() {
+
+    }
+
     @Override
     public String toString() {
         return "Expenses{" +
