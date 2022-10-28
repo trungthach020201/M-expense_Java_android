@@ -191,7 +191,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                 expenses.setAmount(Float.valueOf(exAmount.getText().toString().trim()));
                 expenses.setComment(exComment.getText().toString().trim());
                 expenses.setImage("image");
-                expenses.setTrip_id(1);
+                expenses.setTrip_id(tripId);
                 if(!exOtherType.getText().toString().trim().isEmpty()){
                     obj.addType(new Type(1,exOtherType.getText().toString()));
                     Type_Id=types.size()+1;
