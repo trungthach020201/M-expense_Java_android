@@ -118,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public long addExpense(Expenses expenses) {
         ContentValues rowValues = new ContentValues();
-        rowValues.put(TYPE_ID_COLUMN, expenses.getId());
+        rowValues.put(TYPE_ID_COLUMN, expenses.getType_id());
         rowValues.put(AMOUNT_COLUMN,expenses.getAmount());
         rowValues.put(DATE_COLUMN,expenses.getDate() );
         rowValues.put(TIME_COLUMN, expenses.getTime());

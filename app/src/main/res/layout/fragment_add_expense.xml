@@ -115,15 +115,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text5"
+                android:inputType="numberDecimal"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="0dp"/>
+                android:layout_marginTop="0dp" />
 
             <TextView
                 android:id="@+id/text6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ex_amount_txt"
-                android:text="Trip Name"
+                android:text="Type Expenses"
                 android:textColor="@color/back_ground"
                 android:textSize="20sp" />
 
@@ -135,11 +136,24 @@
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown" />
 
+
+            <EditText
+                android:id="@+id/ex_other_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dropdownType"
+                android:layout_alignParentStart="true"
+                android:inputType="text"
+                android:layout_marginBottom="5dp"
+                android:hint="Other"
+                android:layout_marginTop="10dp"
+                 />
+
             <TextView
                 android:id="@+id/text7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/dropdownType"
+                android:layout_below="@id/ex_other_txt"
                 android:text="Comment"
                 android:textColor="@color/back_ground"
                 android:textSize="20sp" />

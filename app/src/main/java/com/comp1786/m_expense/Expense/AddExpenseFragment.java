@@ -26,6 +26,7 @@ import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
+import com.comp1786.m_expense.model.Type;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +41,9 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
 
     private MainActivity mMainActivity;
     private int mYear,mMonth,mDay,mHour,mMinute;
+    private int Type_Id=0;
+    private EditText exOtherType;
+    private List<String> typesName;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -87,6 +91,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                              Bundle savedInstanceState) {
         Bundle bundleReceive = getArguments();
         int tripId = (int) bundleReceive.get("trip_id");
+        DatabaseHelper ob =new DatabaseHelper(getContext());
 
         View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
         mMainActivity = (MainActivity) getActivity();
@@ -94,6 +99,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         EditText exAddress = (EditText) view.findViewById(R.id.ex_adress_txt);
         EditText exAmount = (EditText) view.findViewById(R.id.ex_amount_txt);
         EditText exComment = (EditText) view.findViewById(R.id.ex_comment_txt);
+        exOtherType=(EditText) view.findViewById(R.id.ex_other_txt);
         ImageView exImage = (ImageView) view.findViewById(R.id.ex_image);
 
         EditText exDate = (EditText) view.findViewById(R.id.ex_date_txt);
@@ -147,17 +153,16 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         final Spinner exType = (Spinner) view.findViewById(R.id.dropdownType);
 
         // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Item 1");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+        List<Type> types = ob.getListType();
+        typesName=new ArrayList<>();
+
+        for (Type type: types) {
+            typesName.add(type.getName());
+        }
 
         exType.setOnItemSelectedListener(this);
 // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, typesName);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
@@ -184,11 +189,14 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                 expenses.setLocation(exAddress.getText().toString().trim());
                 expenses.setTime(exTime.getText().toString().trim());
                 expenses.setAmount(Float.valueOf(exAmount.getText().toString().trim()));
-                expenses.setType_id(1);
                 expenses.setComment(exComment.getText().toString().trim());
                 expenses.setImage("image");
-                expenses.setTrip_id(tripId);
-
+                expenses.setTrip_id(1);
+                if(!exOtherType.getText().toString().trim().isEmpty()){
+                    obj.addType(new Type(1,exOtherType.getText().toString()));
+                    Type_Id=types.size()+1;
+                }
+                expenses.setType_id(Type_Id);
                 long result = obj.addExpense(expenses);
                 if(result==-1){
                     Toast.makeText(getContext(),"Add Failed", Toast.LENGTH_SHORT).show();
@@ -210,12 +218,13 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
-
+        Type_Id=position+1;
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+        exOtherType.setEnabled(true);
     }
 }

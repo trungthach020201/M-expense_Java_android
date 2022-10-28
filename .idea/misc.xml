@@ -26,7 +26,7 @@
         <entry key="app/src/main/res/layout/data_row_expense.xml" value="0.3263235193834123" />
         <entry key="app/src/main/res/layout/data_row_expense_trip.xml" value="0.5064549437356651" />
         <entry key="app/src/main/res/layout/data_row_trip.xml" value="0.27935231526692705" />
-        <entry key="app/src/main/res/layout/fragment_add_expense.xml" value="0.21517639160156254" />
+        <entry key="app/src/main/res/layout/fragment_add_expense.xml" value="0.3310577392578125" />
         <entry key="app/src/main/res/layout/fragment_add_trip.xml" value="0.14728240966796868" />
         <entry key="app/src/main/res/layout/fragment_detail_expense.xml" value="0.4781021897810219" />
         <entry key="app/src/main/res/layout/fragment_detail_trip.xml" value="0.5591085130057675" />
@@ -37,7 +37,6 @@
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.26766304347826086" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.2726449275362319" />
         <entry key="app/src/main/res/layout/fragment_trip.xml" value="0.1925003051757813" />
-        <entry key="app/src/main/res/layout/fragment_update_expense.xml" value="0.21739130434782608" />
         <entry key="app/src/main/res/layout/fragment_update_trip.xml" value="0.33839526188111246" />
         <entry key="app/src/main/res/layout/nav_head.xml" value="0.2726449275362319" />
         <entry key="app/src/main/res/layout/row_total_home.xml" value="0.20592705167173253" />
