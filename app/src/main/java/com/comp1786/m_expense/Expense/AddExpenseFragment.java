@@ -92,7 +92,6 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         Bundle bundleReceive = getArguments();
         int tripId = (int) bundleReceive.get("trip_id");
         DatabaseHelper ob =new DatabaseHelper(getContext());
-
         View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
         mMainActivity = (MainActivity) getActivity();
         EditText exName = (EditText) view.findViewById(R.id.ex_name_txt);

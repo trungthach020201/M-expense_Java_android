@@ -54,7 +54,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
         holder.exLocation.setText(expenses.getLocation());
         holder.exAmount.setText(String.valueOf(expenses.getAmount()));
 
-        DatabaseHelper obj = new DatabaseHelper(context);
+//        DatabaseHelper obj = new DatabaseHelper(context);
         holder.btndeleteExInTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
