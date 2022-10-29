@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         UpdateExpenseFragment updateExpenseFragment = new UpdateExpenseFragment();
-
+        System.out.println("fix update "+expenses.toString());
         Bundle bundle = new Bundle();
         bundle.putSerializable("object_expense", expenses);
         updateExpenseFragment.setArguments(bundle);

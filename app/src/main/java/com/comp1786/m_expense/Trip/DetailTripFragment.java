@@ -37,6 +37,7 @@ public class DetailTripFragment extends Fragment {
     private View mView;
     private RecyclerView rcvDetailTrip;
     private MainActivity mMainactivity;
+
     Button addNewEx;
     TextView tripDestination, tripAmount, tripStartDate, tripEndDate, tripType;
     ImageButton btnDeleteByID, btnedit;
@@ -94,7 +95,13 @@ public class DetailTripFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvDetailTrip.setLayoutManager(linearLayoutManager);
-        DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()), getContext());rcvDetailTrip.setAdapter(detailTripAdapter);
+        DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()),new DetailTripAdapter.IClickItemListener(){
+            @Override
+            public void onLickItemTrip(Expenses expenses) {
+                mMainactivity.gotoUpdateExpenseFragment(expenses);
+            }
+        }, getContext());
+        rcvDetailTrip.setAdapter(detailTripAdapter);
         tripDestination = mView.findViewById(R.id.tripDestinationD);
         tripAmount = mView.findViewById(R.id.tripAmountD);
         tripStartDate = mView.findViewById(R.id.tripStartDateD);

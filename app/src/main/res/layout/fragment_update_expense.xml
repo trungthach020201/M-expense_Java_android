@@ -134,12 +134,19 @@
                 android:layout_below="@+id/text6"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown" />
-
+            <EditText
+                android:id="@+id/exup_othertype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/UpdropdownType"
+                android:layout_alignParentStart="true"
+                android:hint="other"
+                android:layout_marginTop="0dp"/>
             <TextView
                 android:id="@+id/text7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/UpdropdownType"
+                android:layout_below="@id/exup_othertype"
                 android:text="Comment"
                 android:textColor="@color/back_ground"
                 android:textSize="20sp" />

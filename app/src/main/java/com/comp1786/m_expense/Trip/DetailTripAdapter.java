@@ -22,6 +22,7 @@ import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
+import com.comp1786.m_expense.model.Trip;
 
 
 import java.util.ArrayList;
@@ -30,10 +31,16 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
 
     private final ArrayList<Expenses> mListexpenses;
     private MainActivity mMainActivity;
+    private IClickItemListener iClickItemListener;
     Context context;
 
-    public DetailTripAdapter(ArrayList<Expenses> listExpensesByTripId, Context context) {
+    public interface IClickItemListener{
+        void onLickItemTrip(Expenses expenses);
+    }
+
+    public DetailTripAdapter(ArrayList<Expenses> listExpensesByTripId, IClickItemListener listenerClick, Context context) {
         this.mListexpenses=listExpensesByTripId;
+        this.iClickItemListener=listenerClick;
         this.context =context;
     }
 
@@ -81,7 +88,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
         holder.btneditExinTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMainActivity.gotoUpdateExpenseFragment(expenses);
+                iClickItemListener.onLickItemTrip(expenses);
             }
         });
     }

@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,15 +20,22 @@ import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
+import com.comp1786.m_expense.model.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UpdateExpenseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpdateExpenseFragment extends Fragment {
+public class UpdateExpenseFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private MainActivity mMainActivity;
+    private EditText exOtherType;
+    private List<String> typesName;
+    int Type_Id;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,29 +86,46 @@ public class UpdateExpenseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_update_expense, container, false);
 
         EditText upExName = (EditText) view.findViewById(R.id.exup_name_txt);
-        EditText upExDate = (EditText) view.findViewById(R.id.ex_date_txt);
+        EditText upExDate = (EditText) view.findViewById(R.id.exup_date_txt);
         EditText upExTime = (EditText) view.findViewById(R.id.exup_time_txt);
         EditText upExAddress = (EditText) view.findViewById(R.id.exup_adress_txt);
         EditText upExAmount = (EditText) view.findViewById(R.id.exup_amount_txt);
         EditText upExComment = (EditText) view.findViewById(R.id.exup_comment_txt);
         Spinner upExType = (Spinner) view.findViewById(R.id.UpdropdownType);
+        exOtherType=(EditText) view.findViewById(R.id.exup_othertype);
         ImageView ExUpImage = (ImageView) view.findViewById(R.id.exup_image);
         Button cancleBtn = (Button) view.findViewById(R.id.btnCancelExUp);
 
          mMainActivity = (MainActivity) getActivity();
 
         upExName.setText(expense.getName());
-        upExDate.setText(expense.getDate());
-        upExTime.setText(expense.getTime());
+        System.out.println(expense.getDate());
+        upExDate.setText(expense.getDate().toString());
+        upExTime.setText(expense.getTime().toString());
         upExAddress.setText(expense.getLocation());
         upExAmount.setText((expense.getAmount()).toString());
         upExComment.setText(expense.getComment());
+
+        DatabaseHelper obj = new DatabaseHelper(getActivity());
+
+        List<Type> types = obj.getListType();
+        typesName=new ArrayList<>();
+
+        for (Type type: types) {
+            typesName.add(type.getName());
+        }
+
+        upExType.setOnItemSelectedListener(this);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, typesName);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        upExType.setAdapter(dataAdapter);
 
         Button updateBtn = (Button) view.findViewById(R.id.btnUpEx);
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseHelper obj = new DatabaseHelper(getActivity());
                 Expenses Upexpense = new Expenses();
 
                 Upexpense.setName(upExName.getText().toString().trim());
@@ -108,10 +134,15 @@ public class UpdateExpenseFragment extends Fragment {
                 Upexpense.setLocation(upExAddress.getText().toString().trim());
                 Upexpense.setComment(upExComment.getText().toString().trim());
                 Upexpense.setAmount(Float.valueOf(upExAmount.getText().toString().trim()));
-                Upexpense.setType_id(1);
+                if(!exOtherType.getText().toString().trim().isEmpty()){
+                    obj.addType(new Type(1,exOtherType.getText().toString()));
+                    Type_Id=types.size()+1;
+                }
+                Upexpense.setTrip_id(expense.getTrip_id());
+                Upexpense.setType_id(Type_Id);
                 Upexpense.setImage("hello");
 
-                long result = obj.updateExpenses(Upexpense,Upexpense.getId());
+                long result = obj.updateExpenses(Upexpense,expense.getId());
                 if(result==-1){
                     Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
                 }else{
@@ -123,5 +154,19 @@ public class UpdateExpenseFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+        Type_Id=position+1;
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        exOtherType.setEnabled(true);
     }
 }
