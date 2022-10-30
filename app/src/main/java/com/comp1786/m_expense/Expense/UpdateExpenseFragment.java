@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
@@ -33,9 +35,11 @@ import java.util.List;
 public class UpdateExpenseFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private MainActivity mMainActivity;
-    private EditText exOtherType;
+    private EditText exOtherType, url;
     private List<String> typesName;
+    ImageView imageView;
     int Type_Id;
+    Button btnLoad;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,8 +96,10 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
         EditText upExAmount = (EditText) view.findViewById(R.id.exup_amount_txt);
         EditText upExComment = (EditText) view.findViewById(R.id.exup_comment_txt);
         Spinner upExType = (Spinner) view.findViewById(R.id.UpdropdownType);
+        url=(EditText) view.findViewById(R.id.ex_url);
+        btnLoad=(Button) view.findViewById(R.id.btnLoad);
         exOtherType=(EditText) view.findViewById(R.id.exup_othertype);
-        ImageView ExUpImage = (ImageView) view.findViewById(R.id.exup_image);
+        imageView = (ImageView) view.findViewById(R.id.exup_image);
         Button cancleBtn = (Button) view.findViewById(R.id.btnCancelExUp);
 
          mMainActivity = (MainActivity) getActivity();
@@ -105,6 +111,9 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
         upExAddress.setText(expense.getLocation());
         upExAmount.setText((expense.getAmount()).toString());
         upExComment.setText(expense.getComment());
+        url.setText(expense.getImage());
+        System.out.println(expense.getImage());
+        loadImage(expense.getImage());
 
         DatabaseHelper obj = new DatabaseHelper(getActivity());
 
@@ -140,7 +149,13 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
                 }
                 Upexpense.setTrip_id(expense.getTrip_id());
                 Upexpense.setType_id(Type_Id);
-                Upexpense.setImage("hello");
+                btnLoad.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        loadImage(url.getText().toString());
+                    }
+                });
+                Upexpense.setImage(url.getText().toString().trim());
 
                 long result = obj.updateExpenses(Upexpense,expense.getId());
                 if(result==-1){
@@ -154,6 +169,13 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
 
 
         return view;
+    }
+    public void loadImage(String image_url){
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher);
+        Glide.with((UpdateExpenseFragment)this).load(image_url).apply(options).into(imageView);
     }
 
     @Override

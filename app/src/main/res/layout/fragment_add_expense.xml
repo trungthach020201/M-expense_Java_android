@@ -197,7 +197,7 @@
             <ImageView
                 android:id="@+id/ex_image"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="200dp"
                 android:layout_below="@+id/text8"
                 android:background="@mipmap/ic_launcher_round" />
 
