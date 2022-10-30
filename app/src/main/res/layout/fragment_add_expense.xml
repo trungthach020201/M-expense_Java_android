@@ -167,12 +167,29 @@
                 android:layout_marginTop="0dp"
                 android:background="@drawable/item_shape"
                 android:padding="10dp"/>
-
+            <EditText
+                android:id="@+id/ex_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ex_comment_txt"
+                android:layout_alignParentStart="true"
+                android:inputType="text"
+                android:layout_marginBottom="5dp"
+                android:hint="Url"
+                android:layout_marginTop="10dp"/>
+            <Button
+                android:id="@+id/btnLoad"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_below="@id/ex_url"
+                android:layout_marginTop="5dp"
+                android:text="Load"
+                android:backgroundTint="@color/design_default_color_primary"/>
             <TextView
                 android:id="@+id/text8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ex_comment_txt"
+                android:layout_below="@id/btnLoad"
                 android:text="Image Report Bill"
                 android:textColor="@color/back_ground"
                 android:textSize="20sp" />
@@ -182,7 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
                 android:layout_below="@+id/text8"
-                android:background="@drawable/logomobile" />
+                android:background="@mipmap/ic_launcher_round" />
 
             <Button
                 android:id="@+id/btnCancelEx"

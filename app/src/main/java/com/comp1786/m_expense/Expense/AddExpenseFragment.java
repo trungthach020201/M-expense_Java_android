@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
+import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
@@ -32,6 +35,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+
+
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddExpenseFragment#newInstance} factory method to
@@ -42,8 +48,10 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     private MainActivity mMainActivity;
     private int mYear,mMonth,mDay,mHour,mMinute;
     private int Type_Id=0;
-    private EditText exOtherType;
+    private EditText exOtherType, url;
     private List<String> typesName;
+    ImageView imageView;
+    Button btnLoad;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -99,7 +107,9 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         EditText exAmount = (EditText) view.findViewById(R.id.ex_amount_txt);
         EditText exComment = (EditText) view.findViewById(R.id.ex_comment_txt);
         exOtherType=(EditText) view.findViewById(R.id.ex_other_txt);
-        ImageView exImage = (ImageView) view.findViewById(R.id.ex_image);
+        imageView = (ImageView) view.findViewById(R.id.ex_image);
+        url=(EditText) view.findViewById(R.id.ex_url);
+        btnLoad=(Button) view.findViewById(R.id.btnLoad);
 
         EditText exDate = (EditText) view.findViewById(R.id.ex_date_txt);
         exDate.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +159,11 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             }
         });
 
+        btnLoad.setOnClickListener(v->{
+            System.out.println(url.getText().toString().trim());
+            loadImage(url.getText().toString().trim());
+        });
+
         final Spinner exType = (Spinner) view.findViewById(R.id.dropdownType);
 
         // Spinner Drop down elements
@@ -189,7 +204,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                 expenses.setTime(exTime.getText().toString().trim());
                 expenses.setAmount(Float.valueOf(exAmount.getText().toString().trim()));
                 expenses.setComment(exComment.getText().toString().trim());
-                expenses.setImage("image");
+                expenses.setImage(url.getText().toString().trim());
                 expenses.setTrip_id(tripId);
                 if(!exOtherType.getText().toString().trim().isEmpty()){
                     obj.addType(new Type(1,exOtherType.getText().toString()));
@@ -210,6 +225,15 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
 
         return view;
 
+    }
+
+    public void loadImage(String image_url){
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher);
+
+        Glide.with((AddExpenseFragment)this).load(image_url).apply(options).into(imageView);
     }
 
 
