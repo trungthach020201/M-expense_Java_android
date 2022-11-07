@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/back_ground"
     android:orientation="vertical"
     android:outlineAmbientShadowColor="#ffffff"
@@ -30,94 +31,83 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="15dp">
 
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Expense Name"
-                android:textColor="@color/back_ground"
-                android:textSize="20sp" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ex_name_txt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text1"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="0dp"/>
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_shape"
+                    android:hint="Expense Name"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ex_name_txt"
-                android:text="Expense Date"
-                android:textColor="@color/back_ground"
-                android:textSize="20sp" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ex_date_txt"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text2" />
-
-            <TextView
-                android:id="@+id/text3"
-                android:layout_width="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ex_name_txt"
-                android:layout_marginStart="98dp"
-                android:layout_marginTop="1dp"
-                android:layout_toEndOf="@+id/text2"
-                android:text="Expense Time"
-                android:textColor="@color/back_ground"
-                android:textSize="20sp" />
+                app:errorEnabled="true">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_shape"
+                    android:hint="Expense Date"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ex_time_txt"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text2"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/ex_date_txt" />
-
-            <TextView
-                android:id="@+id/text4"
-                android:layout_width="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ex_date_txt"
-                android:text="Address"
-                android:textColor="@color/back_ground"
-                android:textSize="20sp" />
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_shape"
+                    android:hint="Expense Time"
+                    android:inputType="time" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ex_adress_txt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text4"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="0dp"/>
+                android:layout_below="@+id/ex_time_txt"
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_shape"
+                    android:hint="Address"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/text5"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ex_amount_txt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ex_adress_txt"
-                android:text="Amount"
-                android:textColor="@color/back_ground"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/ex_amount_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text5"
-                android:inputType="numberDecimal"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="0dp" />
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_shape"
+                    android:hint="Amount"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/text6"
@@ -126,7 +116,7 @@
                 android:layout_below="@+id/ex_amount_txt"
                 android:text="Type Expenses"
                 android:textColor="@color/back_ground"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <Spinner
                 android:id="@+id/dropdownType"
@@ -137,17 +127,22 @@
                 android:spinnerMode="dropdown" />
 
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ex_other_txt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dropdownType"
-                android:layout_alignParentStart="true"
-                android:inputType="text"
-                android:layout_marginBottom="5dp"
-                android:hint="Other"
-                android:layout_marginTop="10dp"
-                 />
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_shape"
+                    android:hint="Other"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <TextView
                 android:id="@+id/text7"
@@ -156,7 +151,7 @@
                 android:layout_below="@id/ex_other_txt"
                 android:text="Comment"
                 android:textColor="@color/back_ground"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/ex_comment_txt"
@@ -166,25 +161,30 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/item_shape"
-                android:padding="10dp"/>
-            <EditText
+                android:padding="10dp" />
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ex_url"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ex_comment_txt"
-                android:layout_alignParentStart="true"
-                android:inputType="text"
-                android:layout_marginBottom="5dp"
-                android:hint="Url"
-                android:layout_marginTop="10dp"/>
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_shape"
+                    android:hint="URL"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/btnLoad"
                 android:layout_width="200dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_below="@id/ex_url"
-                android:layout_marginTop="5dp"
                 android:text="Load"
                 android:backgroundTint="@color/design_default_color_primary"/>
+
             <TextView
                 android:id="@+id/text8"
                 android:layout_width="wrap_content"
@@ -217,10 +217,10 @@
                 android:layout_below="@+id/ex_image"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
                 android:layout_toEndOf="@+id/btnCancelEx"
                 android:backgroundTint="@color/add"
-                android:text="Save"
-                android:layout_marginTop="30dp"/>
+                android:text="Add" />
         </RelativeLayout>
     </ScrollView>
 

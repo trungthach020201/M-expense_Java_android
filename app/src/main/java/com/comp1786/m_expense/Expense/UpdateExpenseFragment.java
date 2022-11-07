@@ -101,6 +101,12 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
         exOtherType=(EditText) view.findViewById(R.id.exup_othertype);
         imageView = (ImageView) view.findViewById(R.id.exup_image);
         Button cancleBtn = (Button) view.findViewById(R.id.btnCancelExUp);
+        cancleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainActivity.onBackPressed();
+            }
+        });
 
          mMainActivity = (MainActivity) getActivity();
 

@@ -30,6 +30,7 @@ import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 import com.comp1786.m_expense.model.Type;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -102,16 +103,16 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         DatabaseHelper ob =new DatabaseHelper(getContext());
         View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
         mMainActivity = (MainActivity) getActivity();
-        EditText exName = (EditText) view.findViewById(R.id.ex_name_txt);
-        EditText exAddress = (EditText) view.findViewById(R.id.ex_adress_txt);
-        EditText exAmount = (EditText) view.findViewById(R.id.ex_amount_txt);
+        TextInputLayout exName = (TextInputLayout) view.findViewById(R.id.ex_name_txt);
+        TextInputLayout exAddress = (TextInputLayout) view.findViewById(R.id.ex_adress_txt);
+        TextInputLayout exAmount = (TextInputLayout) view.findViewById(R.id.ex_amount_txt);
         EditText exComment = (EditText) view.findViewById(R.id.ex_comment_txt);
-        exOtherType=(EditText) view.findViewById(R.id.ex_other_txt);
+        TextInputLayout exOtherType=(TextInputLayout) view.findViewById(R.id.ex_other_txt);
         imageView = (ImageView) view.findViewById(R.id.ex_image);
-        url=(EditText) view.findViewById(R.id.ex_url);
+        TextInputLayout url=(TextInputLayout) view.findViewById(R.id.ex_url);
         btnLoad=(Button) view.findViewById(R.id.btnLoad);
 
-        EditText exDate = (EditText) view.findViewById(R.id.ex_date_txt);
+        TextInputLayout exDate = (TextInputLayout) view.findViewById(R.id.ex_date_txt);
         exDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +125,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                     DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            exDate.setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                            exDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
                         }
                     }, mYear, mMonth, mDay );
                     datePickerDialog.show ();
@@ -132,7 +133,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             }
         });
 
-        EditText exTime = (EditText) view.findViewById(R.id.ex_time_txt);
+        TextInputLayout exTime = (TextInputLayout) view.findViewById(R.id.ex_time_txt);
         exTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +152,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                                 public void onTimeSet(TimePicker view, int hourOfDay,
                                                       int minute) {
 
-                                    exTime.setText(hourOfDay + ":" + minute);
+                                    exTime.getEditText().setText(hourOfDay + ":" + minute);
                                 }
                             }, mHour, mMinute, false);
                     timePickerDialog.show();
@@ -160,8 +161,8 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         });
 
         btnLoad.setOnClickListener(v->{
-            System.out.println(url.getText().toString().trim());
-            loadImage(url.getText().toString().trim());
+            System.out.println(url.getEditText().getText().toString().trim());
+            loadImage(url.getEditText().getText().toString().trim());
         });
 
         final Spinner exType = (Spinner) view.findViewById(R.id.dropdownType);
@@ -198,31 +199,50 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                 DatabaseHelper obj = new DatabaseHelper(getActivity());
                 Expenses expenses = new Expenses();
 
-                expenses.setName(exName.getText().toString().trim());
-                expenses.setDate(exDate.getText().toString().trim());
-                expenses.setLocation(exAddress.getText().toString().trim());
-                expenses.setTime(exTime.getText().toString().trim());
-                expenses.setAmount(Float.valueOf(exAmount.getText().toString().trim()));
-                expenses.setComment(exComment.getText().toString().trim());
-                expenses.setImage(url.getText().toString().trim());
-                expenses.setTrip_id(tripId);
-                if(!exOtherType.getText().toString().trim().isEmpty()){
-                    obj.addType(new Type(1,exOtherType.getText().toString()));
-                    Type_Id=types.size()+1;
+                String ExName = exName.getEditText().getText().toString().trim();
+                String ExDate = exDate.getEditText().getText().toString().trim();
+                String ExLocation = exAddress.getEditText().getText().toString().trim();
+                String ExTime = exTime.getEditText().getText().toString().trim();
+                Float ExAmount = Float.valueOf(exAmount.getEditText().getText().toString().trim());
+                String ExURL = url.getEditText().getText().toString().trim();
+                String OtherType = exOtherType.getEditText().getText().toString().trim();
+
+                if(ExName.isEmpty()){
+                    exName.setError("Enter Expense Name please!!!");
+                }else if(ExDate.isEmpty()){
+                    exDate.setError("Choose Date please!!!");
+                }else if (ExLocation.isEmpty()){
+                    exAddress.setError("Enter please!!!");
+                }else if(ExTime.isEmpty()){
+                    exTime.setError("Choose Time please!!!");
+                }else if (ExAmount==0){
+                    exAmount.setError("Enter amount expense please!!!");
                 }
-                expenses.setType_id(Type_Id);
-                long result = obj.addExpense(expenses);
-                if(result==-1){
-                    Toast.makeText(getContext(),"Add Failed", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(),"Add successfully!", Toast.LENGTH_SHORT).show();
-                    mMainActivity.onBackPressed();
+                else{
+                    expenses.setName(ExName);
+                    expenses.setDate(ExDate);
+                    expenses.setLocation(ExLocation);
+                    expenses.setTime(ExTime);
+                    expenses.setAmount(ExAmount);
+                    expenses.setComment(exComment.getText().toString().trim());
+                    expenses.setImage(ExURL);
+                    expenses.setTrip_id(tripId);
+                    if (!OtherType.isEmpty()) {
+                        obj.addType(new Type(1, exOtherType.getEditText().getText().toString()));
+                        Type_Id = types.size() + 1;
+                    }
+                    expenses.setType_id(Type_Id);
+                    long result = obj.addExpense(expenses);
+                    if (result == -1) {
+                        Toast.makeText(getContext(), "Add Failed", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Add successfully!", Toast.LENGTH_SHORT).show();
+                        mMainActivity.onBackPressed();
+                    }
                 }
 
             }
         });
-
-
         return view;
 
     }

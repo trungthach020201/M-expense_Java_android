@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Trip.AddTripFragment"
-    android:background="@color/back_ground">
+    android:background="@color/white">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/item"
+        android:background="@color/back_ground"
         android:gravity="center"
         android:text="New Trip Request"
         android:textAlignment="center"
@@ -35,7 +36,7 @@
             android:textSize="20sp"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
-            android:textColor="@color/white" />
+            android:textColor="@color/back_ground" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -47,89 +48,82 @@
                 android:layout_height="wrap_content"
                 android:text="Internal"
                 android:textSize="18sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/radio_external"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="External"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
         </RadioGroup>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trip Name"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tripName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Destination"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
+            app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_shape"
+                android:hint="Trip Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tripDestination"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Date"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_shape"
+                android:hint="Trip Destination"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tripStartDate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:ems="15"
-            android:focusable="false"
-            android:hint="DD/MM/YYYY"
-            android:paddingLeft="10dp"
-            android:background="@drawable/edit_text"/>
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="End Date"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <EditText
+            app:errorEnabled="true"
+            app:hintTextColor="@color/black">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date_picker_action_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:background="@drawable/item_shape"
+                android:hint="Start Date"
+                android:inputType="date"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tripEndDate"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:ems="15"
-            android:focusable="false"
-            android:hint="DD/MM/YYYY"
-            android:background="@drawable/edit_text"/>
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@id/date_picker_action_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_shape"
+                android:hint="End Date"
+                android:inputType="date"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trip Risk"
             android:textSize="20sp"
-            android:layout_marginTop="15dp"
             android:textStyle="bold"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -141,14 +135,14 @@
                 android:layout_height="wrap_content"
                 android:text="Yes"
                 android:textSize="18sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/radio_no"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="No"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
         </RadioGroup>
 
         <TextView
@@ -156,18 +150,17 @@
             android:layout_height="wrap_content"
             android:text="Description"
             android:textSize="20sp"
-            android:layout_marginTop="15dp"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             />
         <EditText
             android:id="@+id/tripDescription"
             android:layout_width="match_parent"
             android:inputType="textMultiLine"
-            android:layout_height="100dp"
+            android:background="@drawable/item_shape"
+            android:layout_height="90dp"
             android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text"/>
+            android:layout_marginTop="5dp"/>
         <Button
             android:id="@+id/tripBtnAdd"
             android:layout_width="match_parent"

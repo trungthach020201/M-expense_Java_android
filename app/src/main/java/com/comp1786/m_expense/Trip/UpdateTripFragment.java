@@ -21,6 +21,8 @@ import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Trip;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 
@@ -87,10 +89,16 @@ public class UpdateTripFragment extends Fragment {
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_update_trip, container,false);
 
-        EditText tripName = (EditText) view.findViewById(R.id.tripName);
-        EditText tripDestination = (EditText) view.findViewById(R.id.tripDestination);
-        EditText tripStartDate = (EditText) view.findViewById(R.id.tripStartDate);
-        EditText tripEndDate = (EditText) view.findViewById(R.id.tripEndDate);
+//        EditText tripName = (EditText) view.findViewById(R.id.tripName);
+//        EditText tripDestination = (EditText) view.findViewById(R.id.tripDestination);
+//        EditText tripStartDate = (EditText) view.findViewById(R.id.tripStartDate);
+//        EditText tripEndDate = (EditText) view.findViewById(R.id.tripEndDate);
+//        EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
+
+        TextInputLayout tripName = (TextInputLayout) view.findViewById(R.id.tripName);
+        TextInputLayout tripDestination = (TextInputLayout) view.findViewById(R.id.tripDestination);
+        TextInputLayout tripStartDate = (TextInputLayout) view.findViewById(R.id.tripStartDate);
+        TextInputLayout tripEndDate = (TextInputLayout) view.findViewById(R.id.tripEndDate);
         EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
 
         RadioButton internal=view.findViewById(R.id.radio_internal);
@@ -113,10 +121,10 @@ public class UpdateTripFragment extends Fragment {
 
         mMainActivity = (MainActivity) getActivity();
 
-        tripName.setText(trip.getName());
-        tripDestination.setText(trip.getDestination());
-        tripStartDate.setText(trip.getStart_Date());
-        tripEndDate.setText(trip.getEnd_Date());
+        tripName.getEditText().setText(trip.getName());
+        tripDestination.getEditText().setText(trip.getDestination());
+        tripStartDate.getEditText().setText(trip.getStart_Date());
+        tripEndDate.getEditText().setText(trip.getEnd_Date());
         tripDescription.setText(trip.getDescription());
 
 
@@ -132,7 +140,7 @@ public class UpdateTripFragment extends Fragment {
                     DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            tripStartDate.setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                            tripStartDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
                         }
                     }, mYear, mMonth, mDay );
                     datePickerDialog.show ();
@@ -153,7 +161,7 @@ public class UpdateTripFragment extends Fragment {
                     DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            tripEndDate.setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                            tripEndDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
                         }
                     }, mYear, mMonth, mDay );
                     datePickerDialog.show ();
@@ -200,25 +208,38 @@ public class UpdateTripFragment extends Fragment {
                 DatabaseHelper obj = new DatabaseHelper(getActivity());
                 Trip Uptrip = new Trip();
 
-                Uptrip.setName(tripName.getText().toString().trim());
-                Uptrip.setDestination(tripDestination.getText().toString().trim().toString());
-                Uptrip.setStart_Date(tripStartDate.getText().toString().trim().toString());
-                Uptrip.setEnd_Date(tripEndDate.getText().toString().trim().toString());
-                Uptrip.setDescription(tripDescription.getText().toString().trim().toString());
-                Uptrip.setRisk(risk_type);
-                Uptrip.setType(type_trip);
+                String TripName = tripName.getEditText().getText().toString().trim();
+                String TripDes = tripDestination.getEditText().getText().toString().trim().toString();
+                String TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
+                String TripEnd = tripEndDate.getEditText().getText().toString().trim().toString();
+                if (TripName.isEmpty()) {
+                    tripName.setError("Input Trip Name Please !!!");
+                }else if (TripDes.isEmpty()){
+                    tripDestination.setError("Input Destination please !!!");
+                }else if (TripStart.isEmpty()){
+                    tripStartDate.setError("Choose start date please !!!");
+                }else if (TripEnd.isEmpty()){
+                    tripEndDate.setError("Choose end date please !!!");
+                }
+                else {
+                    Uptrip.setName(TripName);
+                    Uptrip.setDestination(TripDes);
+                    Uptrip.setStart_Date(TripStart);
+                    Uptrip.setEnd_Date(TripEnd);
+                    Uptrip.setDescription(tripDescription.getText().toString().trim().toString());
+                    Uptrip.setRisk(risk_type);
+                    Uptrip.setType(type_trip);
 
-
-                long result = obj.updateTrip(Uptrip,trip.getId());
-                if(result==-1){
-                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(),"Update successfully!", Toast.LENGTH_SHORT).show();
-                    mMainActivity.backToTripFragment();
+                    long result = obj.updateTrip(Uptrip, trip.getId());
+                    if (result == -1) {
+                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Update successfully!", Toast.LENGTH_SHORT).show();
+                        mMainActivity.backToTripFragment();
+                    }
                 }
             }
         });
-
         return view;
     }
 }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Trip;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 
@@ -83,21 +86,21 @@ public class AddTripFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_add_trip, container,false);
 
-        EditText tripName = (EditText) view.findViewById(R.id.tripName);
-        EditText tripDestination = (EditText) view.findViewById(R.id.tripDestination);
-        EditText tripStartDate = (EditText) view.findViewById(R.id.tripStartDate);
-        EditText tripEndDate = (EditText) view.findViewById(R.id.tripEndDate);
+        TextInputLayout tripName = (TextInputLayout) view.findViewById(R.id.tripName);
+        TextInputLayout tripDestination = (TextInputLayout) view.findViewById(R.id.tripDestination);
+        TextInputLayout tripStartDate = (TextInputLayout) view.findViewById(R.id.tripStartDate);
+        TextInputLayout tripEndDate = (TextInputLayout) view.findViewById(R.id.tripEndDate);
+        TextInputEditText date_picker_action_start = (TextInputEditText) view.findViewById(R.id.date_picker_action_start);
         EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
 
         Button tripBtnAdd = (Button) view.findViewById(R.id.tripBtnAdd);
 
         RadioGroup groupType =(RadioGroup) view.findViewById(R.id.groupType);
         RadioGroup groupRisk =(RadioGroup) view.findViewById(R.id.groupRisk);
-
-        tripStartDate.setOnClickListener(new View.OnClickListener() {
+        date_picker_action_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v == tripStartDate) {
+                if (v == date_picker_action_start) {
                     final Calendar calendar = Calendar.getInstance ();
                     mYear = calendar.get ( Calendar.YEAR );
                     mMonth = calendar.get ( Calendar.MONTH );
@@ -106,7 +109,7 @@ public class AddTripFragment extends Fragment {
                     DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            tripStartDate.setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                            tripStartDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
                         }
                     }, mYear, mMonth, mDay );
                     datePickerDialog.show ();
@@ -126,7 +129,7 @@ public class AddTripFragment extends Fragment {
                     DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            tripEndDate.setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                            tripEndDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
                         }
                     }, mYear, mMonth, mDay );
                     datePickerDialog.show ();
@@ -169,21 +172,35 @@ public class AddTripFragment extends Fragment {
             public void onClick(View v) {
                 DatabaseHelper obj = new DatabaseHelper(getActivity());
                 Trip trip = new Trip();
+                String TripName = tripName.getEditText().getText().toString().trim();
+                String TripDes = tripDestination.getEditText().getText().toString().trim().toString();
+                String TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
+                String TripEnd = tripEndDate.getEditText().getText().toString().trim().toString();
+                if (TripName.isEmpty()) {
+                    tripName.setError("Input Trip Name Please !!!");
+                }else if (TripDes.isEmpty()){
+                    tripDestination.setError("Input Destination please !!!");
+                }else if (TripStart.isEmpty()){
+                    tripStartDate.setError("Choose start date please !!!");
+                }else if (TripEnd.isEmpty()){
+                    tripEndDate.setError("Choose end date please !!!");
+                }
+                else {
+                    trip.setName(TripName);
+                    trip.setDestination(TripDes);
+                    trip.setStart_Date(TripStart);
+                    trip.setEnd_Date(TripEnd);
+                    trip.setDescription(tripDescription.getText().toString().trim().toString());
+                    trip.setRisk(risk_type);
+                    trip.setType(type_trip);
 
-                trip.setName(tripName.getText().toString().trim());
-                trip.setDestination(tripDestination.getText().toString().trim().toString());
-                trip.setStart_Date(tripStartDate.getText().toString().trim().toString());
-                trip.setEnd_Date(tripEndDate.getText().toString().trim().toString());
-                trip.setDescription(tripDescription.getText().toString().trim().toString());
-                trip.setRisk(risk_type);
-                trip.setType(type_trip);
-
-                long result = obj.addTrip(trip);
-                if(result==-1){
-                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(),"Add successfully!", Toast.LENGTH_SHORT).show();
-                    mMainActivity.backToTripFragment();
+                    long result = obj.addTrip(trip);
+                    if (result == -1) {
+                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Add successfully!", Toast.LENGTH_SHORT).show();
+                        mMainActivity.backToTripFragment();
+                    }
                 }
             }
         });

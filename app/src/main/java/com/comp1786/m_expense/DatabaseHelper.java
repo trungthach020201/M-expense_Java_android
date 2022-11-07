@@ -170,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         results.moveToFirst();
         while (!results.isAfterLast()) {
             Float totalExpenses=getExpensesByTripId(results.getInt(0));
-            Trip trip=new Trip(results.getInt(0),results.getString(1),results.getString(2),results.getString(3).toString(),results.getString(4).toString(),results.getInt(5),results.getString(7),results.getInt(6),totalExpenses);
+            Trip trip=new Trip(results.getInt(0),results.getString(1),results.getString(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(7),results.getInt(6),totalExpenses);
             System.out.println(trip.toString());
             trips.add(trip);
             results.moveToNext();
