@@ -54,13 +54,16 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
     @Override
     public void onBindViewHolder(@NonNull DetailTripAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Expenses expenses = mListexpenses.get(position);
-
+        String type = "";
+       if((expenses.getType_id()).equals(1)){
+           type = "Food";
+       }
         holder.exDate.setText(expenses.getDate());
         holder.exTime.setText(expenses.getTime());
-        holder.exType.setText(String.valueOf(expenses.getType_id()));
+        holder.exType.setText(type);
         holder.exLocation.setText(expenses.getLocation());
         holder.exAmount.setText(String.valueOf(expenses.getAmount()));
-
+        holder.exName.setText(expenses.getName());
 //        DatabaseHelper obj = new DatabaseHelper(context);
         holder.btndeleteExInTrip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +102,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView exType, exLocation, exAmount, exDate, exTime;
+        TextView exType, exLocation, exAmount, exDate, exTime,exName;
         ImageView exImage;
         LinearLayout linearLayout;
         ImageView btndeleteExInTrip, btneditExinTrip;
@@ -111,7 +114,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
             exDate = itemView.findViewById(R.id.Dex_dateAdd_txt);
             exTime = itemView.findViewById(R.id.Dex_time_txt);
             exImage = itemView.findViewById(R.id.Dex_imgExpense);
-
+            exName = itemView.findViewById(R.id.Dex_expense_name_txt);
             linearLayout = itemView.findViewById(R.id.homeLayout);
             btndeleteExInTrip = itemView.findViewById(R.id.deleteExpenseInTrip);
             btneditExinTrip = itemView.findViewById(R.id.editExpenseInTrip);

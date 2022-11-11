@@ -203,7 +203,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                 String ExDate = exDate.getEditText().getText().toString().trim();
                 String ExLocation = exAddress.getEditText().getText().toString().trim();
                 String ExTime = exTime.getEditText().getText().toString().trim();
-                Float ExAmount = Float.valueOf(exAmount.getEditText().getText().toString().trim());
+                String ExAmount = exAmount.getEditText().getText().toString().trim();
                 String ExURL = url.getEditText().getText().toString().trim();
                 String OtherType = exOtherType.getEditText().getText().toString().trim();
 
@@ -215,7 +215,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                     exAddress.setError("Enter please!!!");
                 }else if(ExTime.isEmpty()){
                     exTime.setError("Choose Time please!!!");
-                }else if (ExAmount==0){
+                }else if (ExAmount.isEmpty()){
                     exAmount.setError("Enter amount expense please!!!");
                 }
                 else{
@@ -223,7 +223,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                     expenses.setDate(ExDate);
                     expenses.setLocation(ExLocation);
                     expenses.setTime(ExTime);
-                    expenses.setAmount(ExAmount);
+                    expenses.setAmount(Float.valueOf(ExAmount));
                     expenses.setComment(exComment.getText().toString().trim());
                     expenses.setImage(ExURL);
                     expenses.setTrip_id(tripId);

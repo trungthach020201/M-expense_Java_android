@@ -42,9 +42,13 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
         Expenses expenses = mListExpense.get(position);
+        String type = "";
+        if((expenses.getType_id()).equals(1)){
+            type="Food";
+        }
         holder.exDate.setText(expenses.getDate());
         holder.exTime.setText(expenses.getTime());
-        holder.exType.setText(String.valueOf(expenses.getType_id()));
+        holder.exType.setText(type);
         holder.exName.setText(expenses.getName());
         holder.exLocation.setText(expenses.getLocation());
         holder.exAmount.setText(String.valueOf(expenses.getAmount()));

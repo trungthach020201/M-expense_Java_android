@@ -133,7 +133,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dropdownType"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                android:layout_marginTop="5dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -168,7 +169,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ex_comment_txt"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                android:layout_marginTop="5dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

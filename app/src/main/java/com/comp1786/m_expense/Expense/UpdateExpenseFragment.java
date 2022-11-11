@@ -1,5 +1,7 @@
 package com.comp1786.m_expense.Expense;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +25,11 @@ import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
-import com.comp1786.m_expense.model.Trip;
 import com.comp1786.m_expense.model.Type;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -36,6 +41,7 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
 
     private MainActivity mMainActivity;
     private EditText exOtherType, url;
+    private int mYear,mMonth,mDay,mHour,mMinute;
     private List<String> typesName;
     ImageView imageView;
     int Type_Id;
@@ -89,16 +95,16 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
 
         View view = inflater.inflate(R.layout.fragment_update_expense, container, false);
 
-        EditText upExName = (EditText) view.findViewById(R.id.exup_name_txt);
-        EditText upExDate = (EditText) view.findViewById(R.id.exup_date_txt);
-        EditText upExTime = (EditText) view.findViewById(R.id.exup_time_txt);
-        EditText upExAddress = (EditText) view.findViewById(R.id.exup_adress_txt);
-        EditText upExAmount = (EditText) view.findViewById(R.id.exup_amount_txt);
+        TextInputLayout upExName = (TextInputLayout) view.findViewById(R.id.exup_name_txt);
+        TextInputLayout upExDate = (TextInputLayout) view.findViewById(R.id.exup_date_txt);
+        TextInputLayout upExTime = (TextInputLayout) view.findViewById(R.id.exup_time_txt);
+        TextInputLayout upExAddress = (TextInputLayout) view.findViewById(R.id.exup_adress_txt);
+        TextInputLayout upExAmount = (TextInputLayout) view.findViewById(R.id.exup_amount_txt);
         EditText upExComment = (EditText) view.findViewById(R.id.exup_comment_txt);
         Spinner upExType = (Spinner) view.findViewById(R.id.UpdropdownType);
-        url=(EditText) view.findViewById(R.id.ex_url);
+        TextInputLayout url=(TextInputLayout) view.findViewById(R.id.ex_url);
         btnLoad=(Button) view.findViewById(R.id.btnLoad);
-        exOtherType=(EditText) view.findViewById(R.id.exup_othertype);
+        TextInputLayout exOtherType=(TextInputLayout) view.findViewById(R.id.exup_othertype);
         imageView = (ImageView) view.findViewById(R.id.exup_image);
         Button cancleBtn = (Button) view.findViewById(R.id.btnCancelExUp);
         cancleBtn.setOnClickListener(new View.OnClickListener() {
@@ -108,16 +114,64 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
             }
         });
 
-         mMainActivity = (MainActivity) getActivity();
 
-        upExName.setText(expense.getName());
+        upExDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == upExDate) {
+                    final Calendar calendar = Calendar.getInstance ();
+                    mYear = calendar.get ( Calendar.YEAR );
+                    mMonth = calendar.get ( Calendar.MONTH );
+                    mDay = calendar.get ( Calendar.DAY_OF_MONTH );
+                    //show dialog
+                    DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            upExDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                        }
+                    }, mYear, mMonth, mDay );
+                    datePickerDialog.show ();
+                }
+            }
+        });
+
+        upExTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == upExTime) {
+
+                    // Get Current Time
+                    final Calendar c = Calendar.getInstance();
+                    mHour = c.get(Calendar.HOUR_OF_DAY);
+                    mMinute = c.get(Calendar.MINUTE);
+
+                    // Launch Time Picker Dialog
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                            new TimePickerDialog.OnTimeSetListener() {
+
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay,
+                                                      int minute) {
+
+                                    upExTime.getEditText().setText(hourOfDay + ":" + minute);
+                                }
+                            }, mHour, mMinute, false);
+                    timePickerDialog.show();
+                }
+            }
+        });
+
+
+        mMainActivity = (MainActivity) getActivity();
+
+        upExName.getEditText().setText(expense.getName());
         System.out.println(expense.getDate());
-        upExDate.setText(expense.getDate().toString());
-        upExTime.setText(expense.getTime().toString());
-        upExAddress.setText(expense.getLocation());
-        upExAmount.setText((expense.getAmount()).toString());
+        upExDate.getEditText().setText(expense.getDate().toString());
+        upExTime.getEditText().setText(expense.getTime().toString());
+        upExAddress.getEditText().setText(expense.getLocation());
+        upExAmount.getEditText().setText((expense.getAmount()).toString());
         upExComment.setText(expense.getComment());
-        url.setText(expense.getImage());
+        url.getEditText().setText(expense.getImage());
         System.out.println(expense.getImage());
         loadImage(expense.getImage());
 
@@ -142,38 +196,54 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 Expenses Upexpense = new Expenses();
-
-                Upexpense.setName(upExName.getText().toString().trim());
-                Upexpense.setDate(upExDate.getText().toString().trim());
-                Upexpense.setTime(upExTime.getText().toString().trim());
-                Upexpense.setLocation(upExAddress.getText().toString().trim());
-                Upexpense.setComment(upExComment.getText().toString().trim());
-                Upexpense.setAmount(Float.valueOf(upExAmount.getText().toString().trim()));
-                if(!exOtherType.getText().toString().trim().isEmpty()){
-                    obj.addType(new Type(1,exOtherType.getText().toString()));
-                    Type_Id=types.size()+1;
-                }
-                Upexpense.setTrip_id(expense.getTrip_id());
-                Upexpense.setType_id(Type_Id);
-                btnLoad.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        loadImage(url.getText().toString());
+                String ExName = upExName.getEditText().getText().toString().trim();
+                String ExDate = upExDate.getEditText().getText().toString().trim();
+                String ExLocation = upExAddress.getEditText().getText().toString().trim();
+                String ExTime = upExTime.getEditText().getText().toString().trim();
+                String ExAmount = upExAmount.getEditText().getText().toString().trim();
+                String ExURL = url.getEditText().getText().toString().trim();
+                String OtherType = exOtherType.getEditText().getText().toString().trim();
+                if (ExName.isEmpty()) {
+                    upExName.setError("Enter Expense Name please!!!");
+                } else if (ExDate.isEmpty()) {
+                    upExDate.setError("Choose Date please!!!");
+                } else if (ExLocation.isEmpty()) {
+                    upExAddress.setError("Enter please!!!");
+                } else if (ExTime.isEmpty()) {
+                    upExTime.setError("Choose Time please!!!");
+                } else if (ExAmount.isEmpty()) {
+                    upExAmount.setError("Enter amount expense please!!!");
+                } else {
+                    Upexpense.setName(ExName);
+                    Upexpense.setDate(ExDate);
+                    Upexpense.setTime(ExTime);
+                    Upexpense.setLocation(ExLocation);
+                    Upexpense.setComment(upExComment.getText().toString().trim());
+                    Upexpense.setAmount(Float.valueOf(ExAmount));
+                    if (!OtherType.isEmpty()) {
+                        obj.addType(new Type(1, exOtherType.getEditText().getText().toString()));
+                        Type_Id = types.size() + 1;
                     }
-                });
-                Upexpense.setImage(url.getText().toString().trim());
+                    Upexpense.setTrip_id(expense.getTrip_id());
+                    Upexpense.setType_id(Type_Id);
+                    btnLoad.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            loadImage(ExURL);
+                        }
+                    });
+                    Upexpense.setImage(ExURL);
 
-                long result = obj.updateExpenses(Upexpense,expense.getId());
-                if(result==-1){
-                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(),"Update successfully!", Toast.LENGTH_SHORT).show();
-                    mMainActivity.backToTripFragment();
+                    long result = obj.updateExpenses(Upexpense, expense.getId());
+                    if (result == -1) {
+                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Update successfully!", Toast.LENGTH_SHORT).show();
+                        mMainActivity.onBackPressed();
+                    }
                 }
             }
         });
-
-
         return view;
     }
     public void loadImage(String image_url){

@@ -29,8 +29,7 @@
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.M_expense.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden">
-
+            android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 
