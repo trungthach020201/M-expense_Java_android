@@ -19,26 +19,26 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="32dp"
             android:text="Address:"
             android:textColor="@color/white"
             android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Dex_imgExpense"
             app:layout_constraintTop_toBottomOf="@+id/Dex_expense_type_txt" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="64dp"
             android:text="VND"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.876" />
+            app:layout_constraintVertical_bias="0.618" />
 
         <TextView
             android:id="@+id/Dex_dateAdd_txt"
@@ -121,8 +121,8 @@
             android:id="@+id/Dex_expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="28dp"
             android:text="145.000"
             android:textColor="@color/white"
             android:textSize="15sp"
