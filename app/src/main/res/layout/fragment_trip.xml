@@ -9,56 +9,69 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         app:cardBackgroundColor="@color/back_ground">
-        <TextView
-            android:id="@+id/texttrip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trips"
-            android:textSize="30sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnAddTrip"
-            android:layout_marginStart="230dp"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue"
-            android:text="Add"
-            android:textColor="@color/back_ground" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnDeleteAllTrip"
-            android:layout_marginStart="330dp"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/red"
-            android:text="Delete All"
-            android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/texttrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trips"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnAddTrip"
+                app:layout_constraintHorizontal_bias="0.103"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btnAddTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="84dp"
+                android:backgroundTint="@color/blue"
+                android:text="Add"
+                android:textColor="@color/back_ground"
+                app:layout_constraintEnd_toStartOf="@+id/btnDeleteAllTrip"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnDeleteAllTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="44dp"
+                android:backgroundTint="@color/red"
+                android:text="Delete All"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
     <SearchView
         android:id="@+id/searchTrip"
-        android:layout_width="430dp"
+        android:layout_width="match_parent"
         android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:background="@drawable/search_shape"
         android:queryHint="Search Trip Here....." />
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
         android:descendantFocusability="blocksDescendants">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleViewTrip"
-            android:layout_width="1400px"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/data_row_trip" />
     </ScrollView>

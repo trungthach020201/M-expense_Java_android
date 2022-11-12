@@ -18,12 +18,12 @@
             android:title="Expenses" />
     </group>
 
-    <item android:title="Settings">
+    <item android:title="Helps">
         <menu>
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/settings_icon"
-                android:title="Settings" />
+                android:title="Helps" />
         </menu>
     </item>
 

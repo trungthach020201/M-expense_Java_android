@@ -9,8 +9,9 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
      app:cardBackgroundColor="@color/back_ground">
+        
         <TextView
             android:id="@+id/texttrip"
             android:layout_width="wrap_content"
@@ -22,35 +23,25 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"/>
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnAddExpense"
-            android:layout_marginStart="350dp"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue"
-            android:text="Add"
-            android:textColor="@color/back_ground" />
-
     </androidx.cardview.widget.CardView>
     <SearchView
         android:id="@+id/searchTrip"
-        android:layout_width="430dp"
+        android:layout_width="match_parent"
         android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:background="@drawable/search_shape"
         android:queryHint="Search Trip Here....." />
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
         android:descendantFocusability="blocksDescendants">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewExpense"
-        android:layout_width="1400px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/data_row_expense" />
     </ScrollView>

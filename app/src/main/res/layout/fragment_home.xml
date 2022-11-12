@@ -106,13 +106,13 @@
         android:textStyle="bold"
         android:textSize="18sp"/>
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:descendantFocusability="blocksDescendants">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewHome"
-        android:layout_width="1300px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/data_row" />
 </ScrollView>

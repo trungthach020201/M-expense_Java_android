@@ -18,12 +18,12 @@
         android:textSize="30dp"
         android:textStyle="bold" />
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:descendantFocusability="blocksDescendants">
     <LinearLayout
-        android:layout_width="1400px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="40dp"
