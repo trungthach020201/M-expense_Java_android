@@ -116,8 +116,8 @@ public class DetailTripFragment extends Fragment {
 
         String type;
         if(trip.getType() != 1){
-            type ="internal";
-        }else type="external";
+            type ="Domestic";
+        }else type="International";
 
         tripType.setText(type);
 

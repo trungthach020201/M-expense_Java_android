@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.comp1786.m_expense.R;
+import com.comp1786.m_expense.Trip.TripAdapter;
 import com.comp1786.m_expense.model.Expenses;
+import com.comp1786.m_expense.model.Trip;
 
 import java.util.List;
 
@@ -20,8 +22,14 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
 
     private List<Expenses> mListExpense;
 
-    public ExpenseAdapter(List<Expenses> ListExpense) {
+    private ExpenseAdapter.IClickItemListener iClickItemListener;
+
+    public interface IClickItemListener{
+        void onLickItemExpense(Expenses expenses);
+    }
+    public ExpenseAdapter(List<Expenses> ListExpense, IClickItemListener listenerClick) {
     this.mListExpense=ListExpense;
+    this.iClickItemListener=listenerClick;
     }
 
     @NonNull
@@ -52,6 +60,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         holder.exName.setText(expenses.getName());
         holder.exLocation.setText(expenses.getLocation());
         holder.exAmount.setText(String.valueOf(expenses.getAmount()));
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemListener.onLickItemExpense(expenses);
+            }
+        });
 
     }
 

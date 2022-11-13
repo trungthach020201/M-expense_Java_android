@@ -14,6 +14,9 @@ import android.widget.SearchView;
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
+import com.comp1786.m_expense.Trip.TripAdapter;
+import com.comp1786.m_expense.model.Expenses;
+import com.comp1786.m_expense.model.Trip;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +77,12 @@ public class ExpenseFragment extends Fragment {
         mMainactivity = (MainActivity) getActivity();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvExpense.setLayoutManager(linearLayoutManager);
-        ExpenseAdapter expenseAdapter = new ExpenseAdapter(obj.getListExpense());
+        ExpenseAdapter expenseAdapter = new ExpenseAdapter(obj.getListExpense(), new ExpenseAdapter.IClickItemListener() {
+            @Override
+            public void onLickItemExpense(Expenses expenses) {
+                mMainactivity.gotoDetailExpenseFragment(expenses);
+            }
+        });
         rcvExpense.setAdapter(expenseAdapter);
 
         SearchView searchView;

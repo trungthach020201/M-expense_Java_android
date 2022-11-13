@@ -46,7 +46,7 @@
             <RadioButton android:id="@+id/radio_internal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Internal"
+                android:text="International"
                 android:textSize="18sp"
                 android:textColor="@color/black"/>
             <RadioButton
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="External"
+                android:text="Domestic"
                 android:textColor="@color/black"/>
         </RadioGroup>
         <com.google.android.material.textfield.TextInputLayout

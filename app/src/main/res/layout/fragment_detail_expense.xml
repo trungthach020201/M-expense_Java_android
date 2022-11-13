@@ -3,12 +3,203 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Expense.DetailExpenseFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context=".Expense.DetailExpenseFragment"
+    android:background="@color/back_ground"
+    android:orientation="vertical">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/silver"
+        android:padding="20dp">
 
+        <TextView
+            android:id="@+id/exD_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="Expense Name"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exD_Name"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:text="Expense Type: "
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/exD_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exD_Name"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/text2"
+            android:text="type"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/exD_delete"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_toStartOf="@+id/exD_Edit"
+            android:background="@color/silver"
+            android:src="@drawable/delete_icon" />
+
+        <ImageButton
+            android:id="@+id/exD_Edit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:background="@color/silver"
+            android:src="@drawable/edit_icon" />
+
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text2"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:text="Reimbursable Amount"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/exD_Amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt1"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:text="1.000.000"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exD_type"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="44dp"
+            android:layout_toEndOf="@+id/exD_Amount"
+            android:text="VND"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exD_Amount"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:text="Address: "
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/exD_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exD_Amount"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/txt3"
+            android:text="Can Tho"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt3"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:text="Date: "
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/exD_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exD_address"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/text4"
+            android:text="20/11/2022"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text4"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:text="Time: "
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/exD_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exD_date"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="11dp"
+            android:layout_toEndOf="@+id/text5"
+            android:text="12:20 AM"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text5"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="11dp"
+            android:text="Image Report"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/exD_image"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:layout_below="@+id/text6"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/logomobile" />
+
+        <Button
+            android:id="@+id/exD_export_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:text="Export Expense" />
+    </RelativeLayout>
+
+</ScrollView>
 </FrameLayout>

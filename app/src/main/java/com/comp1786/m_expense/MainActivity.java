@@ -17,19 +17,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.comp1786.m_expense.Expense.AddExpenseFragment;
+import com.comp1786.m_expense.Expense.DetailExpenseFragment;
 import com.comp1786.m_expense.Expense.UpdateExpenseFragment;
 import com.comp1786.m_expense.Trip.AddTripFragment;
 import com.comp1786.m_expense.Trip.DetailTripFragment;
 import com.comp1786.m_expense.Expense.ExpenseFragment;
 import com.comp1786.m_expense.Home.HomeFragment;
-import com.comp1786.m_expense.Setting.SettingFragment;
+import com.comp1786.m_expense.Setting.HelpsFragment;
 import com.comp1786.m_expense.Trip.TripFragment;
 import com.comp1786.m_expense.Trip.UpdateTripFragment;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 import com.google.android.material.navigation.NavigationView;
-
-import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity
        implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,11 +73,10 @@ public class MainActivity extends AppCompatActivity
                 replaceFragment(new ExpenseFragment());
                 break;
             case R.id.nav_setting:
-                replaceFragment(new SettingFragment());
+                replaceFragment(new HelpsFragment());
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
-        
         return true;
     }
 
@@ -153,7 +151,7 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         UpdateExpenseFragment updateExpenseFragment = new UpdateExpenseFragment();
-        System.out.println("fix update "+expenses.toString());
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("object_expense", expenses);
         updateExpenseFragment.setArguments(bundle);
@@ -162,4 +160,26 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.addToBackStack(null).commit();
     }
 
+    public  void gotoDetailExpenseFragment(Expenses expenses){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        DetailExpenseFragment detailExpenseFragment = new DetailExpenseFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_expense", expenses);
+        detailExpenseFragment.setArguments(bundle);
+
+        fragmentTransaction.replace(R.id.fragment_container,detailExpenseFragment,null);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    public void backToExpenseFragment (){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        ExpenseFragment expenseFragment = new ExpenseFragment();
+
+        fragmentTransaction.replace(R.id.fragment_container,expenseFragment,null);
+        fragmentTransaction.commit();
+    }
 }
