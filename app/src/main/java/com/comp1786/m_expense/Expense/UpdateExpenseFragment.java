@@ -43,6 +43,7 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
     private EditText exOtherType, url;
     private int mYear,mMonth,mDay,mHour,mMinute;
     private List<String> typesName;
+    private View view;
     ImageView imageView;
     int Type_Id;
     Button btnLoad;
@@ -93,7 +94,7 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
         Bundle bundleReceive = getArguments();
         Expenses expense = (Expenses) bundleReceive.get("object_expense");
 
-        View view = inflater.inflate(R.layout.fragment_update_expense, container, false);
+        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_update_expense, container, false);
 
         TextInputLayout upExName = (TextInputLayout) view.findViewById(R.id.exup_name_txt);
         TextInputLayout upExDate = (TextInputLayout) view.findViewById(R.id.exup_date_txt);

@@ -1,5 +1,6 @@
 package com.comp1786.m_expense.Expense;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -14,13 +15,22 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
+import com.comp1786.m_expense.model.Type;
+import com.google.gson.Gson;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +41,8 @@ import java.util.ArrayList;
 public class DetailExpenseFragment extends Fragment {
     private View mView;
     private MainActivity mMainactivity;
+    ImageView exImage;
+    private static final String FILE_NAME = "Expenses.txt";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +90,7 @@ public class DetailExpenseFragment extends Fragment {
         Expenses expenses = (Expenses) bundleReceive.get("object_expense");
         mView = inflater.inflate(R.layout.fragment_detail_expense, container, false);
         mMainactivity = (MainActivity) getActivity();
+        DatabaseHelper ob=new DatabaseHelper(getContext());
 
         TextView exName = (TextView) mView.findViewById(R.id.exD_Name);
         TextView exType = (TextView) mView.findViewById(R.id.exD_type);
@@ -85,17 +98,31 @@ public class DetailExpenseFragment extends Fragment {
         TextView exAddress = (TextView) mView.findViewById(R.id.exD_address);
         TextView exDate = (TextView) mView.findViewById(R.id.exD_date);
         TextView exTime = (TextView) mView.findViewById(R.id.exD_time);
-        ImageView exImage = (ImageView) mView.findViewById(R.id.exD_image);
+        exImage = (ImageView) mView.findViewById(R.id.exD_image);
         Button exportBtn = (Button) mView.findViewById(R.id.exD_export_btn);
-
+        Type type=ob.searchTypeById(expenses.getType_id());
         exName.setText(expenses.getName());
-        exType.setText("chua nhan duoc");
+        exType.setText(type.getName().toString());
         exAmount.setText((expenses.getAmount()).toString());
         exAddress.setText(expenses.getLocation());
         exDate.setText(expenses.getDate());
         exTime.setText(expenses.getTime());
+        loadImage(expenses.getImage().toString());
 
         ImageButton editExpense = (ImageButton) mView.findViewById(R.id.exD_Edit);
+
+        exportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String expenseJson=toJson(expenses);
+                try {
+                    saveToFile(expenseJson);
+                    Toast.makeText(mMainactivity, "Export to file success", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         editExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,5 +165,28 @@ public class DetailExpenseFragment extends Fragment {
             }
         });
         builder.create().show();
+    }
+    public void loadImage(String image_url){
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher);
+        Glide.with((DetailExpenseFragment)this).load(image_url).apply(options).into(exImage);
+    }
+
+    private void saveToFile(String url) throws IOException {
+        FileOutputStream fileOutputStream = getContext().openFileOutput(FILE_NAME, Context.MODE_APPEND);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+        bufferedWriter.write(url);
+        bufferedWriter.newLine();
+        bufferedWriter.flush();
+        bufferedWriter.close();
+        outputStreamWriter.close();
+    }
+    private String toJson(Expenses expenses){
+        Gson gson = new Gson();
+        String json = gson.toJson(expenses);
+        return json;
     }
 }
