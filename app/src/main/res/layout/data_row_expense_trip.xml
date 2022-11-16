@@ -29,19 +29,6 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
-            android:text="VND"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.618" />
-
-        <TextView
             android:id="@+id/Dex_dateAdd_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,14 +110,14 @@
             android:id="@+id/Dex_expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="20dp"
             android:text="145.000"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.618" />
+            app:layout_constraintVertical_bias="0.705" />
 
         <ImageView
             android:id="@+id/Dex_imgExpense"

@@ -101,16 +101,16 @@ public class UpdateTripFragment extends Fragment {
         TextInputLayout tripEndDate = (TextInputLayout) view.findViewById(R.id.tripEndDate);
         EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
 
-        RadioButton internal=view.findViewById(R.id.radio_internal);
-        RadioButton external=view.findViewById(R.id.radio_external);
+        RadioButton international=view.findViewById(R.id.radio_internal);
+        RadioButton domestic=view.findViewById(R.id.radio_external);
         RadioButton risk=view.findViewById(R.id.radio_yes);
         RadioButton noRisk=view.findViewById(R.id.radio_no);
 
 
         if( trip.getType()==1){
-            internal.setChecked(true);
+            domestic.setChecked(true);
         }else {
-            external.setChecked(true);
+            international.setChecked(true);
         }
         if(trip.getRisk()==1){
             risk.setChecked(true);

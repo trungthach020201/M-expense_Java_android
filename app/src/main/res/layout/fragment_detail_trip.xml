@@ -66,17 +66,6 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="109dp"
-            android:layout_marginTop="89dp"
-            android:layout_toEndOf="@+id/tripAmountD"
-            android:text="VND"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-        <TextView
             android:id="@+id/txt2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
