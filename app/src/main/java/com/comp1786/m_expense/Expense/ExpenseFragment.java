@@ -72,6 +72,10 @@ public class ExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_expense, container,false);
+        loadObject();
+        return mView;
+    }
+    public void loadObject(){
         rcvExpense = mView.findViewById(R.id.recycleViewExpense);
         DatabaseHelper obj =new DatabaseHelper(getContext());
         mMainactivity = (MainActivity) getActivity();
@@ -101,6 +105,5 @@ public class ExpenseFragment extends Fragment {
                 return true;
             }
         });
-        return mView;
     }
 }

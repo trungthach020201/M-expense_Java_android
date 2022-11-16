@@ -40,11 +40,20 @@ import java.util.List;
 public class UpdateExpenseFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private MainActivity mMainActivity;
-    private EditText exOtherType, url;
+    TextInputLayout upExDate;
+    TextInputLayout upExTime;
+    TextInputLayout upExAddress;
+    TextInputLayout upExName;
+    TextInputLayout upExAmount;
+    TextInputLayout url;
+    Spinner upExType;
+    Button cancleBtn;
+    EditText upExComment;
     private int mYear,mMonth,mDay,mHour,mMinute;
     private List<String> typesName;
     private View view;
     ImageView imageView;
+    TextInputLayout exOtherType;
     int Type_Id;
     Button btnLoad;
 
@@ -91,23 +100,36 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_update_expense, container, false);
+        loadObject();
+        return view;
+    }
+    public void loadImage(String image_url){
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher);
+        Glide.with((UpdateExpenseFragment)this).load(image_url).apply(options).into(imageView);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+        Type_Id=position+1;
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        exOtherType.setEnabled(true);
+    }
+
+    public void loadObject(){
         Bundle bundleReceive = getArguments();
         Expenses expense = (Expenses) bundleReceive.get("object_expense");
-
-        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_update_expense, container, false);
-
-        TextInputLayout upExName = (TextInputLayout) view.findViewById(R.id.exup_name_txt);
-        TextInputLayout upExDate = (TextInputLayout) view.findViewById(R.id.exup_date_txt);
-        TextInputLayout upExTime = (TextInputLayout) view.findViewById(R.id.exup_time_txt);
-        TextInputLayout upExAddress = (TextInputLayout) view.findViewById(R.id.exup_adress_txt);
-        TextInputLayout upExAmount = (TextInputLayout) view.findViewById(R.id.exup_amount_txt);
-        EditText upExComment = (EditText) view.findViewById(R.id.exup_comment_txt);
-        Spinner upExType = (Spinner) view.findViewById(R.id.UpdropdownType);
-        TextInputLayout url=(TextInputLayout) view.findViewById(R.id.ex_url);
-        btnLoad=(Button) view.findViewById(R.id.btnLoad);
-        TextInputLayout exOtherType=(TextInputLayout) view.findViewById(R.id.exup_othertype);
-        imageView = (ImageView) view.findViewById(R.id.exup_image);
-        Button cancleBtn = (Button) view.findViewById(R.id.btnCancelExUp);
+        findObject();
         cancleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,56 +137,10 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
             }
         });
 
-
-        upExDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v == upExDate) {
-                    final Calendar calendar = Calendar.getInstance ();
-                    mYear = calendar.get ( Calendar.YEAR );
-                    mMonth = calendar.get ( Calendar.MONTH );
-                    mDay = calendar.get ( Calendar.DAY_OF_MONTH );
-                    //show dialog
-                    DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            upExDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
-                        }
-                    }, mYear, mMonth, mDay );
-                    datePickerDialog.show ();
-                }
-            }
-        });
-
-        upExTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v == upExTime) {
-
-                    // Get Current Time
-                    final Calendar c = Calendar.getInstance();
-                    mHour = c.get(Calendar.HOUR_OF_DAY);
-                    mMinute = c.get(Calendar.MINUTE);
-
-                    // Launch Time Picker Dialog
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
-                            new TimePickerDialog.OnTimeSetListener() {
-
-                                @Override
-                                public void onTimeSet(TimePicker view, int hourOfDay,
-                                                      int minute) {
-
-                                    upExTime.getEditText().setText(hourOfDay + ":" + minute);
-                                }
-                            }, mHour, mMinute, false);
-                    timePickerDialog.show();
-                }
-            }
-        });
-
+        updateDate();
+        updateTime();
 
         mMainActivity = (MainActivity) getActivity();
-
         upExName.getEditText().setText(expense.getName());
         System.out.println(expense.getDate());
         upExDate.getEditText().setText(expense.getDate().toString());
@@ -173,7 +149,6 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
         upExAmount.getEditText().setText((expense.getAmount()).toString());
         upExComment.setText(expense.getComment());
         url.getEditText().setText(expense.getImage());
-        System.out.println(expense.getImage());
         loadImage(expense.getImage());
 
         DatabaseHelper obj = new DatabaseHelper(getActivity());
@@ -245,27 +220,68 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
                 }
             }
         });
-        return view;
     }
-    public void loadImage(String image_url){
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher_round)
-                .error(R.mipmap.ic_launcher);
-        Glide.with((UpdateExpenseFragment)this).load(image_url).apply(options).into(imageView);
+    public void updateDate(){
+        upExDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == upExDate) {
+                    final Calendar calendar = Calendar.getInstance ();
+                    mYear = calendar.get ( Calendar.YEAR );
+                    mMonth = calendar.get ( Calendar.MONTH );
+                    mDay = calendar.get ( Calendar.DAY_OF_MONTH );
+                    //show dialog
+                    DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            upExDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                        }
+                    }, mYear, mMonth, mDay );
+                    datePickerDialog.show ();
+                }
+            }
+        });
     }
+    public void updateTime(){
+        upExTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == upExTime) {
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
-        Type_Id=position+1;
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-    }
+                    // Get Current Time
+                    final Calendar c = Calendar.getInstance();
+                    mHour = c.get(Calendar.HOUR_OF_DAY);
+                    mMinute = c.get(Calendar.MINUTE);
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        exOtherType.setEnabled(true);
+                    // Launch Time Picker Dialog
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                            new TimePickerDialog.OnTimeSetListener() {
+
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay,
+                                                      int minute) {
+
+                                    upExTime.getEditText().setText(hourOfDay + ":" + minute);
+                                }
+                            }, mHour, mMinute, false);
+                    timePickerDialog.show();
+                }
+            }
+        });
+
+    }
+    private void findObject(){
+        upExName = (TextInputLayout) view.findViewById(R.id.exup_name_txt);
+        upExDate = (TextInputLayout) view.findViewById(R.id.exup_date_txt);
+        upExTime = (TextInputLayout) view.findViewById(R.id.exup_time_txt);
+        upExAddress = (TextInputLayout) view.findViewById(R.id.exup_adress_txt);
+        upExAmount = (TextInputLayout) view.findViewById(R.id.exup_amount_txt);
+        upExComment = (EditText) view.findViewById(R.id.exup_comment_txt);
+        upExType = (Spinner) view.findViewById(R.id.UpdropdownType);
+        url=(TextInputLayout) view.findViewById(R.id.ex_url);
+        btnLoad=(Button) view.findViewById(R.id.btnLoad);
+        exOtherType=(TextInputLayout) view.findViewById(R.id.exup_othertype);
+        imageView = (ImageView) view.findViewById(R.id.exup_image);
+        cancleBtn = (Button) view.findViewById(R.id.btnCancelExUp);
     }
 }
