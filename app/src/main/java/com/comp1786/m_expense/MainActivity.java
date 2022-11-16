@@ -23,7 +23,6 @@ import com.comp1786.m_expense.Trip.AddTripFragment;
 import com.comp1786.m_expense.Trip.DetailTripFragment;
 import com.comp1786.m_expense.Expense.ExpenseFragment;
 import com.comp1786.m_expense.Home.HomeFragment;
-import com.comp1786.m_expense.Setting.HelpsFragment;
 import com.comp1786.m_expense.Trip.TripFragment;
 import com.comp1786.m_expense.Trip.UpdateTripFragment;
 import com.comp1786.m_expense.model.Expenses;
@@ -71,9 +70,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_expense:
                 replaceFragment(new ExpenseFragment());
-                break;
-            case R.id.nav_setting:
-                replaceFragment(new HelpsFragment());
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

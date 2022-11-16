@@ -18,13 +18,5 @@
             android:title="Expenses" />
     </group>
 
-    <item android:title="Helps">
-        <menu>
-            <item
-                android:id="@+id/nav_setting"
-                android:icon="@drawable/settings_icon"
-                android:title="Helps" />
-        </menu>
-    </item>
 
 </menu>

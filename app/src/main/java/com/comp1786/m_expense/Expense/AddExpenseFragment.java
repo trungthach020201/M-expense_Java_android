@@ -188,7 +188,6 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                                 @Override
                                 public void onTimeSet(TimePicker view, int hourOfDay,
                                                       int minute) {
-
                                     exTime.getEditText().setText(hourOfDay + ":" + minute);
                                 }
                             }, mHour, mMinute, false);
@@ -235,7 +234,6 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             public void onClick(View v) {
                 DatabaseHelper obj = new DatabaseHelper(getActivity());
                 Expenses expenses = new Expenses();
-
                 String ExName = exName.getEditText().getText().toString().trim();
                 String ExDate = exDate.getEditText().getText().toString().trim();
                 String ExLocation = exAddress.getEditText().getText().toString().trim();
@@ -341,7 +339,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             if(addresses.size()>0){
                 for (Address adr:addresses){
                     if (adr.getLocality()!= null && adr.getLocality().length()>0){
-                        cityName = adr.getLocality();
+                        cityName = adr.getLocality() + ", " + adr.getCountryName();
                         break;
                     }
                 }
