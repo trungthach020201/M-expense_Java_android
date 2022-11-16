@@ -40,33 +40,9 @@ public class UpdateTripFragment extends Fragment {
     int type_trip, risk_type;
     private int mYear, mMonth, mDay;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public UpdateTripFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UpdateTripFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static UpdateTripFragment newInstance(String param1, String param2) {
         UpdateTripFragment fragment = new UpdateTripFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,10 +50,6 @@ public class UpdateTripFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -88,12 +60,6 @@ public class UpdateTripFragment extends Fragment {
         Trip trip = (Trip) bundleReceive.get("object_trip");
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_update_trip, container,false);
-
-//        EditText tripName = (EditText) view.findViewById(R.id.tripName);
-//        EditText tripDestination = (EditText) view.findViewById(R.id.tripDestination);
-//        EditText tripStartDate = (EditText) view.findViewById(R.id.tripStartDate);
-//        EditText tripEndDate = (EditText) view.findViewById(R.id.tripEndDate);
-//        EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
 
         TextInputLayout tripName = (TextInputLayout) view.findViewById(R.id.tripName);
         TextInputLayout tripDestination = (TextInputLayout) view.findViewById(R.id.tripDestination);
@@ -118,7 +84,6 @@ public class UpdateTripFragment extends Fragment {
             noRisk.setChecked(true);
         }
 
-
         mMainActivity = (MainActivity) getActivity();
 
         tripName.getEditText().setText(trip.getName());
@@ -126,7 +91,6 @@ public class UpdateTripFragment extends Fragment {
         tripStartDate.getEditText().setText(trip.getStart_Date());
         tripEndDate.getEditText().setText(trip.getEnd_Date());
         tripDescription.setText(trip.getDescription());
-
 
         tripStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
