@@ -110,7 +110,7 @@ public class DetailTripFragment extends Fragment {
 
 
         tripDestination.setText(trip.getDestination());
-        tripAmount.setText(String.valueOf(trip.getExpenses()));
+        tripAmount.setText(String.format("%.2f", trip.getExpenses()));
         tripStartDate.setText(trip.getStart_Date());
         tripEndDate.setText(trip.getEnd_Date());
 

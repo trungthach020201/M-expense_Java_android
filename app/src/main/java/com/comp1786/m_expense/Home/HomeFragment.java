@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
         float totalamount = obj.getTotalExpenses();
         totalTrip.setText(totaltrip+"");
         totalExpense.setText(totalexpense+"");
-        totalAmount.setText(totalamount+"");
+        totalAmount.setText(String.format("%.2f", totalamount));
 
         return mView;
     }
