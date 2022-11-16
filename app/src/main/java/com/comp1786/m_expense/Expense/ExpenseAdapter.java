@@ -15,7 +15,9 @@ import com.comp1786.m_expense.Trip.TripAdapter;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHolder> {
@@ -59,7 +61,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
         holder.exType.setText(type);
         holder.exName.setText(expenses.getName());
         holder.exLocation.setText(expenses.getLocation());
-        holder.exAmount.setText(String.valueOf(expenses.getAmount()));
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+        holder.exAmount.setText(formatter.format(expenses.getAmount()));
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -19,6 +19,9 @@ import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -97,7 +100,9 @@ public class HomeFragment extends Fragment {
         float totalamount = obj.getTotalExpenses();
         totalTrip.setText(totaltrip+"");
         totalExpense.setText(totalexpense+"");
-        totalAmount.setText(String.format("%.2f", totalamount));
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+        totalAmount.setText(formatter.format(totalamount));
 
         return mView;
     }

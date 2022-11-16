@@ -25,7 +25,9 @@ import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,7 +112,9 @@ public class DetailTripFragment extends Fragment {
 
 
         tripDestination.setText(trip.getDestination());
-        tripAmount.setText(String.format("%.2f", trip.getExpenses()));
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+        tripAmount.setText(String.format(formatter.format(trip.getExpenses())));
         tripStartDate.setText(trip.getStart_Date());
         tripEndDate.setText(trip.getEnd_Date());
 

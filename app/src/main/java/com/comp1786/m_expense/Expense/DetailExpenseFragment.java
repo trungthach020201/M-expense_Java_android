@@ -31,7 +31,9 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -103,7 +105,9 @@ public class DetailExpenseFragment extends Fragment {
         Type type=ob.searchTypeById(expenses.getType_id());
         exName.setText(expenses.getName());
         exType.setText(type.getName().toString());
-        exAmount.setText((expenses.getAmount()).toString());
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+        exAmount.setText(formatter.format(expenses.getAmount()));
         exAddress.setText(expenses.getLocation());
         exDate.setText(expenses.getDate());
         exTime.setText(expenses.getTime());

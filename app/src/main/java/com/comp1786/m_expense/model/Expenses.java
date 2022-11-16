@@ -54,7 +54,6 @@ public class Expenses implements Serializable {
         this.id = id;
     }
 
-
     public Integer getType_id() {
         return type_id;
     }
