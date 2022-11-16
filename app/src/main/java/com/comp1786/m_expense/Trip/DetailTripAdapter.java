@@ -43,6 +43,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
     public ArrayList<Expenses> mListexpenses;
     private MainActivity mMainActivity;
     private IClickItemListener iClickItemListener;
+    DatabaseHelper object;
     Context context;
 
     public interface IClickItemListener{
@@ -58,20 +59,17 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
     @Override
     public DetailTripAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row_expense_trip,parent,false);
+        object=new DatabaseHelper(view.getContext());
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DetailTripAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Expenses expenses = mListexpenses.get(position);
-
-        String type = "";
-       if((expenses.getType_id()).equals(1)){
-           type = "Food";
-       }
         holder.exDate.setText(expenses.getDate());
         holder.exTime.setText(expenses.getTime());
-        holder.exType.setText(type);
+        Type type=object.searchTypeById(expenses.getType_id());
+        holder.exType.setText(type.getName());
         holder.exLocation.setText(expenses.getLocation());
         Locale locale = new Locale("vi", "VN");
         NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
@@ -89,6 +87,8 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
                     public void onClick(DialogInterface dialogInterface, int i){
                         DatabaseHelper obj =new DatabaseHelper(v.getContext());
                         obj.deleteExpensesById(expenses.getId());
+                        DatabaseHelper ob =new DatabaseHelper(v.getContext());
+                        setmListexpenses(ob.getListExpensesByTripId(expenses.getTrip_id()));
                         Toast.makeText(v.getContext(),"Delete Success", Toast.LENGTH_SHORT).show();
                     }
                 });
