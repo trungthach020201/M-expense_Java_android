@@ -1,10 +1,12 @@
 package com.comp1786.m_expense.Trip;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
@@ -36,7 +38,7 @@ public class AddTripFragment extends Fragment {
 
     int type_trip, risk_type;
     private int mYear, mMonth, mDay;
-    private MainActivity mMainActivity;
+    public  String TripName, TripDes, TripStart, TripEnd,TripDescrip, Risk, Type;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -142,11 +144,13 @@ public class AddTripFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
-                    case R.id.radio_internal:
-                            risk_type=1;
+                    case R.id.radio_yes:
+                        type_trip=1;
+                        Risk= "yes";
                         break;
-                    case R.id.radio_external:
-                            risk_type=0;
+                    case R.id.radio_no:
+                        type_trip=0;
+                        Risk= "no";
                         break;
                 }
             }
@@ -156,27 +160,28 @@ public class AddTripFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
-                    case R.id.radio_yes:
-                        type_trip=1;
+                    case R.id.radio_internal:
+                        risk_type=1;
+                        Type ="International";
                         break;
-                    case R.id.radio_no:
-                        type_trip=0;
+                    case R.id.radio_external:
+                        risk_type=0;
+                        Type ="Domestic";
                         break;
                 }
             }
         });
-
-        mMainActivity = (MainActivity) getActivity();
 
         tripBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseHelper obj = new DatabaseHelper(getActivity());
                 Trip trip = new Trip();
-                String TripName = tripName.getEditText().getText().toString().trim();
-                String TripDes = tripDestination.getEditText().getText().toString().trim().toString();
-                String TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
-                String TripEnd = tripEndDate.getEditText().getText().toString().trim().toString();
+                TripName = tripName.getEditText().getText().toString().trim();
+                TripDes = tripDestination.getEditText().getText().toString().trim().toString();
+                TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
+                TripEnd = tripEndDate.getEditText().getText().toString().trim().toString();
+                TripDescrip = tripDescription.getText().toString().trim().toString();
                 if (TripName.isEmpty()) {
                     tripName.setError("Input Trip Name Please !!!");
                 }else if (TripDes.isEmpty()){
@@ -187,25 +192,54 @@ public class AddTripFragment extends Fragment {
                     tripEndDate.setError("Choose end date please !!!");
                 }
                 else {
-                    trip.setName(TripName);
-                    trip.setDestination(TripDes);
-                    trip.setStart_Date(TripStart);
-                    trip.setEnd_Date(TripEnd);
-                    trip.setDescription(tripDescription.getText().toString().trim().toString());
-                    trip.setRisk(risk_type);
-                    trip.setType(type_trip);
-
-                    long result = obj.addTrip(trip);
-                    if (result == -1) {
-                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Add successfully!", Toast.LENGTH_SHORT).show();
-                        mMainActivity.backToTripFragment();
-                    }
+                    confirmAdd();
                 }
             }
         });
         return view;
+    }
+
+    public void confirmAdd(){
+        DatabaseHelper obj = new DatabaseHelper(getActivity());
+        Trip trip = new Trip();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Confirm Information");
+        builder.setMessage("Add new trip with follow information: "+
+                "\nTrip name: " + TripName +
+                "\nTrip destination: " + TripDes +
+                "\nStart date: " + TripStart +
+                "\nEnd date: " + TripEnd +
+                "\nTrip type: " +Type+
+                "\nTrip risk: " +Risk +
+                "\nDescription: " +TripDescrip );
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+                MainActivity mMainActivity = (MainActivity) getActivity();
+                trip.setName(TripName);
+                trip.setDestination(TripDes);
+                trip.setStart_Date(TripStart);
+                trip.setEnd_Date(TripEnd);
+                trip.setDescription(TripDescrip);
+                trip.setRisk(risk_type);
+                trip.setType(type_trip);
+
+                long result = obj.addTrip(trip);
+                if (result == -1) {
+                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Add successfully!", Toast.LENGTH_SHORT).show();
+                    mMainActivity.backToTripFragment();
+                }
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+            }
+        });
+        builder.create().show();
     }
 
 }
