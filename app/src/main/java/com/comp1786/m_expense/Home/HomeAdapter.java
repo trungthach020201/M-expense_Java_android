@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Trip;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
 
@@ -41,7 +43,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         holder.startDate.setText(trip.getStart_Date());
         holder.endDate.setText(trip.getEnd_Date());
         holder.destination.setText(trip.getDestination());
-        holder.tripAmount.setText(trip.getExpenses().toString());
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+        holder.tripAmount.setText(formatter.format(trip.getExpenses()));
     }
 
     @Override

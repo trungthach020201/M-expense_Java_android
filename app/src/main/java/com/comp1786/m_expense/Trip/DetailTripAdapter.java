@@ -25,7 +25,9 @@ import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.MyViewHolder> {
 
@@ -62,7 +64,9 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
         holder.exTime.setText(expenses.getTime());
         holder.exType.setText(type);
         holder.exLocation.setText(expenses.getLocation());
-        holder.exAmount.setText(String.valueOf(expenses.getAmount()));
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+        holder.exAmount.setText(formatter.format(expenses.getAmount()));
         holder.exName.setText(expenses.getName());
 //        DatabaseHelper obj = new DatabaseHelper(context);
         holder.btndeleteExInTrip.setOnClickListener(new View.OnClickListener() {

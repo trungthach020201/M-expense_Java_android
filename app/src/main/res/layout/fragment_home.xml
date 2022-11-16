@@ -85,14 +85,6 @@
             android:paddingLeft="15sp"
             android:text="140.000.000"
             android:textSize="20sp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="150dp"
-            android:text="VND"
-            android:textSize="20sp"/>
     </androidx.cardview.widget.CardView>
 
     </androidx.cardview.widget.CardView>
