@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_home:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                        new HomeFragment()).commit();
                 replaceFragment(new HomeFragment());
                 break;
             case R.id.nav_trip:
@@ -178,4 +176,6 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container,expenseFragment,null);
         fragmentTransaction.commit();
     }
+
+
 }

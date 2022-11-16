@@ -176,6 +176,4 @@ public class DetailTripFragment extends Fragment {
         });
         builder.create().show();
     }
-
-
 }

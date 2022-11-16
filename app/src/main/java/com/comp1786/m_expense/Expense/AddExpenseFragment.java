@@ -39,6 +39,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
+import com.comp1786.m_expense.Trip.DetailTripAdapter;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
 import com.comp1786.m_expense.model.Type;

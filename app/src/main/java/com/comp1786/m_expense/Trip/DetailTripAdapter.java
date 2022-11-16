@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.comp1786.m_expense.DatabaseHelper;
@@ -23,6 +26,7 @@ import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
+import com.comp1786.m_expense.model.Type;
 
 
 import java.text.NumberFormat;
@@ -31,7 +35,12 @@ import java.util.Locale;
 
 public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.MyViewHolder> {
 
-    private final ArrayList<Expenses> mListexpenses;
+    public void setmListexpenses(ArrayList<Expenses> mListexpenses) {
+        this.mListexpenses = mListexpenses;
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<Expenses> mListexpenses;
     private MainActivity mMainActivity;
     private IClickItemListener iClickItemListener;
     Context context;
@@ -39,7 +48,6 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
     public interface IClickItemListener{
         void onLickItemTrip(Expenses expenses);
     }
-
     public DetailTripAdapter(ArrayList<Expenses> listExpensesByTripId, IClickItemListener listenerClick, Context context) {
         this.mListexpenses=listExpensesByTripId;
         this.iClickItemListener=listenerClick;
@@ -56,6 +64,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
     @Override
     public void onBindViewHolder(@NonNull DetailTripAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Expenses expenses = mListexpenses.get(position);
+
         String type = "";
        if((expenses.getType_id()).equals(1)){
            type = "Food";
