@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.R;
 import com.comp1786.m_expense.Trip.TripAdapter;
 import com.comp1786.m_expense.model.Expenses;
 import com.comp1786.m_expense.model.Trip;
+import com.comp1786.m_expense.model.Type;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.Locale;
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHolder> {
 
     private List<Expenses> mListExpense;
+    DatabaseHelper object;
 
     private ExpenseAdapter.IClickItemListener iClickItemListener;
 
@@ -37,6 +40,8 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
     @NonNull
     @Override
     public ExpenseAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row_expense,parent,false);
+        object=new DatabaseHelper(view.getContext());
         return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.data_row_expense,parent,false));
     }
 
@@ -52,13 +57,10 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull ExpenseAdapter.MyViewHolder holder, int position) {
         Expenses expenses = mListExpense.get(position);
-        String type = "";
-        if((expenses.getType_id()).equals(1)){
-            type="Food";
-        }
         holder.exDate.setText(expenses.getDate());
         holder.exTime.setText(expenses.getTime());
-        holder.exType.setText(type);
+        Type type=object.searchTypeById(expenses.getType_id());
+        holder.exType.setText(type.getName());
         holder.exName.setText(expenses.getName());
         holder.exLocation.setText(expenses.getLocation());
         Locale locale = new Locale("vi", "VN");
