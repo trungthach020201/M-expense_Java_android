@@ -60,14 +60,34 @@ import java.util.Locale;
 public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private MainActivity mMainActivity;
+    DatabaseHelper obj;
     private TextInputLayout exAddress;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int Type_Id = 0;
-    private EditText exOtherType, url;
     private List<String> typesName;
+    Expenses expenses;
     ImageView imageView;
+    View view;
+    Spinner exType;
+    TextInputLayout exTime;
+    TextInputLayout exAmount;
+    EditText exComment;
+    TextInputLayout url;
+    TextInputLayout exDate;
+    TextInputLayout exOtherType;
+    TextInputLayout exName;
     Button btnLoad, btnGetLocation;
-
+    Button exCancel;
+    Button exAdd;
+    String ExName;
+    String ExDate;
+    String ExLocation;
+    String ExTime;
+    String ExAmount;
+    String ExURL;
+    String OtherType;
+    int tripId;
+    List<Type> types;
 
 
     public AddExpenseFragment() {
@@ -90,99 +110,20 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle bundleReceive = getArguments();
-        int tripId = (int) bundleReceive.get("trip_id");
+        tripId = (int) bundleReceive.get("trip_id");
         DatabaseHelper ob = new DatabaseHelper(getContext());
-        View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
-        mMainActivity = (MainActivity) getActivity();
-        TextInputLayout exName = (TextInputLayout) view.findViewById(R.id.ex_name_txt);
+        view = inflater.inflate(R.layout.fragment_add_expense, container, false);
+        findObject();
+        getCurrentLocation();
 
-        TextInputLayout exAmount = (TextInputLayout) view.findViewById(R.id.ex_amount_txt);
-        EditText exComment = (EditText) view.findViewById(R.id.ex_comment_txt);
-        TextInputLayout exOtherType = (TextInputLayout) view.findViewById(R.id.ex_other_txt);
-        imageView = (ImageView) view.findViewById(R.id.ex_image);
-        TextInputLayout url = (TextInputLayout) view.findViewById(R.id.ex_url);
-        btnLoad = (Button) view.findViewById(R.id.btnLoad);
+        getDate();
 
-        exAddress = (TextInputLayout) view.findViewById(R.id.ex_adress_txt);
-        btnGetLocation = (Button) view.findViewById(R.id.btnGetLocation);
+        getTime();
 
-        btnGetLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
-                } else {
-                    LocationManager locationManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
-                    Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    try {
-                        String city = hereLocation(location.getLatitude(), location.getLongitude());
-                        exAddress.getEditText().setText(city);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(getContext(), "Not Found Location", Toast.LENGTH_SHORT).show();
-                        exAddress.getEditText().setText("Can Tho, Vietnam");
-                    }
-                }
-            }
-        });
-
-        TextInputLayout exDate = (TextInputLayout) view.findViewById(R.id.ex_date_txt);
-        exDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v == exDate) {
-                    final Calendar calendar = Calendar.getInstance();
-                    mYear = calendar.get(Calendar.YEAR);
-                    mMonth = calendar.get(Calendar.MONTH);
-                    mDay = calendar.get(Calendar.DAY_OF_MONTH);
-                    //show dialog
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            exDate.getEditText().setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                        }
-                    }, mYear, mMonth, mDay);
-                    datePickerDialog.show();
-                }
-            }
-        });
-
-        TextInputLayout exTime = (TextInputLayout) view.findViewById(R.id.ex_time_txt);
-        exTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v == exTime) {
-
-                    // Get Current Time
-                    final Calendar c = Calendar.getInstance();
-                    mHour = c.get(Calendar.HOUR_OF_DAY);
-                    mMinute = c.get(Calendar.MINUTE);
-
-                    // Launch Time Picker Dialog
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
-                            new TimePickerDialog.OnTimeSetListener() {
-
-                                @Override
-                                public void onTimeSet(TimePicker view, int hourOfDay,
-                                                      int minute) {
-                                    exTime.getEditText().setText(hourOfDay + ":" + minute);
-                                }
-                            }, mHour, mMinute, false);
-                    timePickerDialog.show();
-                }
-            }
-        });
-
-        btnLoad.setOnClickListener(v -> {
-            System.out.println(url.getEditText().getText().toString().trim());
-            loadImage(url.getEditText().getText().toString().trim());
-        });
-
-        final Spinner exType = (Spinner) view.findViewById(R.id.dropdownType);
+        getImage();
 
         // Spinner Drop down elements
-        List<Type> types = ob.getListType();
+        types = ob.getListType();
         typesName = new ArrayList<>();
 
         for (Type type : types) {
@@ -197,60 +138,18 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         // attaching data adapter to spinner
         exType.setAdapter(dataAdapter);
 
+        getCancel();
 
-        Button exCancel = (Button) view.findViewById(R.id.btnCancelEx);
-        exCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMainActivity.onBackPressed();
-            }
-        });
-
-        Button exAdd = (Button) view.findViewById(R.id.btnAddEx);
         exAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseHelper obj = new DatabaseHelper(getActivity());
-                Expenses expenses = new Expenses();
-                String ExName = exName.getEditText().getText().toString().trim();
-                String ExDate = exDate.getEditText().getText().toString().trim();
-                String ExLocation = exAddress.getEditText().getText().toString().trim();
-                String ExTime = exTime.getEditText().getText().toString().trim();
-                String ExAmount = exAmount.getEditText().getText().toString().trim();
-                String ExURL = url.getEditText().getText().toString().trim();
-                String OtherType = exOtherType.getEditText().getText().toString().trim();
+                obj = new DatabaseHelper(getActivity());
+                expenses = new Expenses();
 
-                if (ExName.isEmpty()) {
-                    exName.setError("Enter Expense Name please!!!");
-                } else if (ExDate.isEmpty()) {
-                    exDate.setError("Choose Date please!!!");
-                } else if (ExLocation.isEmpty()) {
-                    exAddress.setError("Enter please!!!");
-                } else if (ExTime.isEmpty()) {
-                    exTime.setError("Choose Time please!!!");
-                } else if (ExAmount.isEmpty()) {
-                    exAmount.setError("Enter amount expense please!!!");
-                } else {
-                    expenses.setName(ExName);
-                    expenses.setDate(ExDate);
-                    expenses.setLocation(ExLocation);
-                    expenses.setTime(ExTime);
-                    expenses.setAmount(Float.valueOf(ExAmount));
-                    expenses.setComment(exComment.getText().toString().trim());
-                    expenses.setImage(ExURL);
-                    expenses.setTrip_id(tripId);
-                    if (!OtherType.isEmpty()) {
-                        obj.addType(new Type(1, exOtherType.getEditText().getText().toString()));
-                        Type_Id = types.size() + 1;
-                    }
-                    expenses.setType_id(Type_Id);
-                    long result = obj.addExpense(expenses);
-                    if (result == -1) {
-                        Toast.makeText(getContext(), "Add Failed", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Add successfully!", Toast.LENGTH_SHORT).show();
-                        mMainActivity.onBackPressed();
-                    }
+                getValueFromObject();
+
+                if(validation()){
+                    addExpense();
                 }
             }
         });
@@ -327,5 +226,155 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             e.printStackTrace();
         }
         return cityName;
+    }
+    private void findObject(){
+        mMainActivity = (MainActivity) getActivity();
+        exName = (TextInputLayout) view.findViewById(R.id.ex_name_txt);
+        exAmount = (TextInputLayout) view.findViewById(R.id.ex_amount_txt);
+        exComment = (EditText) view.findViewById(R.id.ex_comment_txt);
+        exOtherType = (TextInputLayout) view.findViewById(R.id.ex_other_txt);
+        imageView = (ImageView) view.findViewById(R.id.ex_image);
+        url = (TextInputLayout) view.findViewById(R.id.ex_url);
+        btnLoad = (Button) view.findViewById(R.id.btnLoad);
+        exAddress = (TextInputLayout) view.findViewById(R.id.ex_adress_txt);
+        btnGetLocation = (Button) view.findViewById(R.id.btnGetLocation);
+        exDate = (TextInputLayout) view.findViewById(R.id.ex_date_txt);
+        exTime = (TextInputLayout) view.findViewById(R.id.ex_time_txt);
+        exType = (Spinner) view.findViewById(R.id.dropdownType);
+        exCancel = (Button) view.findViewById(R.id.btnCancelEx);
+        exAdd = (Button) view.findViewById(R.id.btnAddEx);
+    }
+    private void getValueFromObject(){
+        ExName = exName.getEditText().getText().toString().trim();
+        ExDate = exDate.getEditText().getText().toString().trim();
+        ExLocation = exAddress.getEditText().getText().toString().trim();
+        ExTime = exTime.getEditText().getText().toString().trim();
+        ExAmount = exAmount.getEditText().getText().toString().trim();
+        ExURL = url.getEditText().getText().toString().trim();
+        OtherType = exOtherType.getEditText().getText().toString().trim();
+    }
+    private void getCurrentLocation(){
+        btnGetLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
+                } else {
+                    LocationManager locationManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
+                    Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    try {
+                        String city = hereLocation(location.getLatitude(), location.getLongitude());
+                        exAddress.getEditText().setText(city);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), "Not Found Location", Toast.LENGTH_SHORT).show();
+                        exAddress.getEditText().setText("Can Tho, Vietnam");
+                    }
+                }
+            }
+        });
+    }
+    private void getDate(){
+        exDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == exDate) {
+                    final Calendar calendar = Calendar.getInstance();
+                    mYear = calendar.get(Calendar.YEAR);
+                    mMonth = calendar.get(Calendar.MONTH);
+                    mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    //show dialog
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            exDate.getEditText().setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                        }
+                    }, mYear, mMonth, mDay);
+                    datePickerDialog.show();
+                }
+            }
+        });
+    }
+    private void getTime(){
+        exTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == exTime) {
+
+                    // Get Current Time
+                    final Calendar c = Calendar.getInstance();
+                    mHour = c.get(Calendar.HOUR_OF_DAY);
+                    mMinute = c.get(Calendar.MINUTE);
+
+                    // Launch Time Picker Dialog
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                            new TimePickerDialog.OnTimeSetListener() {
+
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay,
+                                                      int minute) {
+                                    exTime.getEditText().setText(hourOfDay + ":" + minute);
+                                }
+                            }, mHour, mMinute, false);
+                    timePickerDialog.show();
+                }
+            }
+        });
+    }
+    private void getImage(){
+        btnLoad.setOnClickListener(v -> {
+            loadImage(url.getEditText().getText().toString().trim());
+        });
+    }
+    private void getCancel(){
+        exCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainActivity.onBackPressed();
+            }
+        });
+    }
+    private void addExpense(){
+        expenses.setName(ExName);
+        expenses.setDate(ExDate);
+        expenses.setLocation(ExLocation);
+        expenses.setTime(ExTime);
+        expenses.setAmount(Float.valueOf(ExAmount));
+        expenses.setComment(exComment.getText().toString().trim());
+        expenses.setImage(ExURL);
+        expenses.setTrip_id(tripId);
+        if (!OtherType.isEmpty()) {
+            obj.addType(new Type(1, exOtherType.getEditText().getText().toString()));
+            Type_Id = types.size() + 1;
+        }
+        expenses.setType_id(Type_Id);
+        long result = obj.addExpense(expenses);
+        if (result == -1) {
+            Toast.makeText(getContext(), "Add Failed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Add successfully!", Toast.LENGTH_SHORT).show();
+            mMainActivity.onBackPressed();
+        }
+    }
+    private boolean validation(){
+        if (ExName.isEmpty()) {
+            exName.setError("Enter Expense Name please!!!");
+            return false;
+        } else if (ExDate.isEmpty()) {
+            exDate.setError("Choose Date please!!!");
+            return false;
+        } else if (ExLocation.isEmpty()) {
+            exAddress.setError("Enter please!!!");
+            return false;
+        } else if (ExTime.isEmpty()) {
+            exTime.setError("Choose Time please!!!");
+            return false;
+        } else if (ExAmount.isEmpty()) {
+            exAmount.setError("Enter amount expense please!!!");
+            return false;
+        }else {
+            return true;
+        }
     }
 }

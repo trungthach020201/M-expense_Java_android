@@ -43,7 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String IMAGE_COLUMN = "image";
     public static final String TRIP_ID_COLUMN = "trip_Id";
 
-
     public SQLiteDatabase database;
 
     private static final String DATABASE_CREATE_TRIP = String.format(
