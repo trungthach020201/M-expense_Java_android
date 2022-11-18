@@ -55,6 +55,8 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
     ImageView imageView;
     TextInputLayout exOtherType;
     int Type_Id;
+    String typeExpense;
+    int typeExpenseId;
     Button btnLoad;
 
     public UpdateExpenseFragment() {
@@ -92,7 +94,11 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
-        Type_Id=position+1;
+        if(position==0){
+            Type_Id=typeExpenseId;
+        }else {
+            Type_Id=position+1;
+        }
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
@@ -126,14 +132,19 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
         upExComment.setText(expense.getComment());
         url.getEditText().setText(expense.getImage());
         loadImage(expense.getImage());
-
+        DatabaseHelper ob=new DatabaseHelper(getActivity());
         DatabaseHelper obj = new DatabaseHelper(getActivity());
-
+        Type typeObj=obj.searchTypeById(expense.getType_id());
+        typeExpense=typeObj.getName();
         List<Type> types = obj.getListType();
+        typeExpenseId=typeObj.getId();
         typesName=new ArrayList<>();
+        typesName.add(typeExpense);
 
         for (Type type: types) {
-            typesName.add(type.getName());
+            if(!type.getName().equals(typeExpense)){
+                typesName.add(type.getName());
+            }
         }
 
         upExType.setOnItemSelectedListener(this);
@@ -173,7 +184,7 @@ public class UpdateExpenseFragment extends Fragment implements AdapterView.OnIte
                     Upexpense.setComment(upExComment.getText().toString().trim());
                     Upexpense.setAmount(Float.valueOf(ExAmount));
                     if (!OtherType.isEmpty()) {
-                        obj.addType(new Type(1, exOtherType.getEditText().getText().toString()));
+                        ob.addType(new Type(1, exOtherType.getEditText().getText().toString()));
                         Type_Id = types.size() + 1;
                     }
                     Upexpense.setTrip_id(expense.getTrip_id());
