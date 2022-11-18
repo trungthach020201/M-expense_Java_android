@@ -171,7 +171,4 @@
             android:backgroundTint="@color/blue"/>
     </LinearLayout>
     </ScrollView>
-
-
-
 </FrameLayout>

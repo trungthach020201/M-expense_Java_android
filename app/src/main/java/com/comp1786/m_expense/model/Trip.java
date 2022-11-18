@@ -12,7 +12,6 @@ public class Trip implements Serializable {
     private Integer risk;
     private String description;
     private Float expenses;
-//    private ArrayList<Expenses> expenses;
 
     @Override
     public String toString() {
@@ -27,7 +26,6 @@ public class Trip implements Serializable {
                 ", description='" + description + '\'' +
                 '}';
     }
-
     public Trip(Integer id, String name, String destination, String start_Date, String end_Date, Integer risk, String description, Integer type) {
         this.id = id;
         this.name = name;
@@ -38,7 +36,6 @@ public class Trip implements Serializable {
         this.type=type;
         this.description = description;
     }
-
     public Trip(Integer id, String name, String destination, String start_Date, String end_Date, Integer risk, String description, Integer type,Float expenses) {
         this.id = id;
         this.name = name;

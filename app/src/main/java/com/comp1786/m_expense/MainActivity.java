@@ -37,14 +37,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar1 = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar1);
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
         drawer = findViewById(R.id.draw_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar1,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);

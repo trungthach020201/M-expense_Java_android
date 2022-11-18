@@ -80,8 +80,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database = getWritableDatabase();
     }
 
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE_TRIP);
@@ -96,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 newVersion + " - old data lost");
         onCreate(db);
     }
+
     public long addTrip(Trip trip) {
         ContentValues rowValues = new ContentValues();
 
@@ -243,7 +242,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor results = database.query(true, TABLE_TRIP_NAME, new String[] { ID_COLUMN, NAME_COLUMN, DESTINATION_COLUMN, START_DATE_COLUMN,END_DATE_COLUMN,RISK_COLUMN,DESCRIPTION_COLUMN,TYPE_COLUMN }, queryString,null,
                 null, null, null,
                 null);
-
         results.moveToFirst();
         while (!results.isAfterLast()) {
             Float totalExpenses=getExpensesByTripId(results.getInt(0));
@@ -255,7 +253,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(trips==null){
             return null;
         }else return trips;
-
     }
     public ArrayList<Expenses> searchExpensesByName(String key){
         ArrayList<Expenses> expenses = new ArrayList<>();
