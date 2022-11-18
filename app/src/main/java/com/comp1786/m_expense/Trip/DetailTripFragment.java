@@ -63,9 +63,9 @@ public class DetailTripFragment extends Fragment {
         Trip trip = (Trip) bundleReceive.get("object_trip");
         ArrayList<Expenses> expenses=new ArrayList<>();
         mView = inflater.inflate(R.layout.fragment_detail_trip, container,false);
-        rcvDetailTrip = mView.findViewById(R.id.recycleDetailTrip);
         DatabaseHelper obj =new DatabaseHelper(getContext());
         mMainactivity = (MainActivity) getActivity();
+        findObject();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvDetailTrip.setLayoutManager(linearLayoutManager);
         DetailTripAdapter detailTripAdapter = new DetailTripAdapter(obj.getListExpensesByTripId(trip.getId()),new DetailTripAdapter.IClickItemListener(){
@@ -75,12 +75,43 @@ public class DetailTripFragment extends Fragment {
             }
         }, getContext());
         rcvDetailTrip.setAdapter(detailTripAdapter);
+        setTextTrip(trip);
+        btnedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainactivity.gotoUpdateTripFragment(trip);
+            }
+        });
+
+        btnDeleteByID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDeleteTripByID();
+            }
+        });
+
+        addNewEx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainactivity.goToAddExpenseFragment (trip.getId());
+            }
+        });
+
+        return mView;
+
+    }
+    public void findObject(){
+        addNewEx = mView.findViewById(R.id.btnAddNewExInTrip);
+        btnDeleteByID = mView.findViewById(R.id.deleteTrip);
+        rcvDetailTrip = mView.findViewById(R.id.recycleDetailTrip);
+        btnedit = mView.findViewById(R.id.EditTrip);
         tripDestination = mView.findViewById(R.id.tripDestinationD);
         tripAmount = mView.findViewById(R.id.tripAmountD);
         tripStartDate = mView.findViewById(R.id.tripStartDateD);
         tripEndDate = mView.findViewById(R.id.tripEndDateD);
         tripType = mView.findViewById(R.id.tripTypeD);
-
+    }
+    public void setTextTrip(Trip trip){
 
         tripDestination.setText(trip.getDestination());
         Locale locale = new Locale("vi", "VN");
@@ -95,40 +126,12 @@ public class DetailTripFragment extends Fragment {
         }else type="Domestic";
 
         tripType.setText(type);
-
-        btnedit = mView.findViewById(R.id.EditTrip);
-        btnedit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMainactivity.gotoUpdateTripFragment(trip);
-            }
-        });
-
-        btnDeleteByID = mView.findViewById(R.id.deleteTrip);
-        btnDeleteByID.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmDeleteTripByID();
-            }
-        });
-
-        addNewEx = mView.findViewById(R.id.btnAddNewExInTrip);
-        addNewEx.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMainactivity.goToAddExpenseFragment (trip.getId());
-            }
-        });
-
-        return mView;
-
     }
-
     public void confirmDeleteTripByID(){
         DatabaseHelper obj =new DatabaseHelper(getContext());
         Bundle bundleReceive = getArguments();
-
         Trip trip = (Trip) bundleReceive.get("object_trip");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Delete Trip?");
         builder.setMessage("Do you want to delete trip to " +trip.getDestination()+ " ?");

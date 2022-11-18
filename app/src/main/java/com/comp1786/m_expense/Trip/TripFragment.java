@@ -32,6 +32,7 @@ public class TripFragment extends Fragment {
     private MainActivity mMainactivity;
     private Button addTripBtn, deleteAllTripBtn;
     private ArrayList<Trip> trips;
+    private SearchView searchView;
 
     public static TripFragment newInstance(String param1, String param2) {
         TripFragment fragment = new TripFragment();
@@ -48,15 +49,13 @@ public class TripFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         mView = inflater.inflate(R.layout.fragment_trip, container,false);
-        rcvTrip = mView.findViewById(R.id.recycleViewTrip);
-
         DatabaseHelper obj =new DatabaseHelper(getContext());
         mMainactivity = (MainActivity) getActivity();
+
+        findObject();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainactivity);
         rcvTrip.setLayoutManager(linearLayoutManager);
-
         TripAdapter tripAdapter = new TripAdapter(obj.getListTrip(), new TripAdapter.IClickItemListener() {
             @Override
             public void onLickItemTrip(Trip trip) {
@@ -65,7 +64,6 @@ public class TripFragment extends Fragment {
         });
         rcvTrip.setAdapter(tripAdapter);
 
-        addTripBtn = mView.findViewById(R.id.btnAddTrip);
         addTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +71,6 @@ public class TripFragment extends Fragment {
             }
 
         });
-
-        deleteAllTripBtn = mView.findViewById(R.id.btnDeleteAllTrip);
         deleteAllTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,10 +78,6 @@ public class TripFragment extends Fragment {
             }
         });
 
-
-
-        SearchView searchView;
-        searchView = (SearchView) mView.findViewById(R.id.searchTrip);
         String query=searchView.getQuery().toString();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -105,9 +97,14 @@ public class TripFragment extends Fragment {
 
         return mView;
     }
+    public void findObject(){
+        rcvTrip = mView.findViewById(R.id.recycleViewTrip);
+        addTripBtn = mView.findViewById(R.id.btnAddTrip);
+        deleteAllTripBtn = mView.findViewById(R.id.btnDeleteAllTrip);
+        searchView = (SearchView) mView.findViewById(R.id.searchTrip);
+    }
 
-
-    void confirmDeleteAllTrip (){
+    public void confirmDeleteAllTrip (){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Delete All ?");
         builder.setMessage("Do you want to delete all Trip ?");
