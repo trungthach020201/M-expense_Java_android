@@ -75,7 +75,6 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
         NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
         holder.exAmount.setText(formatter.format(expenses.getAmount()));
         holder.exName.setText(expenses.getName());
-//        DatabaseHelper obj = new DatabaseHelper(context);
         holder.btndeleteExInTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
