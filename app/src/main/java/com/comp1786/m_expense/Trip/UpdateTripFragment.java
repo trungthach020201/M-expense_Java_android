@@ -78,7 +78,7 @@ public class UpdateTripFragment extends Fragment {
         return view;
     }
 
-    public void findObject(){
+    private void findObject(){
         tripName = (TextInputLayout) view.findViewById(R.id.tripName);
         tripDestination = (TextInputLayout) view.findViewById(R.id.tripDestination);
         tripStartDate = (TextInputLayout) view.findViewById(R.id.tripStartDate);
@@ -93,7 +93,7 @@ public class UpdateTripFragment extends Fragment {
         tripBtnUpdate = (Button) view.findViewById(R.id.tripBtnUpdate);
     }
 
-    public void radioButtonCheck(){
+    private void radioButtonCheck(){
         Bundle bundleReceive = getArguments();
         Trip trip = (Trip) bundleReceive.get("object_trip");
         if( trip.getType()==1){
@@ -107,7 +107,7 @@ public class UpdateTripFragment extends Fragment {
             noRisk.setChecked(true);
         }
     }
-    public void setValueTrip(){
+    private void setValueTrip(){
         Bundle bundleReceive = getArguments();
         Trip trip = (Trip) bundleReceive.get("object_trip");
         tripName.getEditText().setText(trip.getName());
@@ -116,7 +116,7 @@ public class UpdateTripFragment extends Fragment {
         tripEndDate.getEditText().setText(trip.getEnd_Date());
         tripDescription.setText(trip.getDescription());
     }
-    public void setStartDate(){
+    private void setStartDate(){
         tripStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +137,7 @@ public class UpdateTripFragment extends Fragment {
             }
         });
     }
-    public void setEndDate(){
+    private void setEndDate(){
         tripEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +158,7 @@ public class UpdateTripFragment extends Fragment {
             }
         });
     }
-    public void setGroupRisk(){
+    private void setGroupRisk(){
         groupRisk.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -173,7 +173,7 @@ public class UpdateTripFragment extends Fragment {
             }
         });
     }
-    public void setGoupType(){
+    private void setGoupType(){
         groupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -188,7 +188,7 @@ public class UpdateTripFragment extends Fragment {
             }
         });
     }
-    public void validatetioUpdate(){
+    private void validatetioUpdate(){
         TripName = tripName.getEditText().getText().toString().trim();
         TripDes = tripDestination.getEditText().getText().toString().trim().toString();
         TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
@@ -206,7 +206,7 @@ public class UpdateTripFragment extends Fragment {
             updateTrip();
         }
     }
-    public void updateTrip(){
+    private void updateTrip(){
         Bundle bundleReceive = getArguments();
         Trip trip = (Trip) bundleReceive.get("object_trip");
         DatabaseHelper obj = new DatabaseHelper(getActivity());

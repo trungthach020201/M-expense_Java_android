@@ -58,38 +58,22 @@ import java.util.Locale;
  * create an instance of this fragment.
  */
 public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-
-    private MainActivity mMainActivity;
+    List<Type> types;
     DatabaseHelper obj;
-    private TextInputLayout exAddress;
+    DatabaseHelper ob;
+    Expenses expenses;
+    private MainActivity mMainActivity;
+    private View view;
+    private TextInputLayout exAddress,exTime,exAmount,url,exDate,exOtherType,exName;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int Type_Id = 0;
     private List<String> typesName;
-    Expenses expenses;
-    ImageView imageView;
-    View view;
-    Spinner exType;
-    TextInputLayout exTime;
-    TextInputLayout exAmount;
-    EditText exComment;
-    TextInputLayout url;
-    TextInputLayout exDate;
-    TextInputLayout exOtherType;
-    TextInputLayout exName;
-    Button btnLoad, btnGetLocation;
-    Button exCancel;
-    Button exAdd;
-    String ExName;
-    String ExDate;
-    String ExLocation;
-    String ExTime;
-    String ExAmount;
-    String ExURL;
-    String OtherType;
-    int tripId;
-    List<Type> types;
-    DatabaseHelper ob;
-
+    private ImageView imageView;
+    private Spinner exType;
+    private EditText exComment;
+    private Button btnLoad, btnGetLocation,exCancel,exAdd;
+    private String ExName, ExDate,ExLocation,ExTime,ExAmount,ExURL,OtherType;
+    private int tripId;
 
     public AddExpenseFragment() {
         // Required empty public constructor
@@ -134,7 +118,6 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         Glide.with((AddExpenseFragment) this).load(image_url).apply(options).into(imageView);
     }
 
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
@@ -144,13 +127,10 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         exOtherType.setEnabled(true);
     }
-
-
 
     private String hereLocation(double lat, double lon ){
         String cityName = "";
