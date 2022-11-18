@@ -33,12 +33,17 @@ import java.util.Calendar;
  */
 public class UpdateTripFragment extends Fragment {
 
-    private View mView;
 
     private MainActivity mMainActivity;
-
-    int type_trip, risk_type;
+    private int type_trip, risk_type;
     private int mYear, mMonth, mDay;
+    private TextInputLayout tripName, tripDestination, tripStartDate, tripEndDate;
+    private  EditText tripDescription;
+    private Button tripBtnUpdate;
+    private RadioButton international, domestic, risk, noRisk;
+    private RadioGroup groupRisk, groupType;
+    private View view;
+    String TripName,TripDes,TripStart,TripEnd;
 
     public static UpdateTripFragment newInstance(String param1, String param2) {
         UpdateTripFragment fragment = new UpdateTripFragment();
@@ -55,24 +60,42 @@ public class UpdateTripFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_update_trip, container,false);
+        findObject();
+        radioButtonCheck();
+        mMainActivity = (MainActivity) getActivity();
+        setValueTrip();
+        setStartDate();
+        setEndDate();
+        setGroupRisk();
+        setGoupType();
+        tripBtnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validatetioUpdate();
+            }
+        });
+        return view;
+    }
 
+    public void findObject(){
+        tripName = (TextInputLayout) view.findViewById(R.id.tripName);
+        tripDestination = (TextInputLayout) view.findViewById(R.id.tripDestination);
+        tripStartDate = (TextInputLayout) view.findViewById(R.id.tripStartDate);
+        tripEndDate = (TextInputLayout) view.findViewById(R.id.tripEndDate);
+        tripDescription = (EditText) view.findViewById(R.id.tripDescription);
+        international=view.findViewById(R.id.radio_internal);
+        domestic=view.findViewById(R.id.radio_external);
+        risk=view.findViewById(R.id.radio_yes);
+        noRisk=view.findViewById(R.id.radio_no);
+        groupRisk =(RadioGroup) view.findViewById(R.id.groupRisk);
+        groupType =(RadioGroup) view.findViewById(R.id.groupType);
+        tripBtnUpdate = (Button) view.findViewById(R.id.tripBtnUpdate);
+    }
+
+    public void radioButtonCheck(){
         Bundle bundleReceive = getArguments();
         Trip trip = (Trip) bundleReceive.get("object_trip");
-
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_update_trip, container,false);
-
-        TextInputLayout tripName = (TextInputLayout) view.findViewById(R.id.tripName);
-        TextInputLayout tripDestination = (TextInputLayout) view.findViewById(R.id.tripDestination);
-        TextInputLayout tripStartDate = (TextInputLayout) view.findViewById(R.id.tripStartDate);
-        TextInputLayout tripEndDate = (TextInputLayout) view.findViewById(R.id.tripEndDate);
-        EditText tripDescription = (EditText) view.findViewById(R.id.tripDescription);
-
-        RadioButton international=view.findViewById(R.id.radio_internal);
-        RadioButton domestic=view.findViewById(R.id.radio_external);
-        RadioButton risk=view.findViewById(R.id.radio_yes);
-        RadioButton noRisk=view.findViewById(R.id.radio_no);
-
-
         if( trip.getType()==1){
             domestic.setChecked(true);
         }else {
@@ -83,15 +106,17 @@ public class UpdateTripFragment extends Fragment {
         }else {
             noRisk.setChecked(true);
         }
-
-        mMainActivity = (MainActivity) getActivity();
-
+    }
+    public void setValueTrip(){
+        Bundle bundleReceive = getArguments();
+        Trip trip = (Trip) bundleReceive.get("object_trip");
         tripName.getEditText().setText(trip.getName());
         tripDestination.getEditText().setText(trip.getDestination());
         tripStartDate.getEditText().setText(trip.getStart_Date());
         tripEndDate.getEditText().setText(trip.getEnd_Date());
         tripDescription.setText(trip.getDescription());
-
+    }
+    public void setStartDate(){
         tripStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,8 +136,8 @@ public class UpdateTripFragment extends Fragment {
                 }
             }
         });
-
-
+    }
+    public void setEndDate(){
         tripEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,8 +157,8 @@ public class UpdateTripFragment extends Fragment {
                 }
             }
         });
-
-        RadioGroup groupRisk =(RadioGroup) view.findViewById(R.id.groupRisk);
+    }
+    public void setGroupRisk(){
         groupRisk.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -147,9 +172,8 @@ public class UpdateTripFragment extends Fragment {
                 }
             }
         });
-
-
-        RadioGroup groupType =(RadioGroup) view.findViewById(R.id.groupType);
+    }
+    public void setGoupType(){
         groupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -163,47 +187,44 @@ public class UpdateTripFragment extends Fragment {
                 }
             }
         });
+    }
+    public void validatetioUpdate(){
+        TripName = tripName.getEditText().getText().toString().trim();
+        TripDes = tripDestination.getEditText().getText().toString().trim().toString();
+        TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
+        TripEnd = tripEndDate.getEditText().getText().toString().trim().toString();
+        if (TripName.isEmpty()) {
+            tripName.setError("Input Trip Name Please !!!");
+        }else if (TripDes.isEmpty()){
+            tripDestination.setError("Input Destination please !!!");
+        }else if (TripStart.isEmpty()){
+            tripStartDate.setError("Choose start date please !!!");
+        }else if (TripEnd.isEmpty()){
+            tripEndDate.setError("Choose end date please !!!");
+        }
+        else {
+            updateTrip();
+        }
+    }
+    public void updateTrip(){
+        Bundle bundleReceive = getArguments();
+        Trip trip = (Trip) bundleReceive.get("object_trip");
+        DatabaseHelper obj = new DatabaseHelper(getActivity());
+        Trip Uptrip = new Trip();
+        Uptrip.setName(TripName);
+        Uptrip.setDestination(TripDes);
+        Uptrip.setStart_Date(TripStart);
+        Uptrip.setEnd_Date(TripEnd);
+        Uptrip.setDescription(tripDescription.getText().toString().trim().toString());
+        Uptrip.setRisk(risk_type);
+        Uptrip.setType(type_trip);
 
-
-        Button tripBtnUpdate = (Button) view.findViewById(R.id.tripBtnUpdate);
-        tripBtnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseHelper obj = new DatabaseHelper(getActivity());
-                Trip Uptrip = new Trip();
-
-                String TripName = tripName.getEditText().getText().toString().trim();
-                String TripDes = tripDestination.getEditText().getText().toString().trim().toString();
-                String TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
-                String TripEnd = tripEndDate.getEditText().getText().toString().trim().toString();
-                if (TripName.isEmpty()) {
-                    tripName.setError("Input Trip Name Please !!!");
-                }else if (TripDes.isEmpty()){
-                    tripDestination.setError("Input Destination please !!!");
-                }else if (TripStart.isEmpty()){
-                    tripStartDate.setError("Choose start date please !!!");
-                }else if (TripEnd.isEmpty()){
-                    tripEndDate.setError("Choose end date please !!!");
-                }
-                else {
-                    Uptrip.setName(TripName);
-                    Uptrip.setDestination(TripDes);
-                    Uptrip.setStart_Date(TripStart);
-                    Uptrip.setEnd_Date(TripEnd);
-                    Uptrip.setDescription(tripDescription.getText().toString().trim().toString());
-                    Uptrip.setRisk(risk_type);
-                    Uptrip.setType(type_trip);
-
-                    long result = obj.updateTrip(Uptrip, trip.getId());
-                    if (result == -1) {
-                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Update successfully!", Toast.LENGTH_SHORT).show();
-                        mMainActivity.backToTripFragment();
-                    }
-                }
-            }
-        });
-        return view;
+        long result = obj.updateTrip(Uptrip, trip.getId());
+        if (result == -1) {
+            Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Update successfully!", Toast.LENGTH_SHORT).show();
+            mMainActivity.backToTripFragment();
+        }
     }
 }
