@@ -119,7 +119,6 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         getDate();
         getTime();
         getImage();
-        // Spinner Drop down elements
         setTypeForSpinner();
         getCancel();
         getAddExpense();
@@ -328,9 +327,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             public void onClick(View v) {
                 obj = new DatabaseHelper(getActivity());
                 expenses = new Expenses();
-
                 getValueFromObject();
-
                 if(validation()){
                     addExpense();
                 }
