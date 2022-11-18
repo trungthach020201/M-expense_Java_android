@@ -88,6 +88,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     String OtherType;
     int tripId;
     List<Type> types;
+    DatabaseHelper ob;
 
 
     public AddExpenseFragment() {
@@ -111,50 +112,18 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                              Bundle savedInstanceState) {
         Bundle bundleReceive = getArguments();
         tripId = (int) bundleReceive.get("trip_id");
-        DatabaseHelper ob = new DatabaseHelper(getContext());
+        ob = new DatabaseHelper(getContext());
         view = inflater.inflate(R.layout.fragment_add_expense, container, false);
         findObject();
         getCurrentLocation();
-
         getDate();
-
         getTime();
-
         getImage();
-
         // Spinner Drop down elements
-        types = ob.getListType();
-        typesName = new ArrayList<>();
-
-        for (Type type : types) {
-            typesName.add(type.getName());
-        }
-
-        exType.setOnItemSelectedListener(this);
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, typesName);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        exType.setAdapter(dataAdapter);
-
+        setTypeForSpinner();
         getCancel();
-
-        exAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                obj = new DatabaseHelper(getActivity());
-                expenses = new Expenses();
-
-                getValueFromObject();
-
-                if(validation()){
-                    addExpense();
-                }
-            }
-        });
+        getAddExpense();
         return view;
-
     }
 
     public void loadImage(String image_url) {
@@ -182,30 +151,6 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         exOtherType.setEnabled(true);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 1000:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    LocationManager locationManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
-                    if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    try {
-                        String city = hereLocation(location.getLatitude(), location.getLongitude());
-                        exAddress.getEditText().setText(city);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                        Toast.makeText(getContext(), "Not Found Location", Toast.LENGTH_SHORT).show();
-                        exAddress.getEditText().setText("Can Tho, Vietnam");
-                    }
-                }else {
-                    Toast.makeText(getContext(),"Permission Not Granted", Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
 
 
     private String hereLocation(double lat, double lon ){
@@ -376,5 +321,34 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         }else {
             return true;
         }
+    }
+    private void getAddExpense(){
+        exAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                obj = new DatabaseHelper(getActivity());
+                expenses = new Expenses();
+
+                getValueFromObject();
+
+                if(validation()){
+                    addExpense();
+                }
+            }
+        });
+    }
+    private void setTypeForSpinner(){
+        types = ob.getListType();
+        typesName = new ArrayList<>();
+        for (Type type : types) {
+            typesName.add(type.getName());
+        }
+        exType.setOnItemSelectedListener(this);
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, typesName);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        exType.setAdapter(dataAdapter);
     }
 }
