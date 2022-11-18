@@ -97,14 +97,14 @@ public class TripFragment extends Fragment {
 
         return mView;
     }
-    public void findObject(){
+    private void findObject(){
         rcvTrip = mView.findViewById(R.id.recycleViewTrip);
         addTripBtn = mView.findViewById(R.id.btnAddTrip);
         deleteAllTripBtn = mView.findViewById(R.id.btnDeleteAllTrip);
         searchView = (SearchView) mView.findViewById(R.id.searchTrip);
     }
 
-    public void confirmDeleteAllTrip (){
+    private void confirmDeleteAllTrip (){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Delete All ?");
         builder.setMessage("Do you want to delete all Trip ?");

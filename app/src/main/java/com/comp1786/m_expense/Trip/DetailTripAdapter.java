@@ -114,7 +114,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
             btneditExinTrip = itemView.findViewById(R.id.editExpenseInTrip);
         }
     }
-    public void confirmDelete(View v, Expenses expenses){
+    private void confirmDelete(View v, Expenses expenses){
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Delete Expense?");
         builder.setMessage("Do you want to delete this expense?");

@@ -80,7 +80,7 @@ public class AddTripFragment extends Fragment {
         return view;
     }
 
-    public void findObject(){
+    private void findObject(){
         tripName = (TextInputLayout) view.findViewById(R.id.tripName);
         tripDestination = (TextInputLayout) view.findViewById(R.id.tripDestination);
         tripStartDate = (TextInputLayout) view.findViewById(R.id.tripStartDate);
@@ -92,7 +92,7 @@ public class AddTripFragment extends Fragment {
         groupRisk =(RadioGroup) view.findViewById(R.id.groupRisk);
     }
 
-    public void setTripType(){
+    private void setTripType(){
         groupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -110,7 +110,7 @@ public class AddTripFragment extends Fragment {
         });
     }
 
-    public void setTripStartDate(){
+    private void setTripStartDate(){
         date_picker_action_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +132,7 @@ public class AddTripFragment extends Fragment {
         });
     }
 
-    public void setTripEndDate(){
+    private void setTripEndDate(){
         tripEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +154,7 @@ public class AddTripFragment extends Fragment {
         });
     }
 
-    public void setTripRisk(){
+    private void setTripRisk(){
         groupRisk.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -171,14 +171,14 @@ public class AddTripFragment extends Fragment {
             }
         });
     }
-    public void getValueTrip(){
+    private void getValueTrip(){
         TripName = tripName.getEditText().getText().toString().trim();
         TripDes = tripDestination.getEditText().getText().toString().trim().toString();
         TripStart = tripStartDate.getEditText().getText().toString().trim().toString();
         TripEnd = tripEndDate.getEditText().getText().toString().trim().toString();
         TripDescrip = tripDescription.getText().toString().trim().toString();
     }
-    public void validationInput(){
+    private void validationInput(){
         getValueTrip();
         if (TripName.isEmpty()) {
             tripName.setError("Input Trip Name Please !!!");
@@ -194,7 +194,7 @@ public class AddTripFragment extends Fragment {
         }
     }
 
-    public void confirmAdd(){
+    private void confirmAdd(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Confirm Information");
         builder.setMessage("Add new trip with follow information: "+
@@ -219,7 +219,7 @@ public class AddTripFragment extends Fragment {
         builder.create().show();
     }
 
-    public void addNewTrip(){
+    private void addNewTrip(){
         DatabaseHelper obj = new DatabaseHelper(getActivity());
         Trip trip = new Trip();
         MainActivity mMainActivity = (MainActivity) getActivity();

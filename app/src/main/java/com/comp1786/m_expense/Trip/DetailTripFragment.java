@@ -100,7 +100,7 @@ public class DetailTripFragment extends Fragment {
         return mView;
 
     }
-    public void findObject(){
+    private void findObject(){
         addNewEx = mView.findViewById(R.id.btnAddNewExInTrip);
         btnDeleteByID = mView.findViewById(R.id.deleteTrip);
         rcvDetailTrip = mView.findViewById(R.id.recycleDetailTrip);
@@ -111,7 +111,7 @@ public class DetailTripFragment extends Fragment {
         tripEndDate = mView.findViewById(R.id.tripEndDateD);
         tripType = mView.findViewById(R.id.tripTypeD);
     }
-    public void setTextTrip(Trip trip){
+    private void setTextTrip(Trip trip){
 
         tripDestination.setText(trip.getDestination());
         Locale locale = new Locale("vi", "VN");
@@ -127,7 +127,7 @@ public class DetailTripFragment extends Fragment {
 
         tripType.setText(type);
     }
-    public void confirmDeleteTripByID(){
+    private void confirmDeleteTripByID(){
         DatabaseHelper obj =new DatabaseHelper(getContext());
         Bundle bundleReceive = getArguments();
         Trip trip = (Trip) bundleReceive.get("object_trip");
