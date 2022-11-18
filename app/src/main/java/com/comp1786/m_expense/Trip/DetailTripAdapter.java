@@ -78,25 +78,7 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
         holder.btndeleteExInTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Delete Expense?");
-                builder.setMessage("Do you want to delete this expense?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i){
-                        DatabaseHelper obj =new DatabaseHelper(v.getContext());
-                        obj.deleteExpensesById(expenses.getId());
-                        DatabaseHelper ob =new DatabaseHelper(v.getContext());
-                        setmListexpenses(ob.getListExpensesByTripId(expenses.getTrip_id()));
-                        Toast.makeText(v.getContext(),"Delete Success", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i){
-                    }
-                });
-                builder.create().show();
+                confirmDelete(v,expenses);
             }
         });
 
@@ -131,6 +113,27 @@ public class DetailTripAdapter extends RecyclerView.Adapter<DetailTripAdapter.My
             btndeleteExInTrip = itemView.findViewById(R.id.deleteExpenseInTrip);
             btneditExinTrip = itemView.findViewById(R.id.editExpenseInTrip);
         }
+    }
+    public void confirmDelete(View v, Expenses expenses){
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle("Delete Expense?");
+        builder.setMessage("Do you want to delete this expense?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+                DatabaseHelper obj =new DatabaseHelper(v.getContext());
+                obj.deleteExpensesById(expenses.getId());
+                DatabaseHelper ob =new DatabaseHelper(v.getContext());
+                setmListexpenses(ob.getListExpensesByTripId(expenses.getTrip_id()));
+                Toast.makeText(v.getContext(),"Delete Success", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+            }
+        });
+        builder.create().show();
     }
 
 }
