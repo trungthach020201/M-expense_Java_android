@@ -73,13 +73,15 @@ public class ExpenseFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                System.out.println("Key"+query);
                 expenseAdapter.setmListExpense(obj.searchExpensesByName(query));
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")){
+                    expenseAdapter.setmListExpense(obj.getListExpense());
+                }
                 return true;
             }
         });

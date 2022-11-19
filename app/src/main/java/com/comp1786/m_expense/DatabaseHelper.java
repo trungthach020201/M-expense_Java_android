@@ -126,7 +126,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         rowValues.put(NAME_COLUMN,expenses.getName());
         rowValues.put(TRIP_ID_COLUMN,expenses.getTrip_id());
 
-
         return database.insertOrThrow(TABLE_EXPENSES_NAME, null, rowValues);
     }
     public ArrayList<Expenses> getListExpensesByTripId(int Id){
