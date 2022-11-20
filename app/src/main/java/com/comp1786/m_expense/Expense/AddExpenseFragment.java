@@ -140,7 +140,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             if(addresses.size()>0){
                 for (Address adr:addresses){
                     if (adr.getLocality()!= null && adr.getLocality().length()>0){
-                        cityName = adr.getLocality() + ", " + adr.getCountryName();
+                        cityName = adr.getSubAdminArea() +", " + adr.getAdminArea() +", " + adr.getCountryName();
                         break;
                     }
                 }
@@ -188,12 +188,11 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                     LocationManager locationManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
                     Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     try {
-                        String city = hereLocation(location.getLatitude(), location.getLongitude());
+                        String city = hereLocation(10.045162, 105.746857);
                         exAddress.getEditText().setText(city);
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(getContext(), "Not Found Location", Toast.LENGTH_SHORT).show();
-                        exAddress.getEditText().setText("Can Tho, Vietnam");
                     }
                 }
             }
@@ -225,16 +224,13 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
                 if (v == exTime) {
-
                     // Get Current Time
                     final Calendar c = Calendar.getInstance();
                     mHour = c.get(Calendar.HOUR_OF_DAY);
                     mMinute = c.get(Calendar.MINUTE);
-
                     // Launch Time Picker Dialog
                     TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                             new TimePickerDialog.OnTimeSetListener() {
-
                                 @Override
                                 public void onTimeSet(TimePicker view, int hourOfDay,
                                                       int minute) {
