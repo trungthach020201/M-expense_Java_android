@@ -1,8 +1,6 @@
 package com.comp1786.m_expense.Expense;
 
 
-import static android.content.Context.LOCATION_SERVICE;
-
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -14,10 +12,8 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -30,7 +26,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -39,9 +34,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.comp1786.m_expense.DatabaseHelper;
 import com.comp1786.m_expense.MainActivity;
 import com.comp1786.m_expense.R;
-import com.comp1786.m_expense.Trip.DetailTripAdapter;
 import com.comp1786.m_expense.model.Expenses;
-import com.comp1786.m_expense.model.Trip;
 import com.comp1786.m_expense.model.Type;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -65,7 +58,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     private MainActivity mMainActivity;
     private View view;
     private TextInputLayout exAddress,exTime,exAmount,url,exDate,exOtherType,exName;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+    private int getYear, getMonth, getDay, getHour, getMinute;
     private int Type_Id = 0;
     private List<String> typesName;
     private ImageView imageView;
@@ -120,12 +113,9 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
         Type_Id = position + 1;
-        // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -133,14 +123,14 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     private String hereLocation(double lat, double lon ){
-        String cityName = "";
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        List<Address> addresses;
-        try {addresses = geocoder.getFromLocation(lat,lon,10);
-            if(addresses.size()>0){
-                for (Address adr:addresses){
+        String location = "";
+        Geocoder gcode = new Geocoder(getContext(), Locale.getDefault());
+        List<Address> getAddress;
+        try {getAddress = gcode.getFromLocation(lat,lon,10);
+            if(getAddress.size()>0){
+                for (Address adr:getAddress){
                     if (adr.getLocality()!= null && adr.getLocality().length()>0){
-                        cityName = adr.getSubAdminArea() +", " + adr.getAdminArea() +", " + adr.getCountryName();
+                        location = adr.getSubAdminArea() +", " + adr.getAdminArea() +", " + adr.getCountryName();
                         break;
                     }
                 }
@@ -149,7 +139,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         }catch (IOException e) {
             e.printStackTrace();
         }
-        return cityName;
+        return location;
     }
     private void findObject(){
         mMainActivity = (MainActivity) getActivity();
@@ -203,17 +193,16 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
                 if (v == exDate) {
-                    final Calendar calendar = Calendar.getInstance();
-                    mYear = calendar.get(Calendar.YEAR);
-                    mMonth = calendar.get(Calendar.MONTH);
-                    mDay = calendar.get(Calendar.DAY_OF_MONTH);
-                    //show dialog
+                    final Calendar date = Calendar.getInstance();
+                    getYear = date.get(Calendar.YEAR);
+                    getMonth = date.get(Calendar.MONTH);
+                    getDay = date.get(Calendar.DAY_OF_MONTH);
                     DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             exDate.getEditText().setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                         }
-                    }, mYear, mMonth, mDay);
+                    }, getYear, getMonth, getDay);
                     datePickerDialog.show();
                 }
             }
@@ -224,20 +213,18 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
                 if (v == exTime) {
-                    // Get Current Time
                     final Calendar c = Calendar.getInstance();
-                    mHour = c.get(Calendar.HOUR_OF_DAY);
-                    mMinute = c.get(Calendar.MINUTE);
-                    // Launch Time Picker Dialog
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                    getHour = c.get(Calendar.HOUR_OF_DAY);
+                    getMinute = c.get(Calendar.MINUTE);
+                    TimePickerDialog timePicker = new TimePickerDialog(getContext(),
                             new TimePickerDialog.OnTimeSetListener() {
                                 @Override
                                 public void onTimeSet(TimePicker view, int hourOfDay,
                                                       int minute) {
                                     exTime.getEditText().setText(hourOfDay + ":" + minute);
                                 }
-                            }, mHour, mMinute, false);
-                    timePickerDialog.show();
+                            }, getHour, getMinute, false);
+                    timePicker.show();
                 }
             }
         });
@@ -317,11 +304,8 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
             typesName.add(type.getName());
         }
         exType.setOnItemSelectedListener(this);
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, typesName);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        exType.setAdapter(dataAdapter);
+        ArrayAdapter<String> data = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, typesName);
+        data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exType.setAdapter(data);
     }
 }

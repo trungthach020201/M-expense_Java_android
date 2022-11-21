@@ -1,5 +1,6 @@
 package com.comp1786.m_expense.Trip;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -9,11 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,7 +36,7 @@ import java.util.Calendar;
 public class AddTripFragment extends Fragment {
 
     private int type_trip, risk_type;
-    private int mYear, mMonth, mDay;
+    private int getYear, getMonth, getDay;
     private   String TripName, TripDes, TripStart, TripEnd,TripDescrip, Risk, Type;
     private TextInputLayout tripName, tripDestination, tripStartDate, tripEndDate;
     private TextInputEditText date_picker_action_start;
@@ -115,17 +114,17 @@ public class AddTripFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == date_picker_action_start) {
-                    final Calendar calendar = Calendar.getInstance ();
-                    mYear = calendar.get ( Calendar.YEAR );
-                    mMonth = calendar.get ( Calendar.MONTH );
-                    mDay = calendar.get ( Calendar.DAY_OF_MONTH );
-                    //show dialog
+                    final Calendar getDateStart = Calendar.getInstance ();
+                    getYear = getDateStart.get ( Calendar.YEAR );
+                    getMonth = getDateStart.get ( Calendar.MONTH );
+                    getDay = getDateStart.get ( Calendar.DAY_OF_MONTH );
                     DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
+                        @SuppressLint("SetTextI18n")
                         @Override
-                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            tripStartDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
+                        public void onDateSet(DatePicker view, int year, int month, int day) {
+                            tripStartDate.getEditText().setText ( day + "/" + (month + 1) + "/" + year );
                         }
-                    }, mYear, mMonth, mDay );
+                    }, getYear, getMonth, getDay);
                     datePickerDialog.show ();
                 }
             }
@@ -137,17 +136,16 @@ public class AddTripFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == tripEndDate) {
-                    final Calendar calendar = Calendar.getInstance ();
-                    mYear = calendar.get ( Calendar.YEAR );
-                    mMonth = calendar.get ( Calendar.MONTH );
-                    mDay = calendar.get ( Calendar.DAY_OF_MONTH );
-                    //show dialog
+                    final Calendar getDateEnd = Calendar.getInstance ();
+                    getYear = getDateEnd.get ( Calendar.YEAR );
+                    getMonth = getDateEnd.get ( Calendar.MONTH );
+                    getDay = getDateEnd.get ( Calendar.DAY_OF_MONTH );
                     DatePickerDialog datePickerDialog = new DatePickerDialog ( getActivity(), new DatePickerDialog.OnDateSetListener () {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             tripEndDate.getEditText().setText ( dayOfMonth + "/" + (month + 1) + "/" + year );
                         }
-                    }, mYear, mMonth, mDay );
+                    }, getYear, getMonth, getDay);
                     datePickerDialog.show ();
                 }
             }
