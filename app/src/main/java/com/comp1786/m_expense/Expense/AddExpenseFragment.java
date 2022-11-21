@@ -178,7 +178,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
                     LocationManager locationManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
                     Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     try {
-                        String city = hereLocation(10.045162, 105.746857);
+                        String city = hereLocation(location.getLatitude(), location.getLongitude());
                         exAddress.getEditText().setText(city);
                     } catch (Exception e) {
                         e.printStackTrace();
